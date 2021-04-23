@@ -1,0 +1,37 @@
+from operator import gt
+from z3 import *
+# x = Int('x')
+# y = Int('y')
+# z = Bool('z')
+
+
+# def Z3_ite(c, a, b):
+#     return
+
+
+# z = x >= y
+# s = Solver()
+# s.add(And(Z3_ite(z, x, y) >= x, Z3_ite(z, x, y) >= y),
+#       Or((Z3_ite(z, x, y) == y), (Z3_ite(z, x, y) == x)))
+
+
+# F, H, A, B, C = Bools('F H A B C')
+# B, C = Ints('B,C')
+B = Int('B')
+C = Int('C')
+
+s = Solver()
+# If（C,T,T）-->T
+# z3支持布尔运算符：And，Or，Not，Implies，If。等价使用==来表示。
+
+# MAX(B,C)
+s.add(And(If(gt(B, C), B, C) >= B, If(gt(B, C), B, C) >= C,
+          Or(If(gt(B, C), B, C) == B, If(gt(B, C), B, C) == C)))
+print(s.check())
+
+s = Solver()
+s.add(Implies(And(B >= 0, C >= 0), If(B+C <= 2, 1, 0) == 1 == B+C <= 2))
+
+print(s.check())
+
+
