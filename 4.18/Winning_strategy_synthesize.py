@@ -5,7 +5,7 @@ import time
 start_total = time.time()
 
 # 变量，要用在z3检验过程中的
-X = Int('X')
+X = Int('X')    
 Y = Int('Y')
 X1 = Int('X1')
 Y1 = Int('Y1')
@@ -132,25 +132,33 @@ def ModTest(a, b, c):
 # 字典数组action game
 # 游戏初始化，终结条件，动作，约束，变量数量，appeal_constants（基本的常数量，一般只有0,1，0，1就可以靠运算代表所有的数字）
 # 动作，动作名，前提，转移公式(约束的组成部分)  translation_formula And(pre,v'==k-1,eff,frame axiom)
-# actions = [{"action_name": "eat1", "precondition": And(X >= k_num, k_num > 1), "transition_formula": And(And(X >= k_num, k_num > 1), Y == k_num - 1, Implies(X1 >= k_num, Y1 == k_num - 1), Or(X1 >= k_num, Y1 == X1))},
-#            {"action_name": "eat2", "precondition": And(X1 >= k_num, k_num > 0), "transition_formula": And(And(X1 >= k_num, k_num > 0), Y1 == k_num - 1, Y == X)}]
-# Game = {"Terminal_Condition": And(X == 1, X1 == 0),
-#         "actions": actions,
-#         "Constraint": And(X >= 1, X1 >= 0, X >= X1),
-#         "var_num": 2,
-#         "appeal_constants": []}
-
-
-#empty and divide
-actions = [{"action_name": "empty1", "precondition": And(X1 > k_num, k_num >= 1), "transition_formula": And(And(X1 > k_num, k_num >= 1), And(Y == k_num, Y1 == X1 - k_num))},
-           {"action_name": "empty2", "precondition": And(X > k_num, k_num >= 1), "transition_formula": And(And(X > k_num, k_num >= 1), And(Y1 == k_num, Y == X - k_num))}]
-Game = {"Terminal_Condition": And(X == 1, X1 == 1),
+actions = [{"action_name": "eat1", "precondition": And(X >= k_num, k_num > 1), "transition_formula": And(And(X >= k_num, k_num > 1), Y == k_num - 1, Implies(X1 >= k_num, Y1 == k_num - 1), Or(X1 >= k_num, Y1 == X1))},
+           {"action_name": "eat2", "precondition": And(X1 >= k_num, k_num > 0), "transition_formula": And(And(X1 >= k_num, k_num > 0), Y1 == k_num - 1, Y == X)}]
+Game = {"Terminal_Condition": And(X == 1, X1 == 0),
         "actions": actions,
-        "Constraint": And(X >= 1, X1 >= 1),
+        "Constraint": And(X >= 1, X1 >= 0, X >= X1),
         "var_num": 2,
+        "type":"normal",
         "appeal_constants": []}
 
 
+# empty and divide
+# actions = [{"action_name": "empty1", "precondition": And(X1 > k_num, k_num >= 1), "transition_formula": And(And(X1 > k_num, k_num >= 1), And(Y == k_num, Y1 == X1 - k_num))},
+#            {"action_name": "empty2", "precondition": And(X > k_num, k_num >= 1), "transition_formula": And(And(X > k_num, k_num >= 1), And(Y1 == k_num, Y == X - k_num))}]
+# Game = {"Terminal_Condition": And(X == 1, X1 == 1),
+#         "actions": actions,
+#         "Constraint": And(X >= 1, X1 >= 1),
+#         "var_num": 2,
+#         "appeal_constants": []}
+
+# actions = [{"action_name": "take1", "precondition": Or(And(k_num == 1, X > 0), And(k_num == 2, X > 1)), "transition_formula": And(Or(And(k_num == 1, X > 0), And(k_num == 2, X > 1)), Y == X - k_num, Y1 == X1)},
+#            {"action_name": "take2", "precondition": Or(And(k_num == 1, X1 > X), And(k_num == 2, X1 > X + 1)), "transition_formula": And(Or(And(k_num == 1, X1 > X), And(k_num == 2, X1 > X + 1)), Y1 == X1-k_num, Y == X)},
+#            {"action_name": "takeBoth", "precondition": And(X == X1, X > 0), "transition_formula": And(And(X == X1, X > 0), Y == X-1, Y1 == X1-1)}]
+# Game = {"Terminal_Condition": And(X == 0, X1 == 0),
+#         "actions": actions,
+#         "Constraint": And(X >= 0, X1 >= X),
+#         "var_num": 2,
+#         "appeal_constants": []}
 
 NUMBER_CONSTANT = {1: "One", 2: "Two", 3: "Three", 4: "Four", 5: "Five", 6: "Six", 7: "Seven",
                    8: "Eight", 9: "Nine"}
@@ -493,9 +501,15 @@ s.add(Game["Terminal_Condition"])  # [X1 = 0, X = 1]  必败态设为true 递归
 s.check()  # sat unsat
 m = s.model()  # 模型解
 if(Game["var_num"] == 1):
-    position_1[m[X].as_long()] = True  # as_long 变为z3Int变为int
+    if(Game["type"]=="normal"):
+        position_1[m[X].as_long()] = True  #普通版本终态时必败态为True
+    else:
+        position_1[m[X].as_long()] = False #misere版本
 if(Game["var_num"] == 2):
-    position_2[m[X].as_long()][m[X1].as_long()] = True
+    if(Game["type"]=="normal"):
+        position_2[m[X].as_long()][m[X1].as_long()] = True
+    else:
+        position_2[m[X].as_long()][m[X1].as_long()] = False
 
 # 此函数是一种递归算法，用于查找状态是获胜状态还是失败状态 根据终结条件递归出全部状态
 # This function is an recursive algorithm that to find whether a state is a winning state or a losing state
@@ -587,9 +601,9 @@ def isLossingState(*v):  # 接受1或者2个参数的元组 根据终结条件�
 
 def Findnum(ConcreteExs, expr):  # 遍历出一个不在反例集合中的状态（v1,v2)满足约束    (以后优化成满足约束且不满足表达式的状态)
     if (Game["var_num"] == 1):
-        i = 2
+        i = 1
         while(True):
-            for v1 in range(0, i):
+            for v1 in range(0, 1):
                 flag12 = False
                 for example in ConcreteExs:
                     if (v1 == example['Input'][c]):
@@ -604,10 +618,10 @@ def Findnum(ConcreteExs, expr):  # 遍历出一个不在反例集合中的状态
                         continue
             i = i + 1
     if(Game["var_num"] == 2):
-        i = 2
+        i = 1
         while(True):
-            for v1 in range(0, i):
-                for v2 in range(0, i):
+            for v1 in range(0, i+1):
+                for v2 in range(0, i+1):
                     if v1+v2 == i:  # 遍历所有的v1v2=i的组合 按照size遍历
                         flag12 = False
                         # 改成 pt={c:v1,d:v2} if pt not in pts:
@@ -620,29 +634,26 @@ def Findnum(ConcreteExs, expr):  # 遍历出一个不在反例集合中的状态
                             s.add(X == v1, X1 == v2)
                             # 要求设置成不满足expr
                             if(s.check() == sat):
-                                return v1,v2
+                                # print(expr)
+                                # 加入判断是否与isLossingState相等
+                                print("该轮枚举：", v1, v2)
+                                boolTemp = isLossingState(v1, v2)
+                                boolTemp2 = eval(str(expr).replace(
+                                    str(X1), str(v2)).replace(str(X), str(v1)))
+                                s = Solver()
+                                if boolTemp == False:
+                                    s.add(True, boolTemp2)
+                                    if(s.check() == sat):
+                                        return v1, v2
+                                if boolTemp == True:
+                                    s.add(True, boolTemp2)
+                                    if(s.check() == unsat):
+                                        return v1, v2
+                                # if(boolTemp!=boolTemp2): #反例要求的是不等，不等才会把这个公式给排除
+                                #     # print(v1,v2,"这一步有问题吗")
+                                #     return v1, v2
                             else:
                                 continue
-                            #     # print(expr)
-                            #     # 加入判断是否与isLossingState相等
-                            #     print("该轮枚举：", v1, v2)
-                            #     boolTemp = isLossingState(v1, v2)
-                            #     boolTemp2 = eval(str(expr).replace(
-                            #         str(X1), str(v2)).replace(str(X), str(v1)))
-                            #     s = Solver()
-                            #     if boolTemp == False:
-                            #         s.add(True, boolTemp2)
-                            #         if(s.check() == sat):
-                            #             return v1, v2
-                            #     if boolTemp == True:
-                            #         s.add(True, boolTemp2)
-                            #         if(s.check() == unsat):
-                            #             return v1, v2
-                            #     # if(boolTemp!=boolTemp2): #反例要求的是不等，不等才会把这个公式给排除
-                            #     #     # print(v1,v2,"这一步有问题吗")
-                            #     #     return v1, v2
-                            # else:
-                            #     continue
             i = i+1
 
 
@@ -661,89 +672,96 @@ while(True):  # 合成制胜公式
     # 枚举的是必败条件的表达式[X == X, Y == Y] [X != X1, Y != Y1] [X == X1 + 1, Y == Y1 + 1]....
     e = Enumerate_algorithm(num, 'Bool')
     # e=[(X + X1)%3 == 0, (Y + Y1)%3 == 0]
-    print("635枚举出候选的必败态：", e)
-    print('519反例集合', ConcreteExs)
-    print("反例的数目",len(ConcreteExs))
+    print("枚举出候选的必败态：", e)
+    print('反例集合', ConcreteExs)
+    print("反例的个数",len(ConcreteExs))
     s = Solver()
 
-    # if(e != last_e):  # 枚举出的是新的表达式  （待优化，将判断是否重复设计到枚举函数中去）
-    print(e[0], e[1])
-    # s.set('timeout', 60000)
-    s.add(Or(And(Game["Terminal_Condition"], Not(e[0])),  # 必败态公式 是定义7的取反  （考虑化简）
-             Not(Implies(And(e[0], Game["Constraint"]), ForAll(
-                 [Y, Y1], Implies(global_transition_formula, Not(e[1]))))),
-             Not(Implies(And(Not(e[0]), Game["Constraint"]), Exists([Y, Y1], And(global_transition_formula, e[1]))))))
-
+    if(e != last_e):  # 枚举出的是新的表达式  （待优化，将判断是否重复设计到枚举函数中去）
+        print(e[0], e[1])
+        s.set('timeout', 60000)
+        if(Game["type"]=="normal"):
+             s.add(Or(And(Game["Terminal_Condition"], Not(e[0])),  # 必败态公式 是定义7的取反(考虑优化)
+                      And(Game["Constraint"],Not(e[0]),ForAll([Y,Y1],Or(Not(global_transition_formula),Not(e[1])))),
+                      And(Game["Constraint"],e[0],Exists([Y,Y1],And(global_transition_formula,e[1])))))
+            # s.add(Or(And(Game["Terminal_Condition"], Not(e[0])),
+            #         Not(Implies(And(e[0], Game["Constraint"]), ForAll([Y, Y1], Implies(global_transition_formula, Not(e[1]))))),
+            #         Not(Implies(And(Not(e[0]), Game["Constraint"]), Exists([Y, Y1], And(global_transition_formula, e[1]))))))
+        elif(Game["type"]=="misere"):
+            s.add(Or(And(Game["Terminal_Condition"], e[0]),  # 必败态公式 是定义7的取反(考虑优化)
+                     And(Game["Constraint"],Not(e[0]),Not(Game["Terminal_Condition"]),ForAll([Y,Y1],Or(Not(global_transition_formula),Not(e[1])))),
+                     And(Game["Constraint"],e[0],Exists([Y,Y1],And(global_transition_formula,e[1])))))
+        # print(s)
     # print(s)
     # print("528",s.check())
 
     # 返回之前的方法，从这里tab
-    if(s.check() == unsat):  # 必败态取非就是必胜态了呀 
-        losing_formula = e[0]
-        losing_formula_Y = e[1]
-        # print("544",losing_formula,losing_formula_Y);
-        print(
-            '-----------------------------------------------------------------------------')
-        print("The Winning formula of this game is:", Not(losing_formula))
-        generate_winning_formula_time = (
-            time.time() - start_winning_formula_time)
-        print("Time to generate the winning formula:",
-              generate_winning_formula_time)
-        break
-    # elif(s.check() == unknown):  # 指数 找出num4,num5非illegal的
-    #     if(Game["var_num"] == 1):
-    #         while True:
-    #             num4 = Findnum(ConcreteExs,e[0])
-    #             if isLossingState(num4) == 'illegal':
-    #                 continue
-    #             else:
-    #                 break
-    #     if(Game["var_num"] == 2):
-    #         while True:
-    #             num4, num5 = Findnum(ConcreteExs,e[0])
-    #             if isLossingState(num4, num5) == 'illegal':
-    #                 continue
-    #             else:
-    #                 break
-    # else(s.check() == sat):  # 找出num4,num5非illegal的
-    else:
-        m = s.model()
-        if (Game["var_num"] == 1):
-            num4 = m[X].as_long()
-            if isLossingState(num4) == 'illegal':
-                 while True:
-                    num4 = Findnum(ConcreteExs, e[0])
+        if(s.check() == unsat):  # 必败态取非就是必胜态了呀
+            losing_formula = e[0]
+            losing_formula_Y = e[1]
+            # print("544",losing_formula,losing_formula_Y);
+            print(
+                '-----------------------------------------------------------------------------')
+            print("The Winning formula of this game is:", Not(losing_formula))
+            generate_winning_formula_time = (
+                time.time() - start_winning_formula_time)
+            print("Time to generate the winning formula:",
+                generate_winning_formula_time)
+            break
+        elif(s.check() == unknown):  # 指数 找出num4,num5非illegal的
+            if(Game["var_num"] == 1):
+                while True:
+                    num4 = Findnum(ConcreteExs,e[0])
                     if isLossingState(num4) == 'illegal':
                         continue
                     else:
                         break
-        if (Game["var_num"] == 2):
-            num4 = m[X].as_long()
-            num5 = m[X1].as_long()
-            #     #为什么求这个解？
-            #     print("：",num4,num5)
-            if isLossingState(num4, num5) == 'illegal':
+            if(Game["var_num"] == 2):
                 while True:
-                    num4, num5 = Findnum(ConcreteExs, e[0])
+                    num4, num5 = Findnum(ConcreteExs,e[0])
                     if isLossingState(num4, num5) == 'illegal':
                         continue
                     else:
                         break
-    # else:  #超时
-    #     print("新的方法，不会执行这个的，看到这条说明有错误")
-    #     while True:
-    #         if (Game["var_num"] == 1):
-    #             num4 = Findnum(ConcreteExs,e[0])
-    #             if isLossingState(num4) == 'illegal':
-    #                 continue
-    #             else:
-    #                 break
-    #         if (Game["var_num"] == 2):
-    #             num4, num5 = Findnum(ConcreteExs,e[0])
-    #             if isLossingState(num4, num5) == 'illegal':
-    #                 continue
-    #             else:
-    #                 break
+        else:  # 找出num4,num5非illegal的
+            # m = s.model()
+            if (Game["var_num"] == 1):
+                #     num4 = m[X].as_long()
+                #     if isLossingState(num4) == 'illegal':
+                # while True:
+                num4 = Findnum(ConcreteExs, e[0])
+                # if isLossingState(num4,e) == 'illegal':
+                #     continue
+                # else:
+                #     break
+            if (Game["var_num"] == 2):
+                #     num4 = m[X].as_long()
+                #     num5 = m[X1].as_long()
+                #     #为什么求这个解？
+                #     print("：",num4,num5)
+                #     #p判断这个pt是否已经在其他的公式中枚举过了，枚举过了就不要取这个点了
+                #     if isLossingState(num4, num5) == 'illegal':
+                # while True:
+                num4, num5 = Findnum(ConcreteExs, e[0])
+                # if isLossingState(num4, num5) == 'illegal':
+                #     continue
+                # else:
+                #     break
+    else:  # 当枚举出的和之前的相等时，找出合适的状态num4,num5
+        print("新的方法，不会执行这个的，看到这条说明有错误")
+        while True:
+            if (Game["var_num"] == 1):
+                num4 = Findnum(ConcreteExs,e[0])
+                if isLossingState(num4) == 'illegal':
+                    continue
+                else:
+                    break
+            if (Game["var_num"] == 2):
+                num4, num5 = Findnum(ConcreteExs,e[0])
+                if isLossingState(num4, num5) == 'illegal':
+                    continue
+                else:
+                    break
     if (Game["var_num"] == 1):
         if ({'Input': {c: num4}, 'Output': isLossingState(num4)}) not in ConcreteExs:
             ConcreteExs.append(
@@ -760,244 +778,244 @@ while(True):  # 合成制胜公式
 # ------------------------------------------------------------------
 
 
-def Losing_formula():
-    return losing_formula
+# def Losing_formula():
+#     return losing_formula
 
 
-def Winning_formula():
-    return Not(losing_formula)
+# def Winning_formula():
+#     return Not(losing_formula)
 
 
-def Losing_formula_Y():
-    return losing_formula_Y
+# def Losing_formula_Y():
+#     return losing_formula_Y
 
 
-def Winning_formula_Y():
-    return Not(losing_formula_Y)
+# def Winning_formula_Y():
+#     return Not(losing_formula_Y)
 
 
-start_refine = time.time()
+# start_refine = time.time()
 
-# The following function aim to refine the winning formula, it will return the covers of winning formula
-# 以下函数的目的是细化优胜公式，返回致胜公式的覆盖
-
-
-def refine_the_winning_formula(Losing_formula):
-    C = str(Losing_formula)
-    # print('612',C)    X == X1 + 1
-    C = C.replace(' ', '')  # X==X1+1
-    Ct = []
-    # gou'zhao
-    if (C.find('And') == -1 and C.find('Or') == -1):  # 表达式没有and or
-        if (C.find('==') != -1 and (type(eval(C[(C.find('==') + 2):])) == type(1)) and C.find('%') == -1):
-            Ct = []
-            Ct.append(C.replace('==', '<'))
-            Ct.append(C.replace('==', '>'))
-        elif (C.find('==') != -1 and (type(eval(C[(C.find('==') + 2):])) == type(X)) and C.find('%') == -1):
-            Ct = []
-            Ct.append(C.replace('==', '<'))
-            Ct.append(C.replace('==', '>'))
-        # a%b==c
-        elif (C.find('%') != -1 and (type(eval(C[(C.find('==') + 2):])) == type(1))):
-            Ct = []
-            num = eval(C[(C.find('%') + 1):C.find('==')]) - 1  # b
-            num_original = eval(C[(C.find('==') + 2):])  # c
-            while (num >= 0):
-                if (num != num_original):  # b!=c and b>=0
-                    C = C[:C.find('==') + 2]
-                    C = C + str(num)     # a+b
-                    Ct.append(C)
-                    # Ct.append(C.replace(C[(C.find('==') + 2):], str(num)))
-                num = num - 1
-    else:
-        if ((C.find('X') != -1 and C.find('X1') == -1) or (C.find('X') == -1 and C.find('X1') != -1)):
-            if (C.find('%') != -1 and (type(eval(C[(C.find('==') + 2):C.find(',')])) == type(1)) and C.find(
-                    'Or') != -1):
-                Ct = []
-                num = eval(C[(C.find('%') + 1):C.find('==')]) - 1
-                prnum = []
-                pre = C.find('==')
-                while (pre != -1):
-                    prnum.append(eval(C[pre + 2]))
-                    pre = C.find('==', pre + 1)
-                # print(prnum)
-                while (num >= 0):
-                    if (num not in prnum):
-                        Ct.append(C[C.find('X'):C.find(',')].replace(
-                            C[C.find('==') + 2], str(num)))
-                    num = num - 1
-        else:
-            if (C.find('And') != -1):
-                C1 = C
-                C1 = C1.replace('And', 'Or')
-                C1 = C1.replace('==', '!=')
-                C1 = C1.replace('Or(', '')
-                C1 = C1.replace(')', '')
-                Ct = C1.split(',')
-    refine_time_used = (time.time() - start_refine)
-    print("Refine Time used:", refine_time_used)
-    print("Covers of this game:", Ct)
-    refinement = []
-    for i in Ct:
-        i = eval(i)
-        refinement.append(i)
-    return refinement, refine_time_used
-
-# This function is an recursive algorithm that to find the corresponding action parameter of a state
-# 此函数是一种递归算法，用于查找状态的相应动作参数,找不到返回“no suitable k_num”
-
-# 求出结果一动作下的结果--pt --goal
+# # The following function aim to refine the winning formula, it will return the covers of winning formula
+# # 以下函数的目的是细化优胜公式，返回致胜公式的覆盖
 
 
-def f_strategy(action_precondition, action_transition_formula, action_constraint, *v):
-    s = Solver()
-    s.add(Not(Winning_formula_Y()))
-    s.add(action_precondition)
-    s.add(action_transition_formula)
-    s.add(action_constraint)
-    s.add(X == v[0])
-    if(Game["var_num"] == 2):
-        s.add(X1 == v[1])
-        # print("700", v[0], v[1])
-    # print(s.check())
-    if(s.check() == sat):
-        m = s.model()
-        return m[k_num].as_long()
-    else:
-        return "no suitable k_num"
+# def refine_the_winning_formula(Losing_formula):
+#     C = str(Losing_formula)
+#     # print('612',C)    X == X1 + 1
+#     C = C.replace(' ', '')  # X==X1+1
+#     Ct = []
+#     # gou'zhao
+#     if (C.find('And') == -1 and C.find('Or') == -1):  # 表达式没有and or
+#         if (C.find('==') != -1 and (type(eval(C[(C.find('==') + 2):])) == type(1)) and C.find('%') == -1):
+#             Ct = []
+#             Ct.append(C.replace('==', '<'))
+#             Ct.append(C.replace('==', '>'))
+#         elif (C.find('==') != -1 and (type(eval(C[(C.find('==') + 2):])) == type(X)) and C.find('%') == -1):
+#             Ct = []
+#             Ct.append(C.replace('==', '<'))
+#             Ct.append(C.replace('==', '>'))
+#         # a%b==c
+#         elif (C.find('%') != -1 and (type(eval(C[(C.find('==') + 2):])) == type(1))):
+#             Ct = []
+#             num = eval(C[(C.find('%') + 1):C.find('==')]) - 1  # b
+#             num_original = eval(C[(C.find('==') + 2):])  # c
+#             while (num >= 0):
+#                 if (num != num_original):  # b!=c and b>=0
+#                     C = C[:C.find('==') + 2]
+#                     C = C + str(num)     # a+b
+#                     Ct.append(C)
+#                     # Ct.append(C.replace(C[(C.find('==') + 2):], str(num)))
+#                 num = num - 1
+#     else:
+#         if ((C.find('X') != -1 and C.find('X1') == -1) or (C.find('X') == -1 and C.find('X1') != -1)):
+#             if (C.find('%') != -1 and (type(eval(C[(C.find('==') + 2):C.find(',')])) == type(1)) and C.find(
+#                     'Or') != -1):
+#                 Ct = []
+#                 num = eval(C[(C.find('%') + 1):C.find('==')]) - 1
+#                 prnum = []
+#                 pre = C.find('==')
+#                 while (pre != -1):
+#                     prnum.append(eval(C[pre + 2]))
+#                     pre = C.find('==', pre + 1)
+#                 # print(prnum)
+#                 while (num >= 0):
+#                     if (num not in prnum):
+#                         Ct.append(C[C.find('X'):C.find(',')].replace(
+#                             C[C.find('==') + 2], str(num)))
+#                     num = num - 1
+#         else:
+#             if (C.find('And') != -1):
+#                 C1 = C
+#                 C1 = C1.replace('And', 'Or')
+#                 C1 = C1.replace('==', '!=')
+#                 C1 = C1.replace('Or(', '')
+#                 C1 = C1.replace(')', '')
+#                 Ct = C1.split(',')
+#     refine_time_used = (time.time() - start_refine)
+#     print("Refine Time used:", refine_time_used)
+#     print("Covers of this game:", Ct)
+#     refinement = []
+#     for i in Ct:
+#         i = eval(i)
+#         refinement.append(i)
+#     return refinement, refine_time_used
 
-# 找位置
+# # This function is an recursive algorithm that to find the corresponding action parameter of a state
+# # 此函数是一种递归算法，用于查找状态的相应动作参数,找不到返回“no suitable k_num”
+
+# # 求出结果一动作下的结果--pt --goal
 
 
-def findnum_strategy(cover, ConcreteExs, action_constraint):
-    s = Solver()
-    s.add(cover)
-    s.add(action_constraint)
-    if(Game["var_num"] == 1):
-        for i in ConcreteExs:
-            s.add(Or(X != i['Input'][c]))
-    if(Game["var_num"] == 2):
-        for i in ConcreteExs:
-            s.add(Or(X != i['Input'][c], X1 != i['Input'][d]))
-    s.check()
-    m = s.model()
-    if(Game["var_num"] == 1):
-        return m[X].as_long()
-    if (Game["var_num"] == 2):
-        return m[X].as_long(), m[X1].as_long()
+# def f_strategy(action_precondition, action_transition_formula, action_constraint, *v):
+#     s = Solver()
+#     s.add(Not(Winning_formula_Y()))
+#     s.add(action_precondition)
+#     s.add(action_transition_formula)
+#     s.add(action_constraint)
+#     s.add(X == v[0])
+#     if(Game["var_num"] == 2):
+#         s.add(X1 == v[1])
+#         # print("700", v[0], v[1])
+#     # print(s.check())
+#     if(s.check() == sat):
+#         m = s.model()
+#         return m[k_num].as_long()
+#     else:
+#         return "no suitable k_num"
+
+# # 找位置
 
 
-Winning_strategy = []
-refinement, refine_time_used = refine_the_winning_formula(Losing_formula())
-# refinement,refine_time_used=refine_the_winning_formula("X==X1+1")
+# def findnum_strategy(cover, ConcreteExs, action_constraint):
+#     s = Solver()
+#     s.add(cover)
+#     s.add(action_constraint)
+#     if(Game["var_num"] == 1):
+#         for i in ConcreteExs:
+#             s.add(Or(X != i['Input'][c]))
+#     if(Game["var_num"] == 2):
+#         for i in ConcreteExs:
+#             s.add(Or(X != i['Input'][c], X1 != i['Input'][d]))
+#     s.check()
+#     m = s.model()
+#     if(Game["var_num"] == 1):
+#         return m[X].as_long()
+#     if (Game["var_num"] == 2):
+#         return m[X].as_long(), m[X1].as_long()
 
-# The following is the process of generating the winning strategy for every covers of winning formula
-# This process will choose the corresponding action and action parameter of every cover
-# 下面是为每个获胜公式的块生成制胜策略的过程
-# 此过程将选择每个块对应的动作和动作参数
-for cover in refinement:
-    # print("725cover:",cover)
-    s = Solver()
-    s.add(cover)
-    s.add(Game["Constraint"])
-    if(s.check() == unsat):  # 判断cover是否满足约束条件
-        continue
-    # The type of the initial search target is int
-    # 初始搜索的目标是int
-    ConcreteExs.clear()
-    goal = {'value': [], 'type': ''}
-    goal['type'] = 'Int'  # 去枚举int型的表达式 如eat(X) eat(1)
-    for action in actions:
-        # print("738动作",action["action_name"])
-        it_mum = 1
-        e = 1
-        while (True):
-            # print(ConcreteExs)
-            last_e = e
-            e = Enumerate_algorithm(it_mum, 'Int')
-            print(e)
-            e = e[0]  # z3表达式[x,x] 一个
-            # print("枚举的数值表达式", e)
-            if(type(e) == type(X)):
-                e = simplify(e)
 
-            s = Solver()
-            if (str(e) != str(last_e)):
-                action_temp = copy.deepcopy(action)
-                if (str(action_temp).find("k_num") != -1):  # 用枚举得int代替action中的K_num
-                    action_temp = eval(
-                        str(action_temp).replace("k_num", '('+str(e)+')'))
-                # This is the constrains of this cover
-                s.add(Game["Constraint"])  # 定义7
-                s.add(Not(Implies(And(cover, Game["Constraint"]), And(action_temp["precondition"],
-                                                                      ForAll([Y, Y1], Implies(action_temp["transition_formula"], Not(Winning_formula_Y())))))))
+# Winning_strategy = []
+# refinement, refine_time_used = refine_the_winning_formula(Losing_formula())
+# # refinement,refine_time_used=refine_the_winning_formula("X==X1+1")
 
-                if (s.check() == unsat):
-                    Winning_strategy.append(
-                        [cover, action["action_name"]+"("+str(e)+")"])
-                    # print("find")
-                    # print('910Winning_strategy', Winning_strategy)
-                    break
-                else:
-                    m = s.model()  # model模型解
-                    # print('774模型解:', m)
+# # The following is the process of generating the winning strategy for every covers of winning formula
+# # This process will choose the corresponding action and action parameter of every cover
+# # 下面是为每个获胜公式的块生成制胜策略的过程
+# # 此过程将选择每个块对应的动作和动作参数
+# for cover in refinement:
+#     # print("725cover:",cover)
+#     s = Solver()
+#     s.add(cover)
+#     s.add(Game["Constraint"])
+#     if(s.check() == unsat):  # 判断cover是否满足约束条件
+#         continue
+#     # The type of the initial search target is int
+#     # 初始搜索的目标是int
+#     ConcreteExs.clear()
+#     goal = {'value': [], 'type': ''}
+#     goal['type'] = 'Int'  # 去枚举int型的表达式 如eat(X) eat(1)
+#     for action in actions:
+#         # print("738动作",action["action_name"])
+#         it_mum = 1
+#         e = 1
+#         while (True):
+#             # print(ConcreteExs)
+#             last_e = e
+#             e = Enumerate_algorithm(it_mum, 'Int')
+#             print(e)
+#             e = e[0]  # z3表达式[x,x] 一个
+#             # print("枚举的数值表达式", e)
+#             if(type(e) == type(X)):
+#                 e = simplify(e)
 
-                    num1 = m[X].as_long()
-                    if(Game["var_num"] == 2):
-                        num2 = m[X1].as_long()
-                    # print("777num", num1, num2)
+#             s = Solver()
+#             if (str(e) != str(last_e)):
+#                 action_temp = copy.deepcopy(action)
+#                 if (str(action_temp).find("k_num") != -1):  # 用枚举得int代替action中的K_num
+#                     action_temp = eval(
+#                         str(action_temp).replace("k_num", '('+str(e)+')'))
+#                 # This is the constrains of this cover
+#                 s.add(Game["Constraint"])  # 定义7
+#                 s.add(Not(Implies(And(cover, Game["Constraint"]), And(action_temp["precondition"],
+#                                                                       ForAll([Y, Y1], Implies(action_temp["transition_formula"], Not(Winning_formula_Y())))))))
 
-                    s_tem = Solver()
-                    s_tem.add(cover)
-                    s_tem.add(X == num1)
-                    if (Game["var_num"] == 2):
-                        s_tem.add(X1 == num2)
-                    if(s_tem.check() != sat):
-                        if (Game["var_num"] == 1):
-                            num1 = findnum_strategy(
-                                cover, ConcreteExs, Game["Constraint"])
-                        if (Game["var_num"] == 2):
-                            num1, num2 = findnum_strategy(
-                                cover, ConcreteExs, Game["Constraint"])
-                            # print("785找新的num值：", num1, "  ", num2)
-                    if(f_strategy(action["precondition"], action["transition_formula"], Game["Constraint"], num1, num2) == "no suitable k_num"):
-                        print("794no suitable k_num")
-                        break
-                    result = f_strategy(
-                        action["precondition"], action["transition_formula"], Game["Constraint"], num1, num2)
-            else:
-                print('two expresion equal')
-                # 草率了，这里需要判断是否只有num1
-                if(f_strategy(action["precondition"], action["transition_formula"], Game["Constraint"], num1, num2) == "no suitable k_num"):
-                    print("798no suitable k_num")
-                    break
-                if(Game["var_num"] == 1):
-                    num1 = findnum_strategy(
-                        cover, ConcreteExs, Game["Constraint"])  # 满足条件且不在反例集和中的
-                if(Game["var_num"] == 2):
-                    num1, num2 = findnum_strategy(
-                        cover, ConcreteExs, Game["Constraint"])
-                result = f_strategy(
-                    action["precondition"], action["transition_formula"], Game["Constraint"], num1, num2)
-            if (Game["var_num"] == 1):
-                if ({'Input': {c: num1}, 'Output': result}) not in ConcreteExs:
-                    ConcreteExs.append({'Input': {c: num1}, 'Output': result})
-                    goal['value'].append(result)
-                    it_mum = it_mum + 1
-            if(Game["var_num"] == 2):  # 跟新ConcreteExs
-                if ({'Input': {c: num1, d: num2}, 'Output': result}) not in ConcreteExs:
-                    ConcreteExs.append(
-                        {'Input': {c: num1, d: num2}, 'Output': result})
-                    goal['value'].append(result)
-                    print(ConcreteExs)
-                    it_mum = it_mum + 1
+#                 if (s.check() == unsat):
+#                     Winning_strategy.append(
+#                         [cover, action["action_name"]+"("+str(e)+")"])
+#                     # print("find")
+#                     # print('910Winning_strategy', Winning_strategy)
+#                     break
+#                 else:
+#                     m = s.model()  # model模型解
+#                     # print('774模型解:', m)
 
-# ---------------------------------------------------------------------------------------------
-total_time_use = (time.time() - start_total)
-print("------------------------------------------------------------------------------------------------")
-print("winning strategy:", Winning_strategy)
-# for i in Winning_strategy:
-#     print(i)
-print("Winning strategy Time used:", total_time_use -
-      refine_time_used-generate_winning_formula_time)
-print("Total Time used:", total_time_use)
+#                     num1 = m[X].as_long()
+#                     if(Game["var_num"] == 2):
+#                         num2 = m[X1].as_long()
+#                     # print("777num", num1, num2)
+
+#                     s_tem = Solver()
+#                     s_tem.add(cover)
+#                     s_tem.add(X == num1)
+#                     if (Game["var_num"] == 2):
+#                         s_tem.add(X1 == num2)
+#                     if(s_tem.check() != sat):
+#                         if (Game["var_num"] == 1):
+#                             num1 = findnum_strategy(
+#                                 cover, ConcreteExs, Game["Constraint"])
+#                         if (Game["var_num"] == 2):
+#                             num1, num2 = findnum_strategy(
+#                                 cover, ConcreteExs, Game["Constraint"])
+#                             # print("785找新的num值：", num1, "  ", num2)
+#                     if(f_strategy(action["precondition"], action["transition_formula"], Game["Constraint"], num1, num2) == "no suitable k_num"):
+#                         print("794no suitable k_num")
+#                         break
+#                     result = f_strategy(
+#                         action["precondition"], action["transition_formula"], Game["Constraint"], num1, num2)
+#             else:
+#                 print('two expresion equal')
+#                 # 草率了，这里需要判断是否只有num1
+#                 if(f_strategy(action["precondition"], action["transition_formula"], Game["Constraint"], num1, num2) == "no suitable k_num"):
+#                     print("798no suitable k_num")
+#                     break
+#                 if(Game["var_num"] == 1):
+#                     num1 = findnum_strategy(
+#                         cover, ConcreteExs, Game["Constraint"])  # 满足条件且不在反例集和中的
+#                 if(Game["var_num"] == 2):
+#                     num1, num2 = findnum_strategy(
+#                         cover, ConcreteExs, Game["Constraint"])
+#                 result = f_strategy(
+#                     action["precondition"], action["transition_formula"], Game["Constraint"], num1, num2)
+#             if (Game["var_num"] == 1):
+#                 if ({'Input': {c: num1}, 'Output': result}) not in ConcreteExs:
+#                     ConcreteExs.append({'Input': {c: num1}, 'Output': result})
+#                     goal['value'].append(result)
+#                     it_mum = it_mum + 1
+#             if(Game["var_num"] == 2):  # 跟新ConcreteExs
+#                 if ({'Input': {c: num1, d: num2}, 'Output': result}) not in ConcreteExs:
+#                     ConcreteExs.append(
+#                         {'Input': {c: num1, d: num2}, 'Output': result})
+#                     goal['value'].append(result)
+#                     print(ConcreteExs)
+#                     it_mum = it_mum + 1
+
+# # ---------------------------------------------------------------------------------------------
+# total_time_use = (time.time() - start_total)
+# print("------------------------------------------------------------------------------------------------")
+# print("winning strategy:", Winning_strategy)
+# # for i in Winning_strategy:
+# #     print(i)
+# print("Winning strategy Time used:", total_time_use -
+#       refine_time_used-generate_winning_formula_time)
+# print("Total Time used:", total_time_use)

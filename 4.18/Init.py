@@ -94,7 +94,7 @@ def ModTest(a,b,c):
 #        "var_num":2,
 #        "appeal_constants":[]}
 
-# miser-two-chomp-game
+#two-chomp-game
 actions = [{"action_name": "eat1", "precondition":And(X >= k_num, k_num > 1) , "transition_formula":And(And(X >= k_num, k_num > 1),
     And(Y == k_num - 1, X1 >= k_num, Y1 == k_num - 1), Or(X1 >= k_num, Y1 == X1))},
            {"action_name": "eat2", "precondition":And(X1 >= k_num, k_num > 0) , "transition_formula":And(And(X1 >= k_num, k_num > 0), Y1 == k_num - 1, Y == X)}]
@@ -365,6 +365,7 @@ for x in range(0, 100):
     f_2.append([])
     for y in range(0,100):
         f_2[x].append('illegal')
+
 
 s=Solver()
 s.add(Game["Terminal_Condition"])
