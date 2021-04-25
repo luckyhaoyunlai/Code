@@ -134,14 +134,14 @@ def ModTest(a, b, c):
 # v1-X v2-X1 v1'-Y v2'-Y1 k-k_num
 
 #2-chomp-game
-actions = [{"action_name": "eat1", "precondition": And(X >= k_num, k_num > 1), "transition_formula": And(And(X >= k_num, k_num > 1), Y == k_num - 1, Implies(X1 >= k_num, Y1 == k_num - 1), Or(X1 >= k_num, Y1 == X1))},
-           {"action_name": "eat2", "precondition": And(X1 >= k_num, k_num > 0), "transition_formula": And(And(X1 >= k_num, k_num > 0), Y1 == k_num - 1, Y == X)}]
-Game = {"Terminal_Condition": And(X == 1, X1 == 0),
-        "actions": actions,
-        "Constraint": And(X >= 1, X1 >= 0, X >= X1),
-        "var_num": 2,
-        "type":"misere",
-        "appeal_constants": []}
+# actions = [{"action_name": "eat1", "precondition": And(X >= k_num, k_num > 1), "transition_formula": And(And(X >= k_num, k_num > 1), Y == k_num - 1, Implies(X1 >= k_num, Y1 == k_num - 1), Or(X1 >= k_num, Y1 == X1))},
+#            {"action_name": "eat2", "precondition": And(X1 >= k_num, k_num > 0), "transition_formula": And(And(X1 >= k_num, k_num > 0), Y1 == k_num - 1, Y == X)}]
+# Game = {"Terminal_Condition": And(X == 1, X1 == 0),
+#         "actions": actions,
+#         "Constraint": And(X >= 1, X1 >= 0, X >= X1),
+#         "var_num": 2,
+#         "type":"misere",
+#         "appeal_constants": []}
 # empty and divide
 # actions = [{"action_name": "empty1", "precondition": And(X1 > k_num, k_num >= 1), "transition_formula": And(And(X1 > k_num, k_num >= 1), And(Y == k_num, Y1 == X1 - k_num))},
 #            {"action_name": "empty2", "precondition": And(X > k_num, k_num >= 1), "transition_formula": And(And(X > k_num, k_num >= 1), And(Y1 == k_num, Y == X - k_num))}]
@@ -162,7 +162,15 @@ Game = {"Terminal_Condition": And(X == 1, X1 == 0),
 #         "type":"misere",
 #         "appeal_constants": []} 
 
-   
+# Subtraction_game s={1,2,4}
+actions = [{"action_name": "take", "precondition":And(X >= k_num, Or(k_num == 1, k_num == 2, k_num == 3)) , 
+            "transition_formula":And(And(X >= k_num,Or(k_num == 1, k_num == 2, k_num == 3)), Y == X - k_num)}]
+Game = {"Terminal_Condition": And(X >= 0, X < 1),
+        "actions": actions,
+        "Constraint":X >= 0,
+        "var_num": 1,
+        "type":"misere",
+        "appeal_constants": []}   
 
 NUMBER_CONSTANT = {1: "One", 2: "Two", 3: "Three", 4: "Four", 5: "Five", 6: "Six", 7: "Seven",
                    8: "Eight", 9: "Nine"}
