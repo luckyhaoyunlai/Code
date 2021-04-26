@@ -1,9 +1,8 @@
-# Generated from PDDLGrammar.g4 by ANTLR 4.8
+# Generated from PDDLGrammar.g4 by ANTLR 4.9
 from antlr4 import *
 from io import StringIO
 from typing.io import TextIO
 import sys
-
 
 
 def serializedATN():
@@ -231,7 +230,7 @@ class PDDLGrammarLexer(Lexer):
 
     atn = ATNDeserializer().deserialize(serializedATN())
 
-    decisionsToDFA = [ DFA(ds, i) for i, ds in enumerate(atn.decisionToState) ]
+    decisionsToDFA = [DFA(ds, i) for i, ds in enumerate(atn.decisionToState)]
 
     DOMAIN = 1
     PROBLEM = 2
@@ -299,53 +298,52 @@ class PDDLGrammarLexer(Lexer):
     FUNSYM = 64
     WS = 65
 
-    channelNames = [ u"DEFAULT_TOKEN_CHANNEL", u"HIDDEN" ]
+    channelNames = [u"DEFAULT_TOKEN_CHANNEL", u"HIDDEN"]
 
-    modeNames = [ "DEFAULT_MODE" ]
+    modeNames = ["DEFAULT_MODE"]
 
-    literalNames = [ "<INVALID>",
-            "'domain'", "'problem'", "'define'", "'agentid'", "'constants'", 
-            "'type'", "'predicates'", "'action'", "'event'", "'events'", 
-            "'pldegree'", "'eventmodel'", "'parameters'", "'tercondition'", 
-            "'precondition'", "'constraint'", "'response'", "'observation'", 
-            "'min'", "'max'", "'numbers'", "'normal'", "'miser'", "'effect'", 
-            "'object'", "'increase'", "'decrease'", "'assign'", "'agent'", 
-            "'either'", "'objects'", "'init'", "'goal'", "'('", "')'", "'['", 
-            "']'", "':'", "'?'", "'.'", "'_'", "'-'", "'+'", "'*'", "'/'", 
-            "'%'", "'='", "'!='", "'<'", "'<='", "'>'", "'>='", "'and'", 
-            "'or'", "'not'", "'oneof'", "'imply'", "'forall'", "'exists'", 
-            "'when'" ]
+    literalNames = ["<INVALID>",
+                    "'domain'", "'problem'", "'define'", "'agentid'", "'constants'",
+                    "'type'", "'predicates'", "'action'", "'event'", "'events'",
+                    "'pldegree'", "'eventmodel'", "'parameters'", "'tercondition'",
+                    "'precondition'", "'constraint'", "'response'", "'observation'",
+                    "'min'", "'max'", "'numbers'", "'normal'", "'miser'", "'effect'",
+                    "'object'", "'increase'", "'decrease'", "'assign'", "'agent'",
+                    "'either'", "'objects'", "'init'", "'goal'", "'('", "')'", "'['",
+                    "']'", "':'", "'?'", "'.'", "'_'", "'-'", "'+'", "'*'", "'/'",
+                    "'%'", "'='", "'!='", "'<'", "'<='", "'>'", "'>='", "'and'",
+                    "'or'", "'not'", "'oneof'", "'imply'", "'forall'", "'exists'",
+                    "'when'"]
 
-    symbolicNames = [ "<INVALID>",
-            "DOMAIN", "PROBLEM", "DEFINE", "AGENTID", "CONST", "TYPE", "PREDICATE", 
-            "ACTION", "EVENT", "EVENTS", "PLDEGREE", "EVENTMODEL", "PARAMETER", 
-            "TERCONDITION", "PRECONDITION", "CONSTRAINT", "RESPONSE", "OBSERVATION", 
-            "MIN", "MAX", "NUMS", "NORMAL", "MISER", "EFFECT", "OBJECT", 
-            "INC", "DEC", "ASSIGN", "AGENT", "EITHER", "OBJS", "INIT", "GOAL", 
-            "LB", "RB", "LSB", "RSB", "COLON", "QM", "POINT", "UL", "MINUS", 
-            "PLUS", "MULT", "DIV", "MOD", "EQ", "NEQ", "LT", "LEQ", "GT", 
-            "GEQ", "AND", "OR", "NOT", "ONEOF", "IMPLY", "FORALL", "EXISTS", 
-            "WHEN", "NAME", "INTEGER", "VAR", "FUNSYM", "WS" ]
+    symbolicNames = ["<INVALID>",
+                     "DOMAIN", "PROBLEM", "DEFINE", "AGENTID", "CONST", "TYPE", "PREDICATE",
+                     "ACTION", "EVENT", "EVENTS", "PLDEGREE", "EVENTMODEL", "PARAMETER",
+                     "TERCONDITION", "PRECONDITION", "CONSTRAINT", "RESPONSE", "OBSERVATION",
+                     "MIN", "MAX", "NUMS", "NORMAL", "MISER", "EFFECT", "OBJECT",
+                     "INC", "DEC", "ASSIGN", "AGENT", "EITHER", "OBJS", "INIT", "GOAL",
+                     "LB", "RB", "LSB", "RSB", "COLON", "QM", "POINT", "UL", "MINUS",
+                     "PLUS", "MULT", "DIV", "MOD", "EQ", "NEQ", "LT", "LEQ", "GT",
+                     "GEQ", "AND", "OR", "NOT", "ONEOF", "IMPLY", "FORALL", "EXISTS",
+                     "WHEN", "NAME", "INTEGER", "VAR", "FUNSYM", "WS"]
 
-    ruleNames = [ "DOMAIN", "PROBLEM", "DEFINE", "AGENTID", "CONST", "TYPE", 
-                  "PREDICATE", "ACTION", "EVENT", "EVENTS", "PLDEGREE", 
-                  "EVENTMODEL", "PARAMETER", "TERCONDITION", "PRECONDITION", 
-                  "CONSTRAINT", "RESPONSE", "OBSERVATION", "MIN", "MAX", 
-                  "NUMS", "NORMAL", "MISER", "EFFECT", "OBJECT", "INC", 
-                  "DEC", "ASSIGN", "AGENT", "EITHER", "OBJS", "INIT", "GOAL", 
-                  "LB", "RB", "LSB", "RSB", "COLON", "QM", "POINT", "UL", 
-                  "MINUS", "PLUS", "MULT", "DIV", "MOD", "EQ", "NEQ", "LT", 
-                  "LEQ", "GT", "GEQ", "AND", "OR", "NOT", "ONEOF", "IMPLY", 
-                  "FORALL", "EXISTS", "WHEN", "NAME", "INTEGER", "LETTER", 
-                  "DIGIT", "CHAR", "BRACKET", "VAR", "FUNSYM", "WS" ]
+    ruleNames = ["DOMAIN", "PROBLEM", "DEFINE", "AGENTID", "CONST", "TYPE",
+                 "PREDICATE", "ACTION", "EVENT", "EVENTS", "PLDEGREE",
+                 "EVENTMODEL", "PARAMETER", "TERCONDITION", "PRECONDITION",
+                 "CONSTRAINT", "RESPONSE", "OBSERVATION", "MIN", "MAX",
+                 "NUMS", "NORMAL", "MISER", "EFFECT", "OBJECT", "INC",
+                 "DEC", "ASSIGN", "AGENT", "EITHER", "OBJS", "INIT", "GOAL",
+                 "LB", "RB", "LSB", "RSB", "COLON", "QM", "POINT", "UL",
+                 "MINUS", "PLUS", "MULT", "DIV", "MOD", "EQ", "NEQ", "LT",
+                 "LEQ", "GT", "GEQ", "AND", "OR", "NOT", "ONEOF", "IMPLY",
+                 "FORALL", "EXISTS", "WHEN", "NAME", "INTEGER", "LETTER",
+                 "DIGIT", "CHAR", "BRACKET", "VAR", "FUNSYM", "WS"]
 
     grammarFileName = "PDDLGrammar.g4"
 
-    def __init__(self, input=None, output:TextIO = sys.stdout):
+    def __init__(self, input=None, output: TextIO = sys.stdout):
         super().__init__(input, output)
-        self.checkVersion("4.8")
-        self._interp = LexerATNSimulator(self, self.atn, self.decisionsToDFA, PredictionContextCache())
+        self.checkVersion("4.9")
+        self._interp = LexerATNSimulator(
+            self, self.atn, self.decisionsToDFA, PredictionContextCache())
         self._actions = None
         self._predicates = None
-
-

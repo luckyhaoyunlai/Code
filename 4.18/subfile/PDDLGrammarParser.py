@@ -1,262 +1,259 @@
-# Generated from PDDLGrammar.g4 by ANTLR 4.8
+# Generated from PDDLGrammar.g4 by ANTLR 4.9
 # encoding: utf-8
 from antlr4 import *
 from io import StringIO
 import sys
 if sys.version_info[1] > 5:
-	from typing import TextIO
+    from typing import TextIO
 else:
-	from typing.io import TextIO
+    from typing.io import TextIO
 
 
 def serializedATN():
     with StringIO() as buf:
         buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3C")
-        buf.write("\u01ca\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7")
+        buf.write("\u01c8\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7")
         buf.write("\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4\f\t\f\4\r\t\r\4\16")
         buf.write("\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22\4\23\t\23")
         buf.write("\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31")
         buf.write("\t\31\4\32\t\32\4\33\t\33\4\34\t\34\4\35\t\35\4\36\t\36")
-        buf.write("\4\37\t\37\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2")
-        buf.write("\7\2J\n\2\f\2\16\2M\13\2\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3")
-        buf.write("\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\5\4a\n\4\3")
-        buf.write("\5\3\5\3\5\3\5\3\5\3\5\3\6\3\6\3\6\3\6\3\6\3\6\3\7\3\7")
-        buf.write("\3\b\3\b\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\5\t}")
-        buf.write("\n\t\3\t\3\t\3\t\5\t\u0082\n\t\3\t\3\t\3\t\5\t\u0087\n")
-        buf.write("\t\3\t\3\t\3\n\3\n\3\13\3\13\3\13\5\13\u0090\n\13\3\f")
-        buf.write("\3\f\3\f\5\f\u0095\n\f\3\r\7\r\u0098\n\r\f\r\16\r\u009b")
-        buf.write("\13\r\3\r\6\r\u009e\n\r\r\r\16\r\u009f\3\r\3\r\3\r\3\r")
-        buf.write("\5\r\u00a6\n\r\3\16\7\16\u00a9\n\16\f\16\16\16\u00ac\13")
-        buf.write("\16\3\16\6\16\u00af\n\16\r\16\16\16\u00b0\3\16\3\16\3")
-        buf.write("\16\3\16\5\16\u00b7\n\16\3\17\3\17\6\17\u00bb\n\17\r\17")
-        buf.write("\16\17\u00bc\3\20\3\20\3\20\3\20\6\20\u00c3\n\20\r\20")
-        buf.write("\16\20\u00c4\3\20\3\20\3\20\3\20\3\20\6\20\u00cc\n\20")
-        buf.write("\r\20\16\20\u00cd\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3")
-        buf.write("\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20")
-        buf.write("\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20")
-        buf.write("\5\20\u00ed\n\20\3\21\3\21\3\21\7\21\u00f2\n\21\f\21\16")
-        buf.write("\21\u00f5\13\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21")
+        buf.write("\4\37\t\37\4 \t \3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3")
+        buf.write("\2\3\2\7\2L\n\2\f\2\16\2O\13\2\3\2\3\2\3\3\3\3\3\3\3\3")
+        buf.write("\3\3\3\3\3\4\3\4\3\4\3\4\3\4\3\4\3\5\3\5\3\5\3\5\3\5\3")
+        buf.write("\5\3\6\3\6\3\6\3\6\3\6\3\6\3\7\3\7\3\b\3\b\3\t\3\t\3\t")
+        buf.write("\3\t\3\t\3\t\3\t\3\t\3\t\3\t\5\ty\n\t\3\t\3\t\3\t\5\t")
+        buf.write("~\n\t\3\t\3\t\3\t\5\t\u0083\n\t\3\t\3\t\3\n\3\n\3\13\3")
+        buf.write("\13\3\f\3\f\3\f\5\f\u008e\n\f\3\r\3\r\3\r\5\r\u0093\n")
+        buf.write("\r\3\16\7\16\u0096\n\16\f\16\16\16\u0099\13\16\3\16\6")
+        buf.write("\16\u009c\n\16\r\16\16\16\u009d\3\16\3\16\3\16\3\16\5")
+        buf.write("\16\u00a4\n\16\3\17\7\17\u00a7\n\17\f\17\16\17\u00aa\13")
+        buf.write("\17\3\17\6\17\u00ad\n\17\r\17\16\17\u00ae\3\17\3\17\3")
+        buf.write("\17\3\17\5\17\u00b5\n\17\3\20\3\20\6\20\u00b9\n\20\r\20")
+        buf.write("\16\20\u00ba\3\21\3\21\3\21\3\21\6\21\u00c1\n\21\r\21")
+        buf.write("\16\21\u00c2\3\21\3\21\3\21\3\21\3\21\6\21\u00ca\n\21")
+        buf.write("\r\21\16\21\u00cb\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3")
+        buf.write("\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21")
         buf.write("\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21")
-        buf.write("\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21")
-        buf.write("\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21\5\21\u011d\n")
-        buf.write("\21\3\22\3\22\3\22\3\22\3\22\3\22\5\22\u0125\n\22\3\23")
-        buf.write("\3\23\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24")
-        buf.write("\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24")
-        buf.write("\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24")
-        buf.write("\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\5\24")
-        buf.write("\u0153\n\24\3\25\3\25\3\25\6\25\u0158\n\25\r\25\16\25")
-        buf.write("\u0159\3\25\3\25\3\25\5\25\u015f\n\25\3\26\3\26\3\26\3")
-        buf.write("\26\3\26\3\26\3\26\5\26\u0168\n\26\3\27\3\27\3\27\6\27")
-        buf.write("\u016d\n\27\r\27\16\27\u016e\3\27\3\27\3\27\5\27\u0174")
-        buf.write("\n\27\3\30\3\30\3\30\3\30\3\30\3\30\3\31\3\31\3\31\5\31")
-        buf.write("\u017f\n\31\3\32\3\32\3\33\3\33\3\34\3\34\3\34\3\34\6")
-        buf.write("\34\u0189\n\34\r\34\16\34\u018a\3\34\3\34\3\35\3\35\3")
-        buf.write("\35\3\35\3\35\3\35\3\36\3\36\3\36\3\36\7\36\u0199\n\36")
-        buf.write("\f\36\16\36\u019c\13\36\3\36\3\36\3\37\3\37\3\37\7\37")
-        buf.write("\u01a3\n\37\f\37\16\37\u01a6\13\37\3\37\3\37\3\37\3\37")
-        buf.write("\3\37\3\37\3\37\3\37\3\37\3\37\3\37\3\37\3\37\3\37\3\37")
-        buf.write("\3\37\3\37\3\37\3\37\3\37\3\37\3\37\3\37\3\37\3\37\3\37")
-        buf.write("\3\37\3\37\3\37\3\37\3\37\3\37\5\37\u01c8\n\37\3\37\2")
-        buf.write("\2 \2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&(*,.\60")
-        buf.write("\62\64\668:<\2\4\5\2\33\33\37\37??\3\2?@\2\u01e1\2>\3")
-        buf.write("\2\2\2\4P\3\2\2\2\6`\3\2\2\2\bb\3\2\2\2\nh\3\2\2\2\fn")
-        buf.write("\3\2\2\2\16p\3\2\2\2\20r\3\2\2\2\22\u008a\3\2\2\2\24\u008f")
-        buf.write("\3\2\2\2\26\u0094\3\2\2\2\30\u00a5\3\2\2\2\32\u00b6\3")
-        buf.write("\2\2\2\34\u00b8\3\2\2\2\36\u00ec\3\2\2\2 \u011c\3\2\2")
-        buf.write("\2\"\u0124\3\2\2\2$\u0126\3\2\2\2&\u0152\3\2\2\2(\u015e")
-        buf.write("\3\2\2\2*\u0167\3\2\2\2,\u0173\3\2\2\2.\u0175\3\2\2\2")
-        buf.write("\60\u017e\3\2\2\2\62\u0180\3\2\2\2\64\u0182\3\2\2\2\66")
-        buf.write("\u0184\3\2\2\28\u018e\3\2\2\2:\u0194\3\2\2\2<\u01c7\3")
-        buf.write("\2\2\2>?\7$\2\2?@\7\5\2\2@A\7$\2\2AB\7\3\2\2BC\7?\2\2")
-        buf.write("CD\7%\2\2DE\5\4\3\2EF\5\6\4\2FG\5\b\5\2GK\5\n\6\2HJ\5")
-        buf.write("\20\t\2IH\3\2\2\2JM\3\2\2\2KI\3\2\2\2KL\3\2\2\2LN\3\2")
-        buf.write("\2\2MK\3\2\2\2NO\7%\2\2O\3\3\2\2\2PQ\7$\2\2QR\7(\2\2R")
-        buf.write("S\7!\2\2ST\5\32\16\2TU\7%\2\2U\5\3\2\2\2VW\7$\2\2WX\7")
-        buf.write("(\2\2XY\7\b\2\2YZ\7\30\2\2Za\7%\2\2[\\\7$\2\2\\]\7(\2")
-        buf.write("\2]^\7\b\2\2^_\7\31\2\2_a\7%\2\2`V\3\2\2\2`[\3\2\2\2a")
-        buf.write("\7\3\2\2\2bc\7$\2\2cd\7(\2\2de\7\20\2\2ef\5\24\13\2fg")
-        buf.write("\7%\2\2g\t\3\2\2\2hi\7$\2\2ij\7(\2\2jk\7\22\2\2kl\5\24")
-        buf.write("\13\2lm\7%\2\2m\13\3\2\2\2no\7?\2\2o\r\3\2\2\2pq\t\2\2")
-        buf.write("\2q\17\3\2\2\2rs\7$\2\2st\7(\2\2tu\7\n\2\2u|\5\22\n\2")
-        buf.write("vw\7(\2\2wx\7\17\2\2xy\7$\2\2yz\5\32\16\2z{\7%\2\2{}\3")
-        buf.write("\2\2\2|v\3\2\2\2|}\3\2\2\2}\u0081\3\2\2\2~\177\7(\2\2")
-        buf.write("\177\u0080\7\21\2\2\u0080\u0082\5\24\13\2\u0081~\3\2\2")
-        buf.write("\2\u0081\u0082\3\2\2\2\u0082\u0086\3\2\2\2\u0083\u0084")
-        buf.write("\7(\2\2\u0084\u0085\7\32\2\2\u0085\u0087\5\26\f\2\u0086")
-        buf.write("\u0083\3\2\2\2\u0086\u0087\3\2\2\2\u0087\u0088\3\2\2\2")
-        buf.write("\u0088\u0089\7%\2\2\u0089\21\3\2\2\2\u008a\u008b\7?\2")
-        buf.write("\2\u008b\23\3\2\2\2\u008c\u0090\5\36\20\2\u008d\u008e")
-        buf.write("\7$\2\2\u008e\u0090\7%\2\2\u008f\u008c\3\2\2\2\u008f\u008d")
-        buf.write("\3\2\2\2\u0090\25\3\2\2\2\u0091\u0095\5(\25\2\u0092\u0093")
-        buf.write("\7$\2\2\u0093\u0095\7%\2\2\u0094\u0091\3\2\2\2\u0094\u0092")
-        buf.write("\3\2\2\2\u0095\27\3\2\2\2\u0096\u0098\7?\2\2\u0097\u0096")
-        buf.write("\3\2\2\2\u0098\u009b\3\2\2\2\u0099\u0097\3\2\2\2\u0099")
-        buf.write("\u009a\3\2\2\2\u009a\u00a6\3\2\2\2\u009b\u0099\3\2\2\2")
-        buf.write("\u009c\u009e\7?\2\2\u009d\u009c\3\2\2\2\u009e\u009f\3")
-        buf.write("\2\2\2\u009f\u009d\3\2\2\2\u009f\u00a0\3\2\2\2\u00a0\u00a1")
-        buf.write("\3\2\2\2\u00a1\u00a2\7,\2\2\u00a2\u00a3\5\16\b\2\u00a3")
-        buf.write("\u00a4\5\30\r\2\u00a4\u00a6\3\2\2\2\u00a5\u0099\3\2\2")
-        buf.write("\2\u00a5\u009d\3\2\2\2\u00a6\31\3\2\2\2\u00a7\u00a9\7")
-        buf.write("A\2\2\u00a8\u00a7\3\2\2\2\u00a9\u00ac\3\2\2\2\u00aa\u00a8")
-        buf.write("\3\2\2\2\u00aa\u00ab\3\2\2\2\u00ab\u00b7\3\2\2\2\u00ac")
-        buf.write("\u00aa\3\2\2\2\u00ad\u00af\7A\2\2\u00ae\u00ad\3\2\2\2")
-        buf.write("\u00af\u00b0\3\2\2\2\u00b0\u00ae\3\2\2\2\u00b0\u00b1\3")
-        buf.write("\2\2\2\u00b1\u00b2\3\2\2\2\u00b2\u00b3\7,\2\2\u00b3\u00b4")
-        buf.write("\5\16\b\2\u00b4\u00b5\5\32\16\2\u00b5\u00b7\3\2\2\2\u00b6")
-        buf.write("\u00aa\3\2\2\2\u00b6\u00ae\3\2\2\2\u00b7\33\3\2\2\2\u00b8")
-        buf.write("\u00ba\7:\2\2\u00b9\u00bb\7A\2\2\u00ba\u00b9\3\2\2\2\u00bb")
-        buf.write("\u00bc\3\2\2\2\u00bc\u00ba\3\2\2\2\u00bc\u00bd\3\2\2\2")
-        buf.write("\u00bd\35\3\2\2\2\u00be\u00ed\5 \21\2\u00bf\u00c0\7$\2")
-        buf.write("\2\u00c0\u00c2\7\67\2\2\u00c1\u00c3\5\36\20\2\u00c2\u00c1")
-        buf.write("\3\2\2\2\u00c3\u00c4\3\2\2\2\u00c4\u00c2\3\2\2\2\u00c4")
-        buf.write("\u00c5\3\2\2\2\u00c5\u00c6\3\2\2\2\u00c6\u00c7\7%\2\2")
-        buf.write("\u00c7\u00ed\3\2\2\2\u00c8\u00c9\7$\2\2\u00c9\u00cb\7")
-        buf.write("8\2\2\u00ca\u00cc\5\36\20\2\u00cb\u00ca\3\2\2\2\u00cc")
-        buf.write("\u00cd\3\2\2\2\u00cd\u00cb\3\2\2\2\u00cd\u00ce\3\2\2\2")
-        buf.write("\u00ce\u00cf\3\2\2\2\u00cf\u00d0\7%\2\2\u00d0\u00ed\3")
-        buf.write("\2\2\2\u00d1\u00d2\7$\2\2\u00d2\u00d3\79\2\2\u00d3\u00d4")
-        buf.write("\5\36\20\2\u00d4\u00d5\7%\2\2\u00d5\u00ed\3\2\2\2\u00d6")
-        buf.write("\u00d7\7$\2\2\u00d7\u00d8\7;\2\2\u00d8\u00d9\5\36\20\2")
-        buf.write("\u00d9\u00da\5\36\20\2\u00da\u00db\7%\2\2\u00db\u00ed")
-        buf.write("\3\2\2\2\u00dc\u00dd\7$\2\2\u00dd\u00de\7=\2\2\u00de\u00df")
-        buf.write("\7$\2\2\u00df\u00e0\5\32\16\2\u00e0\u00e1\7%\2\2\u00e1")
-        buf.write("\u00e2\5\36\20\2\u00e2\u00e3\7%\2\2\u00e3\u00ed\3\2\2")
-        buf.write("\2\u00e4\u00e5\7$\2\2\u00e5\u00e6\7<\2\2\u00e6\u00e7\7")
-        buf.write("$\2\2\u00e7\u00e8\5\32\16\2\u00e8\u00e9\7%\2\2\u00e9\u00ea")
-        buf.write("\5\36\20\2\u00ea\u00eb\7%\2\2\u00eb\u00ed\3\2\2\2\u00ec")
-        buf.write("\u00be\3\2\2\2\u00ec\u00bf\3\2\2\2\u00ec\u00c8\3\2\2\2")
-        buf.write("\u00ec\u00d1\3\2\2\2\u00ec\u00d6\3\2\2\2\u00ec\u00dc\3")
-        buf.write("\2\2\2\u00ec\u00e4\3\2\2\2\u00ed\37\3\2\2\2\u00ee\u00ef")
-        buf.write("\7$\2\2\u00ef\u00f3\5\f\7\2\u00f0\u00f2\5&\24\2\u00f1")
-        buf.write("\u00f0\3\2\2\2\u00f2\u00f5\3\2\2\2\u00f3\u00f1\3\2\2\2")
-        buf.write("\u00f3\u00f4\3\2\2\2\u00f4\u00f6\3\2\2\2\u00f5\u00f3\3")
-        buf.write("\2\2\2\u00f6\u00f7\7%\2\2\u00f7\u011d\3\2\2\2\u00f8\u00f9")
-        buf.write("\7$\2\2\u00f9\u00fa\7\61\2\2\u00fa\u00fb\5&\24\2\u00fb")
-        buf.write("\u00fc\5&\24\2\u00fc\u00fd\7%\2\2\u00fd\u011d\3\2\2\2")
-        buf.write("\u00fe\u00ff\7$\2\2\u00ff\u0100\7\62\2\2\u0100\u0101\5")
-        buf.write("&\24\2\u0101\u0102\5&\24\2\u0102\u0103\7%\2\2\u0103\u011d")
-        buf.write("\3\2\2\2\u0104\u0105\7$\2\2\u0105\u0106\7\63\2\2\u0106")
-        buf.write("\u0107\5&\24\2\u0107\u0108\5&\24\2\u0108\u0109\7%\2\2")
-        buf.write("\u0109\u011d\3\2\2\2\u010a\u010b\7$\2\2\u010b\u010c\7")
-        buf.write("\64\2\2\u010c\u010d\5&\24\2\u010d\u010e\5&\24\2\u010e")
-        buf.write("\u010f\7%\2\2\u010f\u011d\3\2\2\2\u0110\u0111\7$\2\2\u0111")
-        buf.write("\u0112\7\65\2\2\u0112\u0113\5&\24\2\u0113\u0114\5&\24")
-        buf.write("\2\u0114\u0115\7%\2\2\u0115\u011d\3\2\2\2\u0116\u0117")
-        buf.write("\7$\2\2\u0117\u0118\7\66\2\2\u0118\u0119\5&\24\2\u0119")
-        buf.write("\u011a\5&\24\2\u011a\u011b\7%\2\2\u011b\u011d\3\2\2\2")
-        buf.write("\u011c\u00ee\3\2\2\2\u011c\u00f8\3\2\2\2\u011c\u00fe\3")
-        buf.write("\2\2\2\u011c\u0104\3\2\2\2\u011c\u010a\3\2\2\2\u011c\u0110")
-        buf.write("\3\2\2\2\u011c\u0116\3\2\2\2\u011d!\3\2\2\2\u011e\u0125")
-        buf.write("\5 \21\2\u011f\u0120\7$\2\2\u0120\u0121\79\2\2\u0121\u0122")
-        buf.write("\5 \21\2\u0122\u0123\7%\2\2\u0123\u0125\3\2\2\2\u0124")
-        buf.write("\u011e\3\2\2\2\u0124\u011f\3\2\2\2\u0125#\3\2\2\2\u0126")
-        buf.write("\u0127\t\3\2\2\u0127%\3\2\2\2\u0128\u0153\7?\2\2\u0129")
-        buf.write("\u0153\7A\2\2\u012a\u0153\7@\2\2\u012b\u012c\7$\2\2\u012c")
-        buf.write("\u012d\5&\24\2\u012d\u012e\7%\2\2\u012e\u0153\3\2\2\2")
-        buf.write("\u012f\u0130\7$\2\2\u0130\u0131\7,\2\2\u0131\u0132\5&")
-        buf.write("\24\2\u0132\u0133\7%\2\2\u0133\u0153\3\2\2\2\u0134\u0135")
-        buf.write("\7$\2\2\u0135\u0136\7,\2\2\u0136\u0137\5&\24\2\u0137\u0138")
-        buf.write("\5&\24\2\u0138\u0139\7%\2\2\u0139\u0153\3\2\2\2\u013a")
-        buf.write("\u013b\7$\2\2\u013b\u013c\7\60\2\2\u013c\u013d\5&\24\2")
-        buf.write("\u013d\u013e\5&\24\2\u013e\u013f\7%\2\2\u013f\u0153\3")
-        buf.write("\2\2\2\u0140\u0141\7$\2\2\u0141\u0142\5&\24\2\u0142\u0143")
-        buf.write("\7,\2\2\u0143\u0144\5&\24\2\u0144\u0145\7%\2\2\u0145\u0153")
-        buf.write("\3\2\2\2\u0146\u0147\7$\2\2\u0147\u0148\5&\24\2\u0148")
-        buf.write("\u0149\7\60\2\2\u0149\u014a\5&\24\2\u014a\u014b\7%\2\2")
-        buf.write("\u014b\u0153\3\2\2\2\u014c\u014d\7$\2\2\u014d\u014e\7")
-        buf.write("-\2\2\u014e\u014f\5&\24\2\u014f\u0150\5&\24\2\u0150\u0151")
-        buf.write("\7%\2\2\u0151\u0153\3\2\2\2\u0152\u0128\3\2\2\2\u0152")
-        buf.write("\u0129\3\2\2\2\u0152\u012a\3\2\2\2\u0152\u012b\3\2\2\2")
-        buf.write("\u0152\u012f\3\2\2\2\u0152\u0134\3\2\2\2\u0152\u013a\3")
-        buf.write("\2\2\2\u0152\u0140\3\2\2\2\u0152\u0146\3\2\2\2\u0152\u014c")
-        buf.write("\3\2\2\2\u0153\'\3\2\2\2\u0154\u0155\7$\2\2\u0155\u0157")
-        buf.write("\7\67\2\2\u0156\u0158\5*\26\2\u0157\u0156\3\2\2\2\u0158")
-        buf.write("\u0159\3\2\2\2\u0159\u0157\3\2\2\2\u0159\u015a\3\2\2\2")
-        buf.write("\u015a\u015b\3\2\2\2\u015b\u015c\7%\2\2\u015c\u015f\3")
-        buf.write("\2\2\2\u015d\u015f\5*\26\2\u015e\u0154\3\2\2\2\u015e\u015d")
-        buf.write("\3\2\2\2\u015f)\3\2\2\2\u0160\u0161\7$\2\2\u0161\u0162")
-        buf.write("\7>\2\2\u0162\u0163\5\36\20\2\u0163\u0164\5,\27\2\u0164")
-        buf.write("\u0165\7%\2\2\u0165\u0168\3\2\2\2\u0166\u0168\5.\30\2")
-        buf.write("\u0167\u0160\3\2\2\2\u0167\u0166\3\2\2\2\u0168+\3\2\2")
-        buf.write("\2\u0169\u016a\7$\2\2\u016a\u016c\7\67\2\2\u016b\u016d")
-        buf.write("\5.\30\2\u016c\u016b\3\2\2\2\u016d\u016e\3\2\2\2\u016e")
-        buf.write("\u016c\3\2\2\2\u016e\u016f\3\2\2\2\u016f\u0170\3\2\2\2")
-        buf.write("\u0170\u0171\7%\2\2\u0171\u0174\3\2\2\2\u0172\u0174\5")
-        buf.write(".\30\2\u0173\u0169\3\2\2\2\u0173\u0172\3\2\2\2\u0174-")
-        buf.write("\3\2\2\2\u0175\u0176\7$\2\2\u0176\u0177\5\60\31\2\u0177")
-        buf.write("\u0178\7A\2\2\u0178\u0179\5&\24\2\u0179\u017a\7%\2\2\u017a")
-        buf.write("/\3\2\2\2\u017b\u017f\7\34\2\2\u017c\u017f\7\35\2\2\u017d")
-        buf.write("\u017f\7\36\2\2\u017e\u017b\3\2\2\2\u017e\u017c\3\2\2")
-        buf.write("\2\u017e\u017d\3\2\2\2\u017f\61\3\2\2\2\u0180\u0181\7")
-        buf.write("?\2\2\u0181\63\3\2\2\2\u0182\u0183\7?\2\2\u0183\65\3\2")
-        buf.write("\2\2\u0184\u0185\7$\2\2\u0185\u0186\7(\2\2\u0186\u0188")
-        buf.write("\7\37\2\2\u0187\u0189\7?\2\2\u0188\u0187\3\2\2\2\u0189")
-        buf.write("\u018a\3\2\2\2\u018a\u0188\3\2\2\2\u018a\u018b\3\2\2\2")
-        buf.write("\u018b\u018c\3\2\2\2\u018c\u018d\7%\2\2\u018d\67\3\2\2")
-        buf.write("\2\u018e\u018f\7$\2\2\u018f\u0190\7(\2\2\u0190\u0191\7")
-        buf.write("!\2\2\u0191\u0192\5\30\r\2\u0192\u0193\7%\2\2\u01939\3")
-        buf.write("\2\2\2\u0194\u0195\7$\2\2\u0195\u0196\7(\2\2\u0196\u019a")
-        buf.write("\7\"\2\2\u0197\u0199\5<\37\2\u0198\u0197\3\2\2\2\u0199")
-        buf.write("\u019c\3\2\2\2\u019a\u0198\3\2\2\2\u019a\u019b\3\2\2\2")
-        buf.write("\u019b\u019d\3\2\2\2\u019c\u019a\3\2\2\2\u019d\u019e\7")
-        buf.write("%\2\2\u019e;\3\2\2\2\u019f\u01a0\7$\2\2\u01a0\u01a4\5")
-        buf.write("\f\7\2\u01a1\u01a3\5$\23\2\u01a2\u01a1\3\2\2\2\u01a3\u01a6")
-        buf.write("\3\2\2\2\u01a4\u01a2\3\2\2\2\u01a4\u01a5\3\2\2\2\u01a5")
-        buf.write("\u01a7\3\2\2\2\u01a6\u01a4\3\2\2\2\u01a7\u01a8\7%\2\2")
-        buf.write("\u01a8\u01c8\3\2\2\2\u01a9\u01aa\7$\2\2\u01aa\u01ab\7")
-        buf.write("\61\2\2\u01ab\u01ac\5$\23\2\u01ac\u01ad\5$\23\2\u01ad")
-        buf.write("\u01ae\7%\2\2\u01ae\u01c8\3\2\2\2\u01af\u01b0\7$\2\2\u01b0")
-        buf.write("\u01b1\7\63\2\2\u01b1\u01b2\5$\23\2\u01b2\u01b3\5$\23")
-        buf.write("\2\u01b3\u01b4\7%\2\2\u01b4\u01c8\3\2\2\2\u01b5\u01b6")
-        buf.write("\7$\2\2\u01b6\u01b7\7\64\2\2\u01b7\u01b8\5$\23\2\u01b8")
-        buf.write("\u01b9\5$\23\2\u01b9\u01ba\7%\2\2\u01ba\u01c8\3\2\2\2")
-        buf.write("\u01bb\u01bc\7$\2\2\u01bc\u01bd\7\65\2\2\u01bd\u01be\5")
-        buf.write("$\23\2\u01be\u01bf\5$\23\2\u01bf\u01c0\7%\2\2\u01c0\u01c8")
-        buf.write("\3\2\2\2\u01c1\u01c2\7$\2\2\u01c2\u01c3\7\66\2\2\u01c3")
-        buf.write("\u01c4\5$\23\2\u01c4\u01c5\5$\23\2\u01c5\u01c6\7%\2\2")
-        buf.write("\u01c6\u01c8\3\2\2\2\u01c7\u019f\3\2\2\2\u01c7\u01a9\3")
-        buf.write("\2\2\2\u01c7\u01af\3\2\2\2\u01c7\u01b5\3\2\2\2\u01c7\u01bb")
-        buf.write("\3\2\2\2\u01c7\u01c1\3\2\2\2\u01c8=\3\2\2\2!K`|\u0081")
-        buf.write("\u0086\u008f\u0094\u0099\u009f\u00a5\u00aa\u00b0\u00b6")
-        buf.write("\u00bc\u00c4\u00cd\u00ec\u00f3\u011c\u0124\u0152\u0159")
-        buf.write("\u015e\u0167\u016e\u0173\u017e\u018a\u019a\u01a4\u01c7")
+        buf.write("\5\21\u00eb\n\21\3\22\3\22\3\22\7\22\u00f0\n\22\f\22\16")
+        buf.write("\22\u00f3\13\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22")
+        buf.write("\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22")
+        buf.write("\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22")
+        buf.write("\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\5\22\u011b\n")
+        buf.write("\22\3\23\3\23\3\23\3\23\3\23\3\23\5\23\u0123\n\23\3\24")
+        buf.write("\3\24\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25")
+        buf.write("\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25")
+        buf.write("\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25")
+        buf.write("\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\5\25")
+        buf.write("\u0151\n\25\3\26\3\26\3\26\6\26\u0156\n\26\r\26\16\26")
+        buf.write("\u0157\3\26\3\26\3\26\5\26\u015d\n\26\3\27\3\27\3\27\3")
+        buf.write("\27\3\27\3\27\3\27\5\27\u0166\n\27\3\30\3\30\3\30\6\30")
+        buf.write("\u016b\n\30\r\30\16\30\u016c\3\30\3\30\3\30\5\30\u0172")
+        buf.write("\n\30\3\31\3\31\3\31\3\31\3\31\3\31\3\32\3\32\3\32\5\32")
+        buf.write("\u017d\n\32\3\33\3\33\3\34\3\34\3\35\3\35\3\35\3\35\6")
+        buf.write("\35\u0187\n\35\r\35\16\35\u0188\3\35\3\35\3\36\3\36\3")
+        buf.write("\36\3\36\3\36\3\36\3\37\3\37\3\37\3\37\7\37\u0197\n\37")
+        buf.write("\f\37\16\37\u019a\13\37\3\37\3\37\3 \3 \3 \7 \u01a1\n")
+        buf.write(" \f \16 \u01a4\13 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3")
+        buf.write(" \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3")
+        buf.write(" \3 \3 \5 \u01c6\n \3 \2\2!\2\4\6\b\n\f\16\20\22\24\26")
+        buf.write("\30\32\34\36 \"$&(*,.\60\62\64\668:<>\2\4\5\2\33\33\37")
+        buf.write("\37??\3\2?@\2\u01dd\2@\3\2\2\2\4R\3\2\2\2\6X\3\2\2\2\b")
+        buf.write("^\3\2\2\2\nd\3\2\2\2\fj\3\2\2\2\16l\3\2\2\2\20n\3\2\2")
+        buf.write("\2\22\u0086\3\2\2\2\24\u0088\3\2\2\2\26\u008d\3\2\2\2")
+        buf.write("\30\u0092\3\2\2\2\32\u00a3\3\2\2\2\34\u00b4\3\2\2\2\36")
+        buf.write("\u00b6\3\2\2\2 \u00ea\3\2\2\2\"\u011a\3\2\2\2$\u0122\3")
+        buf.write("\2\2\2&\u0124\3\2\2\2(\u0150\3\2\2\2*\u015c\3\2\2\2,\u0165")
+        buf.write("\3\2\2\2.\u0171\3\2\2\2\60\u0173\3\2\2\2\62\u017c\3\2")
+        buf.write("\2\2\64\u017e\3\2\2\2\66\u0180\3\2\2\28\u0182\3\2\2\2")
+        buf.write(":\u018c\3\2\2\2<\u0192\3\2\2\2>\u01c5\3\2\2\2@A\7$\2\2")
+        buf.write("AB\7\5\2\2BC\7$\2\2CD\7\3\2\2DE\7?\2\2EF\7%\2\2FG\5\4")
+        buf.write("\3\2GH\5\6\4\2HI\5\b\5\2IM\5\n\6\2JL\5\20\t\2KJ\3\2\2")
+        buf.write("\2LO\3\2\2\2MK\3\2\2\2MN\3\2\2\2NP\3\2\2\2OM\3\2\2\2P")
+        buf.write("Q\7%\2\2Q\3\3\2\2\2RS\7$\2\2ST\7(\2\2TU\7!\2\2UV\5\34")
+        buf.write("\17\2VW\7%\2\2W\5\3\2\2\2XY\7$\2\2YZ\7(\2\2Z[\7\b\2\2")
+        buf.write("[\\\5\24\13\2\\]\7%\2\2]\7\3\2\2\2^_\7$\2\2_`\7(\2\2`")
+        buf.write("a\7\20\2\2ab\5\26\f\2bc\7%\2\2c\t\3\2\2\2de\7$\2\2ef\7")
+        buf.write("(\2\2fg\7\22\2\2gh\5\26\f\2hi\7%\2\2i\13\3\2\2\2jk\7?")
+        buf.write("\2\2k\r\3\2\2\2lm\t\2\2\2m\17\3\2\2\2no\7$\2\2op\7(\2")
+        buf.write("\2pq\7\n\2\2qx\5\22\n\2rs\7(\2\2st\7\17\2\2tu\7$\2\2u")
+        buf.write("v\5\34\17\2vw\7%\2\2wy\3\2\2\2xr\3\2\2\2xy\3\2\2\2y}\3")
+        buf.write("\2\2\2z{\7(\2\2{|\7\21\2\2|~\5\26\f\2}z\3\2\2\2}~\3\2")
+        buf.write("\2\2~\u0082\3\2\2\2\177\u0080\7(\2\2\u0080\u0081\7\32")
+        buf.write("\2\2\u0081\u0083\5\30\r\2\u0082\177\3\2\2\2\u0082\u0083")
+        buf.write("\3\2\2\2\u0083\u0084\3\2\2\2\u0084\u0085\7%\2\2\u0085")
+        buf.write("\21\3\2\2\2\u0086\u0087\7?\2\2\u0087\23\3\2\2\2\u0088")
+        buf.write("\u0089\7?\2\2\u0089\25\3\2\2\2\u008a\u008e\5 \21\2\u008b")
+        buf.write("\u008c\7$\2\2\u008c\u008e\7%\2\2\u008d\u008a\3\2\2\2\u008d")
+        buf.write("\u008b\3\2\2\2\u008e\27\3\2\2\2\u008f\u0093\5*\26\2\u0090")
+        buf.write("\u0091\7$\2\2\u0091\u0093\7%\2\2\u0092\u008f\3\2\2\2\u0092")
+        buf.write("\u0090\3\2\2\2\u0093\31\3\2\2\2\u0094\u0096\7?\2\2\u0095")
+        buf.write("\u0094\3\2\2\2\u0096\u0099\3\2\2\2\u0097\u0095\3\2\2\2")
+        buf.write("\u0097\u0098\3\2\2\2\u0098\u00a4\3\2\2\2\u0099\u0097\3")
+        buf.write("\2\2\2\u009a\u009c\7?\2\2\u009b\u009a\3\2\2\2\u009c\u009d")
+        buf.write("\3\2\2\2\u009d\u009b\3\2\2\2\u009d\u009e\3\2\2\2\u009e")
+        buf.write("\u009f\3\2\2\2\u009f\u00a0\7,\2\2\u00a0\u00a1\5\16\b\2")
+        buf.write("\u00a1\u00a2\5\32\16\2\u00a2\u00a4\3\2\2\2\u00a3\u0097")
+        buf.write("\3\2\2\2\u00a3\u009b\3\2\2\2\u00a4\33\3\2\2\2\u00a5\u00a7")
+        buf.write("\7A\2\2\u00a6\u00a5\3\2\2\2\u00a7\u00aa\3\2\2\2\u00a8")
+        buf.write("\u00a6\3\2\2\2\u00a8\u00a9\3\2\2\2\u00a9\u00b5\3\2\2\2")
+        buf.write("\u00aa\u00a8\3\2\2\2\u00ab\u00ad\7A\2\2\u00ac\u00ab\3")
+        buf.write("\2\2\2\u00ad\u00ae\3\2\2\2\u00ae\u00ac\3\2\2\2\u00ae\u00af")
+        buf.write("\3\2\2\2\u00af\u00b0\3\2\2\2\u00b0\u00b1\7,\2\2\u00b1")
+        buf.write("\u00b2\5\16\b\2\u00b2\u00b3\5\34\17\2\u00b3\u00b5\3\2")
+        buf.write("\2\2\u00b4\u00a8\3\2\2\2\u00b4\u00ac\3\2\2\2\u00b5\35")
+        buf.write("\3\2\2\2\u00b6\u00b8\7:\2\2\u00b7\u00b9\7A\2\2\u00b8\u00b7")
+        buf.write("\3\2\2\2\u00b9\u00ba\3\2\2\2\u00ba\u00b8\3\2\2\2\u00ba")
+        buf.write("\u00bb\3\2\2\2\u00bb\37\3\2\2\2\u00bc\u00eb\5\"\22\2\u00bd")
+        buf.write("\u00be\7$\2\2\u00be\u00c0\7\67\2\2\u00bf\u00c1\5 \21\2")
+        buf.write("\u00c0\u00bf\3\2\2\2\u00c1\u00c2\3\2\2\2\u00c2\u00c0\3")
+        buf.write("\2\2\2\u00c2\u00c3\3\2\2\2\u00c3\u00c4\3\2\2\2\u00c4\u00c5")
+        buf.write("\7%\2\2\u00c5\u00eb\3\2\2\2\u00c6\u00c7\7$\2\2\u00c7\u00c9")
+        buf.write("\78\2\2\u00c8\u00ca\5 \21\2\u00c9\u00c8\3\2\2\2\u00ca")
+        buf.write("\u00cb\3\2\2\2\u00cb\u00c9\3\2\2\2\u00cb\u00cc\3\2\2\2")
+        buf.write("\u00cc\u00cd\3\2\2\2\u00cd\u00ce\7%\2\2\u00ce\u00eb\3")
+        buf.write("\2\2\2\u00cf\u00d0\7$\2\2\u00d0\u00d1\79\2\2\u00d1\u00d2")
+        buf.write("\5 \21\2\u00d2\u00d3\7%\2\2\u00d3\u00eb\3\2\2\2\u00d4")
+        buf.write("\u00d5\7$\2\2\u00d5\u00d6\7;\2\2\u00d6\u00d7\5 \21\2\u00d7")
+        buf.write("\u00d8\5 \21\2\u00d8\u00d9\7%\2\2\u00d9\u00eb\3\2\2\2")
+        buf.write("\u00da\u00db\7$\2\2\u00db\u00dc\7=\2\2\u00dc\u00dd\7$")
+        buf.write("\2\2\u00dd\u00de\5\34\17\2\u00de\u00df\7%\2\2\u00df\u00e0")
+        buf.write("\5 \21\2\u00e0\u00e1\7%\2\2\u00e1\u00eb\3\2\2\2\u00e2")
+        buf.write("\u00e3\7$\2\2\u00e3\u00e4\7<\2\2\u00e4\u00e5\7$\2\2\u00e5")
+        buf.write("\u00e6\5\34\17\2\u00e6\u00e7\7%\2\2\u00e7\u00e8\5 \21")
+        buf.write("\2\u00e8\u00e9\7%\2\2\u00e9\u00eb\3\2\2\2\u00ea\u00bc")
+        buf.write("\3\2\2\2\u00ea\u00bd\3\2\2\2\u00ea\u00c6\3\2\2\2\u00ea")
+        buf.write("\u00cf\3\2\2\2\u00ea\u00d4\3\2\2\2\u00ea\u00da\3\2\2\2")
+        buf.write("\u00ea\u00e2\3\2\2\2\u00eb!\3\2\2\2\u00ec\u00ed\7$\2\2")
+        buf.write("\u00ed\u00f1\5\f\7\2\u00ee\u00f0\5(\25\2\u00ef\u00ee\3")
+        buf.write("\2\2\2\u00f0\u00f3\3\2\2\2\u00f1\u00ef\3\2\2\2\u00f1\u00f2")
+        buf.write("\3\2\2\2\u00f2\u00f4\3\2\2\2\u00f3\u00f1\3\2\2\2\u00f4")
+        buf.write("\u00f5\7%\2\2\u00f5\u011b\3\2\2\2\u00f6\u00f7\7$\2\2\u00f7")
+        buf.write("\u00f8\7\61\2\2\u00f8\u00f9\5(\25\2\u00f9\u00fa\5(\25")
+        buf.write("\2\u00fa\u00fb\7%\2\2\u00fb\u011b\3\2\2\2\u00fc\u00fd")
+        buf.write("\7$\2\2\u00fd\u00fe\7\62\2\2\u00fe\u00ff\5(\25\2\u00ff")
+        buf.write("\u0100\5(\25\2\u0100\u0101\7%\2\2\u0101\u011b\3\2\2\2")
+        buf.write("\u0102\u0103\7$\2\2\u0103\u0104\7\63\2\2\u0104\u0105\5")
+        buf.write("(\25\2\u0105\u0106\5(\25\2\u0106\u0107\7%\2\2\u0107\u011b")
+        buf.write("\3\2\2\2\u0108\u0109\7$\2\2\u0109\u010a\7\64\2\2\u010a")
+        buf.write("\u010b\5(\25\2\u010b\u010c\5(\25\2\u010c\u010d\7%\2\2")
+        buf.write("\u010d\u011b\3\2\2\2\u010e\u010f\7$\2\2\u010f\u0110\7")
+        buf.write("\65\2\2\u0110\u0111\5(\25\2\u0111\u0112\5(\25\2\u0112")
+        buf.write("\u0113\7%\2\2\u0113\u011b\3\2\2\2\u0114\u0115\7$\2\2\u0115")
+        buf.write("\u0116\7\66\2\2\u0116\u0117\5(\25\2\u0117\u0118\5(\25")
+        buf.write("\2\u0118\u0119\7%\2\2\u0119\u011b\3\2\2\2\u011a\u00ec")
+        buf.write("\3\2\2\2\u011a\u00f6\3\2\2\2\u011a\u00fc\3\2\2\2\u011a")
+        buf.write("\u0102\3\2\2\2\u011a\u0108\3\2\2\2\u011a\u010e\3\2\2\2")
+        buf.write("\u011a\u0114\3\2\2\2\u011b#\3\2\2\2\u011c\u0123\5\"\22")
+        buf.write("\2\u011d\u011e\7$\2\2\u011e\u011f\79\2\2\u011f\u0120\5")
+        buf.write("\"\22\2\u0120\u0121\7%\2\2\u0121\u0123\3\2\2\2\u0122\u011c")
+        buf.write("\3\2\2\2\u0122\u011d\3\2\2\2\u0123%\3\2\2\2\u0124\u0125")
+        buf.write("\t\3\2\2\u0125\'\3\2\2\2\u0126\u0151\7?\2\2\u0127\u0151")
+        buf.write("\7A\2\2\u0128\u0151\7@\2\2\u0129\u012a\7$\2\2\u012a\u012b")
+        buf.write("\5(\25\2\u012b\u012c\7%\2\2\u012c\u0151\3\2\2\2\u012d")
+        buf.write("\u012e\7$\2\2\u012e\u012f\7,\2\2\u012f\u0130\5(\25\2\u0130")
+        buf.write("\u0131\7%\2\2\u0131\u0151\3\2\2\2\u0132\u0133\7$\2\2\u0133")
+        buf.write("\u0134\7,\2\2\u0134\u0135\5(\25\2\u0135\u0136\5(\25\2")
+        buf.write("\u0136\u0137\7%\2\2\u0137\u0151\3\2\2\2\u0138\u0139\7")
+        buf.write("$\2\2\u0139\u013a\7\60\2\2\u013a\u013b\5(\25\2\u013b\u013c")
+        buf.write("\5(\25\2\u013c\u013d\7%\2\2\u013d\u0151\3\2\2\2\u013e")
+        buf.write("\u013f\7$\2\2\u013f\u0140\5(\25\2\u0140\u0141\7,\2\2\u0141")
+        buf.write("\u0142\5(\25\2\u0142\u0143\7%\2\2\u0143\u0151\3\2\2\2")
+        buf.write("\u0144\u0145\7$\2\2\u0145\u0146\5(\25\2\u0146\u0147\7")
+        buf.write("\60\2\2\u0147\u0148\5(\25\2\u0148\u0149\7%\2\2\u0149\u0151")
+        buf.write("\3\2\2\2\u014a\u014b\7$\2\2\u014b\u014c\7-\2\2\u014c\u014d")
+        buf.write("\5(\25\2\u014d\u014e\5(\25\2\u014e\u014f\7%\2\2\u014f")
+        buf.write("\u0151\3\2\2\2\u0150\u0126\3\2\2\2\u0150\u0127\3\2\2\2")
+        buf.write("\u0150\u0128\3\2\2\2\u0150\u0129\3\2\2\2\u0150\u012d\3")
+        buf.write("\2\2\2\u0150\u0132\3\2\2\2\u0150\u0138\3\2\2\2\u0150\u013e")
+        buf.write("\3\2\2\2\u0150\u0144\3\2\2\2\u0150\u014a\3\2\2\2\u0151")
+        buf.write(")\3\2\2\2\u0152\u0153\7$\2\2\u0153\u0155\7\67\2\2\u0154")
+        buf.write("\u0156\5,\27\2\u0155\u0154\3\2\2\2\u0156\u0157\3\2\2\2")
+        buf.write("\u0157\u0155\3\2\2\2\u0157\u0158\3\2\2\2\u0158\u0159\3")
+        buf.write("\2\2\2\u0159\u015a\7%\2\2\u015a\u015d\3\2\2\2\u015b\u015d")
+        buf.write("\5,\27\2\u015c\u0152\3\2\2\2\u015c\u015b\3\2\2\2\u015d")
+        buf.write("+\3\2\2\2\u015e\u015f\7$\2\2\u015f\u0160\7>\2\2\u0160")
+        buf.write("\u0161\5 \21\2\u0161\u0162\5.\30\2\u0162\u0163\7%\2\2")
+        buf.write("\u0163\u0166\3\2\2\2\u0164\u0166\5\60\31\2\u0165\u015e")
+        buf.write("\3\2\2\2\u0165\u0164\3\2\2\2\u0166-\3\2\2\2\u0167\u0168")
+        buf.write("\7$\2\2\u0168\u016a\7\67\2\2\u0169\u016b\5\60\31\2\u016a")
+        buf.write("\u0169\3\2\2\2\u016b\u016c\3\2\2\2\u016c\u016a\3\2\2\2")
+        buf.write("\u016c\u016d\3\2\2\2\u016d\u016e\3\2\2\2\u016e\u016f\7")
+        buf.write("%\2\2\u016f\u0172\3\2\2\2\u0170\u0172\5\60\31\2\u0171")
+        buf.write("\u0167\3\2\2\2\u0171\u0170\3\2\2\2\u0172/\3\2\2\2\u0173")
+        buf.write("\u0174\7$\2\2\u0174\u0175\5\62\32\2\u0175\u0176\7A\2\2")
+        buf.write("\u0176\u0177\5(\25\2\u0177\u0178\7%\2\2\u0178\61\3\2\2")
+        buf.write("\2\u0179\u017d\7\34\2\2\u017a\u017d\7\35\2\2\u017b\u017d")
+        buf.write("\7\36\2\2\u017c\u0179\3\2\2\2\u017c\u017a\3\2\2\2\u017c")
+        buf.write("\u017b\3\2\2\2\u017d\63\3\2\2\2\u017e\u017f\7?\2\2\u017f")
+        buf.write("\65\3\2\2\2\u0180\u0181\7?\2\2\u0181\67\3\2\2\2\u0182")
+        buf.write("\u0183\7$\2\2\u0183\u0184\7(\2\2\u0184\u0186\7\37\2\2")
+        buf.write("\u0185\u0187\7?\2\2\u0186\u0185\3\2\2\2\u0187\u0188\3")
+        buf.write("\2\2\2\u0188\u0186\3\2\2\2\u0188\u0189\3\2\2\2\u0189\u018a")
+        buf.write("\3\2\2\2\u018a\u018b\7%\2\2\u018b9\3\2\2\2\u018c\u018d")
+        buf.write("\7$\2\2\u018d\u018e\7(\2\2\u018e\u018f\7!\2\2\u018f\u0190")
+        buf.write("\5\32\16\2\u0190\u0191\7%\2\2\u0191;\3\2\2\2\u0192\u0193")
+        buf.write("\7$\2\2\u0193\u0194\7(\2\2\u0194\u0198\7\"\2\2\u0195\u0197")
+        buf.write("\5> \2\u0196\u0195\3\2\2\2\u0197\u019a\3\2\2\2\u0198\u0196")
+        buf.write("\3\2\2\2\u0198\u0199\3\2\2\2\u0199\u019b\3\2\2\2\u019a")
+        buf.write("\u0198\3\2\2\2\u019b\u019c\7%\2\2\u019c=\3\2\2\2\u019d")
+        buf.write("\u019e\7$\2\2\u019e\u01a2\5\f\7\2\u019f\u01a1\5&\24\2")
+        buf.write("\u01a0\u019f\3\2\2\2\u01a1\u01a4\3\2\2\2\u01a2\u01a0\3")
+        buf.write("\2\2\2\u01a2\u01a3\3\2\2\2\u01a3\u01a5\3\2\2\2\u01a4\u01a2")
+        buf.write("\3\2\2\2\u01a5\u01a6\7%\2\2\u01a6\u01c6\3\2\2\2\u01a7")
+        buf.write("\u01a8\7$\2\2\u01a8\u01a9\7\61\2\2\u01a9\u01aa\5&\24\2")
+        buf.write("\u01aa\u01ab\5&\24\2\u01ab\u01ac\7%\2\2\u01ac\u01c6\3")
+        buf.write("\2\2\2\u01ad\u01ae\7$\2\2\u01ae\u01af\7\63\2\2\u01af\u01b0")
+        buf.write("\5&\24\2\u01b0\u01b1\5&\24\2\u01b1\u01b2\7%\2\2\u01b2")
+        buf.write("\u01c6\3\2\2\2\u01b3\u01b4\7$\2\2\u01b4\u01b5\7\64\2\2")
+        buf.write("\u01b5\u01b6\5&\24\2\u01b6\u01b7\5&\24\2\u01b7\u01b8\7")
+        buf.write("%\2\2\u01b8\u01c6\3\2\2\2\u01b9\u01ba\7$\2\2\u01ba\u01bb")
+        buf.write("\7\65\2\2\u01bb\u01bc\5&\24\2\u01bc\u01bd\5&\24\2\u01bd")
+        buf.write("\u01be\7%\2\2\u01be\u01c6\3\2\2\2\u01bf\u01c0\7$\2\2\u01c0")
+        buf.write("\u01c1\7\66\2\2\u01c1\u01c2\5&\24\2\u01c2\u01c3\5&\24")
+        buf.write("\2\u01c3\u01c4\7%\2\2\u01c4\u01c6\3\2\2\2\u01c5\u019d")
+        buf.write("\3\2\2\2\u01c5\u01a7\3\2\2\2\u01c5\u01ad\3\2\2\2\u01c5")
+        buf.write("\u01b3\3\2\2\2\u01c5\u01b9\3\2\2\2\u01c5\u01bf\3\2\2\2")
+        buf.write("\u01c6?\3\2\2\2 Mx}\u0082\u008d\u0092\u0097\u009d\u00a3")
+        buf.write("\u00a8\u00ae\u00b4\u00ba\u00c2\u00cb\u00ea\u00f1\u011a")
+        buf.write("\u0122\u0150\u0157\u015c\u0165\u016c\u0171\u017c\u0188")
+        buf.write("\u0198\u01a2\u01c5")
         return buf.getvalue()
 
 
-class PDDLGrammarParser ( Parser ):
+class PDDLGrammarParser (Parser):
 
     grammarFileName = "PDDLGrammar.g4"
 
     atn = ATNDeserializer().deserialize(serializedATN())
 
-    decisionsToDFA = [ DFA(ds, i) for i, ds in enumerate(atn.decisionToState) ]
+    decisionsToDFA = [DFA(ds, i) for i, ds in enumerate(atn.decisionToState)]
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [ "<INVALID>", "'domain'", "'problem'", "'define'", "'agentid'", 
-                     "'constants'", "'type'", "'predicates'", "'action'", 
-                     "'event'", "'events'", "'pldegree'", "'eventmodel'", 
-                     "'parameters'", "'tercondition'", "'precondition'", 
-                     "'constraint'", "'response'", "'observation'", "'min'", 
-                     "'max'", "'numbers'", "'normal'", "'miser'", "'effect'", 
-                     "'object'", "'increase'", "'decrease'", "'assign'", 
-                     "'agent'", "'either'", "'objects'", "'init'", "'goal'", 
-                     "'('", "')'", "'['", "']'", "':'", "'?'", "'.'", "'_'", 
-                     "'-'", "'+'", "'*'", "'/'", "'%'", "'='", "'!='", "'<'", 
-                     "'<='", "'>'", "'>='", "'and'", "'or'", "'not'", "'oneof'", 
-                     "'imply'", "'forall'", "'exists'", "'when'" ]
+    literalNames = ["<INVALID>", "'domain'", "'problem'", "'define'", "'agentid'",
+                    "'constants'", "'type'", "'predicates'", "'action'",
+                    "'event'", "'events'", "'pldegree'", "'eventmodel'",
+                    "'parameters'", "'tercondition'", "'precondition'",
+                    "'constraint'", "'response'", "'observation'", "'min'",
+                    "'max'", "'numbers'", "'normal'", "'miser'", "'effect'",
+                    "'object'", "'increase'", "'decrease'", "'assign'",
+                    "'agent'", "'either'", "'objects'", "'init'", "'goal'",
+                    "'('", "')'", "'['", "']'", "':'", "'?'", "'.'", "'_'",
+                    "'-'", "'+'", "'*'", "'/'", "'%'", "'='", "'!='", "'<'",
+                    "'<='", "'>'", "'>='", "'and'", "'or'", "'not'", "'oneof'",
+                    "'imply'", "'forall'", "'exists'", "'when'"]
 
-    symbolicNames = [ "<INVALID>", "DOMAIN", "PROBLEM", "DEFINE", "AGENTID", 
-                      "CONST", "TYPE", "PREDICATE", "ACTION", "EVENT", "EVENTS", 
-                      "PLDEGREE", "EVENTMODEL", "PARAMETER", "TERCONDITION", 
-                      "PRECONDITION", "CONSTRAINT", "RESPONSE", "OBSERVATION", 
-                      "MIN", "MAX", "NUMS", "NORMAL", "MISER", "EFFECT", 
-                      "OBJECT", "INC", "DEC", "ASSIGN", "AGENT", "EITHER", 
-                      "OBJS", "INIT", "GOAL", "LB", "RB", "LSB", "RSB", 
-                      "COLON", "QM", "POINT", "UL", "MINUS", "PLUS", "MULT", 
-                      "DIV", "MOD", "EQ", "NEQ", "LT", "LEQ", "GT", "GEQ", 
-                      "AND", "OR", "NOT", "ONEOF", "IMPLY", "FORALL", "EXISTS", 
-                      "WHEN", "NAME", "INTEGER", "VAR", "FUNSYM", "WS" ]
+    symbolicNames = ["<INVALID>", "DOMAIN", "PROBLEM", "DEFINE", "AGENTID",
+                     "CONST", "TYPE", "PREDICATE", "ACTION", "EVENT", "EVENTS",
+                     "PLDEGREE", "EVENTMODEL", "PARAMETER", "TERCONDITION",
+                     "PRECONDITION", "CONSTRAINT", "RESPONSE", "OBSERVATION",
+                     "MIN", "MAX", "NUMS", "NORMAL", "MISER", "EFFECT",
+                     "OBJECT", "INC", "DEC", "ASSIGN", "AGENT", "EITHER",
+                     "OBJS", "INIT", "GOAL", "LB", "RB", "LSB", "RSB",
+                     "COLON", "QM", "POINT", "UL", "MINUS", "PLUS", "MULT",
+                     "DIV", "MOD", "EQ", "NEQ", "LT", "LEQ", "GT", "GEQ",
+                     "AND", "OR", "NOT", "ONEOF", "IMPLY", "FORALL", "EXISTS",
+                     "WHEN", "NAME", "INTEGER", "VAR", "FUNSYM", "WS"]
 
     RULE_domain = 0
     RULE_objectDefine = 1
@@ -267,119 +264,118 @@ class PDDLGrammarParser ( Parser ):
     RULE_types = 6
     RULE_actionDefine = 7
     RULE_actionSymbol = 8
-    RULE_emptyOrPreGD = 9
-    RULE_emptyOrEffect = 10
-    RULE_listName = 11
-    RULE_listVariable = 12
-    RULE_oneofDefine = 13
-    RULE_gd = 14
-    RULE_termAtomForm = 15
-    RULE_termLiteral = 16
-    RULE_constTerm = 17
-    RULE_term = 18
-    RULE_effect = 19
-    RULE_cEffect = 20
-    RULE_condEffect = 21
-    RULE_pEffect = 22
-    RULE_assignop = 23
-    RULE_problemName = 24
-    RULE_domainName = 25
-    RULE_agentDefine = 26
-    RULE_objectDeclaration = 27
-    RULE_init = 28
-    RULE_constTermAtomForm = 29
+    RULE_typeName = 9
+    RULE_emptyOrPreGD = 10
+    RULE_emptyOrEffect = 11
+    RULE_listName = 12
+    RULE_listVariable = 13
+    RULE_oneofDefine = 14
+    RULE_gd = 15
+    RULE_termAtomForm = 16
+    RULE_termLiteral = 17
+    RULE_constTerm = 18
+    RULE_term = 19
+    RULE_effect = 20
+    RULE_cEffect = 21
+    RULE_condEffect = 22
+    RULE_pEffect = 23
+    RULE_assignop = 24
+    RULE_problemName = 25
+    RULE_domainName = 26
+    RULE_agentDefine = 27
+    RULE_objectDeclaration = 28
+    RULE_init = 29
+    RULE_constTermAtomForm = 30
 
-    ruleNames =  [ "domain", "objectDefine", "typeDefine", "terconditionDefine", 
-                   "constraintDefine", "predicate", "types", "actionDefine", 
-                   "actionSymbol", "emptyOrPreGD", "emptyOrEffect", "listName", 
-                   "listVariable", "oneofDefine", "gd", "termAtomForm", 
-                   "termLiteral", "constTerm", "term", "effect", "cEffect", 
-                   "condEffect", "pEffect", "assignop", "problemName", "domainName", 
-                   "agentDefine", "objectDeclaration", "init", "constTermAtomForm" ]
+    ruleNames = ["domain", "objectDefine", "typeDefine", "terconditionDefine",
+                 "constraintDefine", "predicate", "types", "actionDefine",
+                 "actionSymbol", "typeName", "emptyOrPreGD", "emptyOrEffect",
+                 "listName", "listVariable", "oneofDefine", "gd", "termAtomForm",
+                 "termLiteral", "constTerm", "term", "effect", "cEffect",
+                 "condEffect", "pEffect", "assignop", "problemName", "domainName",
+                 "agentDefine", "objectDeclaration", "init", "constTermAtomForm"]
 
     EOF = Token.EOF
-    DOMAIN=1
-    PROBLEM=2
-    DEFINE=3
-    AGENTID=4
-    CONST=5
-    TYPE=6
-    PREDICATE=7
-    ACTION=8
-    EVENT=9
-    EVENTS=10
-    PLDEGREE=11
-    EVENTMODEL=12
-    PARAMETER=13
-    TERCONDITION=14
-    PRECONDITION=15
-    CONSTRAINT=16
-    RESPONSE=17
-    OBSERVATION=18
-    MIN=19
-    MAX=20
-    NUMS=21
-    NORMAL=22
-    MISER=23
-    EFFECT=24
-    OBJECT=25
-    INC=26
-    DEC=27
-    ASSIGN=28
-    AGENT=29
-    EITHER=30
-    OBJS=31
-    INIT=32
-    GOAL=33
-    LB=34
-    RB=35
-    LSB=36
-    RSB=37
-    COLON=38
-    QM=39
-    POINT=40
-    UL=41
-    MINUS=42
-    PLUS=43
-    MULT=44
-    DIV=45
-    MOD=46
-    EQ=47
-    NEQ=48
-    LT=49
-    LEQ=50
-    GT=51
-    GEQ=52
-    AND=53
-    OR=54
-    NOT=55
-    ONEOF=56
-    IMPLY=57
-    FORALL=58
-    EXISTS=59
-    WHEN=60
-    NAME=61
-    INTEGER=62
-    VAR=63
-    FUNSYM=64
-    WS=65
+    DOMAIN = 1
+    PROBLEM = 2
+    DEFINE = 3
+    AGENTID = 4
+    CONST = 5
+    TYPE = 6
+    PREDICATE = 7
+    ACTION = 8
+    EVENT = 9
+    EVENTS = 10
+    PLDEGREE = 11
+    EVENTMODEL = 12
+    PARAMETER = 13
+    TERCONDITION = 14
+    PRECONDITION = 15
+    CONSTRAINT = 16
+    RESPONSE = 17
+    OBSERVATION = 18
+    MIN = 19
+    MAX = 20
+    NUMS = 21
+    NORMAL = 22
+    MISER = 23
+    EFFECT = 24
+    OBJECT = 25
+    INC = 26
+    DEC = 27
+    ASSIGN = 28
+    AGENT = 29
+    EITHER = 30
+    OBJS = 31
+    INIT = 32
+    GOAL = 33
+    LB = 34
+    RB = 35
+    LSB = 36
+    RSB = 37
+    COLON = 38
+    QM = 39
+    POINT = 40
+    UL = 41
+    MINUS = 42
+    PLUS = 43
+    MULT = 44
+    DIV = 45
+    MOD = 46
+    EQ = 47
+    NEQ = 48
+    LT = 49
+    LEQ = 50
+    GT = 51
+    GEQ = 52
+    AND = 53
+    OR = 54
+    NOT = 55
+    ONEOF = 56
+    IMPLY = 57
+    FORALL = 58
+    EXISTS = 59
+    WHEN = 60
+    NAME = 61
+    INTEGER = 62
+    VAR = 63
+    FUNSYM = 64
+    WS = 65
 
-    def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
+    def __init__(self, input: TokenStream, output: TextIO = sys.stdout):
         super().__init__(input, output)
-        self.checkVersion("4.8")
-        self._interp = ParserATNSimulator(self, self.atn, self.decisionsToDFA, self.sharedContextCache)
+        self.checkVersion("4.9")
+        self._interp = ParserATNSimulator(
+            self, self.atn, self.decisionsToDFA, self.sharedContextCache)
         self._predicates = None
-
-
-
 
     class DomainContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def LB(self, i:int=None):
+        def LB(self, i: int = None):
             if i is None:
                 return self.getTokens(PDDLGrammarParser.LB)
             else:
@@ -394,85 +390,77 @@ class PDDLGrammarParser ( Parser ):
         def NAME(self):
             return self.getToken(PDDLGrammarParser.NAME, 0)
 
-        def RB(self, i:int=None):
+        def RB(self, i: int = None):
             if i is None:
                 return self.getTokens(PDDLGrammarParser.RB)
             else:
                 return self.getToken(PDDLGrammarParser.RB, i)
 
         def objectDefine(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.ObjectDefineContext,0)
-
+            return self.getTypedRuleContext(PDDLGrammarParser.ObjectDefineContext, 0)
 
         def typeDefine(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.TypeDefineContext,0)
-
+            return self.getTypedRuleContext(PDDLGrammarParser.TypeDefineContext, 0)
 
         def terconditionDefine(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.TerconditionDefineContext,0)
-
+            return self.getTypedRuleContext(PDDLGrammarParser.TerconditionDefineContext, 0)
 
         def constraintDefine(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.ConstraintDefineContext,0)
+            return self.getTypedRuleContext(PDDLGrammarParser.ConstraintDefineContext, 0)
 
-
-        def actionDefine(self, i:int=None):
+        def actionDefine(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(PDDLGrammarParser.ActionDefineContext)
             else:
-                return self.getTypedRuleContext(PDDLGrammarParser.ActionDefineContext,i)
-
+                return self.getTypedRuleContext(PDDLGrammarParser.ActionDefineContext, i)
 
         def getRuleIndex(self):
             return PDDLGrammarParser.RULE_domain
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitDomain" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitDomain"):
                 return visitor.visitDomain(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def domain(self):
 
         localctx = PDDLGrammarParser.DomainContext(self, self._ctx, self.state)
         self.enterRule(localctx, 0, self.RULE_domain)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 60
-            self.match(PDDLGrammarParser.LB)
-            self.state = 61
-            self.match(PDDLGrammarParser.DEFINE)
             self.state = 62
             self.match(PDDLGrammarParser.LB)
             self.state = 63
-            self.match(PDDLGrammarParser.DOMAIN)
+            self.match(PDDLGrammarParser.DEFINE)
             self.state = 64
-            self.match(PDDLGrammarParser.NAME)
+            self.match(PDDLGrammarParser.LB)
             self.state = 65
-            self.match(PDDLGrammarParser.RB)
+            self.match(PDDLGrammarParser.DOMAIN)
             self.state = 66
-            self.objectDefine()
+            self.match(PDDLGrammarParser.NAME)
             self.state = 67
-            self.typeDefine()
+            self.match(PDDLGrammarParser.RB)
             self.state = 68
-            self.terconditionDefine()
+            self.objectDefine()
             self.state = 69
+            self.typeDefine()
+            self.state = 70
+            self.terconditionDefine()
+            self.state = 71
             self.constraintDefine()
-            self.state = 73
+            self.state = 75
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==PDDLGrammarParser.LB:
-                self.state = 70
+            while _la == PDDLGrammarParser.LB:
+                self.state = 72
                 self.actionDefine()
-                self.state = 75
+                self.state = 77
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 76
+            self.state = 78
             self.match(PDDLGrammarParser.RB)
         except RecognitionException as re:
             localctx.exception = re
@@ -482,10 +470,9 @@ class PDDLGrammarParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ObjectDefineContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -499,8 +486,7 @@ class PDDLGrammarParser ( Parser ):
             return self.getToken(PDDLGrammarParser.OBJS, 0)
 
         def listVariable(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.ListVariableContext,0)
-
+            return self.getTypedRuleContext(PDDLGrammarParser.ListVariableContext, 0)
 
         def RB(self):
             return self.getToken(PDDLGrammarParser.RB, 0)
@@ -508,30 +494,28 @@ class PDDLGrammarParser ( Parser ):
         def getRuleIndex(self):
             return PDDLGrammarParser.RULE_objectDefine
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitObjectDefine" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitObjectDefine"):
                 return visitor.visitObjectDefine(self)
             else:
                 return visitor.visitChildren(self)
 
-
-
-
     def objectDefine(self):
 
-        localctx = PDDLGrammarParser.ObjectDefineContext(self, self._ctx, self.state)
+        localctx = PDDLGrammarParser.ObjectDefineContext(
+            self, self._ctx, self.state)
         self.enterRule(localctx, 2, self.RULE_objectDefine)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 78
-            self.match(PDDLGrammarParser.LB)
-            self.state = 79
-            self.match(PDDLGrammarParser.COLON)
             self.state = 80
-            self.match(PDDLGrammarParser.OBJS)
+            self.match(PDDLGrammarParser.LB)
             self.state = 81
-            self.listVariable()
+            self.match(PDDLGrammarParser.COLON)
             self.state = 82
+            self.match(PDDLGrammarParser.OBJS)
+            self.state = 83
+            self.listVariable()
+            self.state = 84
             self.match(PDDLGrammarParser.RB)
         except RecognitionException as re:
             localctx.exception = re
@@ -541,10 +525,9 @@ class PDDLGrammarParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class TypeDefineContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -557,64 +540,38 @@ class PDDLGrammarParser ( Parser ):
         def TYPE(self):
             return self.getToken(PDDLGrammarParser.TYPE, 0)
 
-        def NORMAL(self):
-            return self.getToken(PDDLGrammarParser.NORMAL, 0)
+        def typeName(self):
+            return self.getTypedRuleContext(PDDLGrammarParser.TypeNameContext, 0)
 
         def RB(self):
             return self.getToken(PDDLGrammarParser.RB, 0)
 
-        def MISER(self):
-            return self.getToken(PDDLGrammarParser.MISER, 0)
-
         def getRuleIndex(self):
             return PDDLGrammarParser.RULE_typeDefine
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTypeDefine" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitTypeDefine"):
                 return visitor.visitTypeDefine(self)
             else:
                 return visitor.visitChildren(self)
 
-
-
-
     def typeDefine(self):
 
-        localctx = PDDLGrammarParser.TypeDefineContext(self, self._ctx, self.state)
+        localctx = PDDLGrammarParser.TypeDefineContext(
+            self, self._ctx, self.state)
         self.enterRule(localctx, 4, self.RULE_typeDefine)
         try:
-            self.state = 94
-            self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,1,self._ctx)
-            if la_ == 1:
-                self.enterOuterAlt(localctx, 1)
-                self.state = 84
-                self.match(PDDLGrammarParser.LB)
-                self.state = 85
-                self.match(PDDLGrammarParser.COLON)
-                self.state = 86
-                self.match(PDDLGrammarParser.TYPE)
-                self.state = 87
-                self.match(PDDLGrammarParser.NORMAL)
-                self.state = 88
-                self.match(PDDLGrammarParser.RB)
-                pass
-
-            elif la_ == 2:
-                self.enterOuterAlt(localctx, 2)
-                self.state = 89
-                self.match(PDDLGrammarParser.LB)
-                self.state = 90
-                self.match(PDDLGrammarParser.COLON)
-                self.state = 91
-                self.match(PDDLGrammarParser.TYPE)
-                self.state = 92
-                self.match(PDDLGrammarParser.MISER)
-                self.state = 93
-                self.match(PDDLGrammarParser.RB)
-                pass
-
-
+            self.enterOuterAlt(localctx, 1)
+            self.state = 86
+            self.match(PDDLGrammarParser.LB)
+            self.state = 87
+            self.match(PDDLGrammarParser.COLON)
+            self.state = 88
+            self.match(PDDLGrammarParser.TYPE)
+            self.state = 89
+            self.typeName()
+            self.state = 90
+            self.match(PDDLGrammarParser.RB)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -623,10 +580,9 @@ class PDDLGrammarParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class TerconditionDefineContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -640,8 +596,7 @@ class PDDLGrammarParser ( Parser ):
             return self.getToken(PDDLGrammarParser.TERCONDITION, 0)
 
         def emptyOrPreGD(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.EmptyOrPreGDContext,0)
-
+            return self.getTypedRuleContext(PDDLGrammarParser.EmptyOrPreGDContext, 0)
 
         def RB(self):
             return self.getToken(PDDLGrammarParser.RB, 0)
@@ -649,30 +604,28 @@ class PDDLGrammarParser ( Parser ):
         def getRuleIndex(self):
             return PDDLGrammarParser.RULE_terconditionDefine
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTerconditionDefine" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitTerconditionDefine"):
                 return visitor.visitTerconditionDefine(self)
             else:
                 return visitor.visitChildren(self)
 
-
-
-
     def terconditionDefine(self):
 
-        localctx = PDDLGrammarParser.TerconditionDefineContext(self, self._ctx, self.state)
+        localctx = PDDLGrammarParser.TerconditionDefineContext(
+            self, self._ctx, self.state)
         self.enterRule(localctx, 6, self.RULE_terconditionDefine)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 96
+            self.state = 92
             self.match(PDDLGrammarParser.LB)
-            self.state = 97
+            self.state = 93
             self.match(PDDLGrammarParser.COLON)
-            self.state = 98
+            self.state = 94
             self.match(PDDLGrammarParser.TERCONDITION)
-            self.state = 99
+            self.state = 95
             self.emptyOrPreGD()
-            self.state = 100
+            self.state = 96
             self.match(PDDLGrammarParser.RB)
         except RecognitionException as re:
             localctx.exception = re
@@ -682,10 +635,9 @@ class PDDLGrammarParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ConstraintDefineContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -699,8 +651,7 @@ class PDDLGrammarParser ( Parser ):
             return self.getToken(PDDLGrammarParser.CONSTRAINT, 0)
 
         def emptyOrPreGD(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.EmptyOrPreGDContext,0)
-
+            return self.getTypedRuleContext(PDDLGrammarParser.EmptyOrPreGDContext, 0)
 
         def RB(self):
             return self.getToken(PDDLGrammarParser.RB, 0)
@@ -708,30 +659,28 @@ class PDDLGrammarParser ( Parser ):
         def getRuleIndex(self):
             return PDDLGrammarParser.RULE_constraintDefine
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitConstraintDefine" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitConstraintDefine"):
                 return visitor.visitConstraintDefine(self)
             else:
                 return visitor.visitChildren(self)
 
-
-
-
     def constraintDefine(self):
 
-        localctx = PDDLGrammarParser.ConstraintDefineContext(self, self._ctx, self.state)
+        localctx = PDDLGrammarParser.ConstraintDefineContext(
+            self, self._ctx, self.state)
         self.enterRule(localctx, 8, self.RULE_constraintDefine)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 102
+            self.state = 98
             self.match(PDDLGrammarParser.LB)
-            self.state = 103
+            self.state = 99
             self.match(PDDLGrammarParser.COLON)
-            self.state = 104
+            self.state = 100
             self.match(PDDLGrammarParser.CONSTRAINT)
-            self.state = 105
+            self.state = 101
             self.emptyOrPreGD()
-            self.state = 106
+            self.state = 102
             self.match(PDDLGrammarParser.RB)
         except RecognitionException as re:
             localctx.exception = re
@@ -741,10 +690,9 @@ class PDDLGrammarParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class PredicateContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -754,22 +702,20 @@ class PDDLGrammarParser ( Parser ):
         def getRuleIndex(self):
             return PDDLGrammarParser.RULE_predicate
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitPredicate" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitPredicate"):
                 return visitor.visitPredicate(self)
             else:
                 return visitor.visitChildren(self)
 
-
-
-
     def predicate(self):
 
-        localctx = PDDLGrammarParser.PredicateContext(self, self._ctx, self.state)
+        localctx = PDDLGrammarParser.PredicateContext(
+            self, self._ctx, self.state)
         self.enterRule(localctx, 10, self.RULE_predicate)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 108
+            self.state = 104
             self.match(PDDLGrammarParser.NAME)
         except RecognitionException as re:
             localctx.exception = re
@@ -779,10 +725,9 @@ class PDDLGrammarParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class TypesContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -798,23 +743,20 @@ class PDDLGrammarParser ( Parser ):
         def getRuleIndex(self):
             return PDDLGrammarParser.RULE_types
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTypes" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitTypes"):
                 return visitor.visitTypes(self)
             else:
                 return visitor.visitChildren(self)
-
-
-
 
     def types(self):
 
         localctx = PDDLGrammarParser.TypesContext(self, self._ctx, self.state)
         self.enterRule(localctx, 12, self.RULE_types)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 110
+            self.state = 106
             _la = self._input.LA(1)
             if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << PDDLGrammarParser.OBJECT) | (1 << PDDLGrammarParser.AGENT) | (1 << PDDLGrammarParser.NAME))) != 0)):
                 self._errHandler.recoverInline(self)
@@ -829,20 +771,19 @@ class PDDLGrammarParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ActionDefineContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def LB(self, i:int=None):
+        def LB(self, i: int = None):
             if i is None:
                 return self.getTokens(PDDLGrammarParser.LB)
             else:
                 return self.getToken(PDDLGrammarParser.LB, i)
 
-        def COLON(self, i:int=None):
+        def COLON(self, i: int = None):
             if i is None:
                 return self.getTokens(PDDLGrammarParser.COLON)
             else:
@@ -852,10 +793,9 @@ class PDDLGrammarParser ( Parser ):
             return self.getToken(PDDLGrammarParser.ACTION, 0)
 
         def actionSymbol(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.ActionSymbolContext,0)
+            return self.getTypedRuleContext(PDDLGrammarParser.ActionSymbolContext, 0)
 
-
-        def RB(self, i:int=None):
+        def RB(self, i: int = None):
             if i is None:
                 return self.getTokens(PDDLGrammarParser.RB)
             else:
@@ -865,91 +805,83 @@ class PDDLGrammarParser ( Parser ):
             return self.getToken(PDDLGrammarParser.PARAMETER, 0)
 
         def listVariable(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.ListVariableContext,0)
-
+            return self.getTypedRuleContext(PDDLGrammarParser.ListVariableContext, 0)
 
         def PRECONDITION(self):
             return self.getToken(PDDLGrammarParser.PRECONDITION, 0)
 
         def emptyOrPreGD(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.EmptyOrPreGDContext,0)
-
+            return self.getTypedRuleContext(PDDLGrammarParser.EmptyOrPreGDContext, 0)
 
         def EFFECT(self):
             return self.getToken(PDDLGrammarParser.EFFECT, 0)
 
         def emptyOrEffect(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.EmptyOrEffectContext,0)
-
+            return self.getTypedRuleContext(PDDLGrammarParser.EmptyOrEffectContext, 0)
 
         def getRuleIndex(self):
             return PDDLGrammarParser.RULE_actionDefine
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitActionDefine" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitActionDefine"):
                 return visitor.visitActionDefine(self)
             else:
                 return visitor.visitChildren(self)
 
-
-
-
     def actionDefine(self):
 
-        localctx = PDDLGrammarParser.ActionDefineContext(self, self._ctx, self.state)
+        localctx = PDDLGrammarParser.ActionDefineContext(
+            self, self._ctx, self.state)
         self.enterRule(localctx, 14, self.RULE_actionDefine)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 112
+            self.state = 108
             self.match(PDDLGrammarParser.LB)
-            self.state = 113
+            self.state = 109
             self.match(PDDLGrammarParser.COLON)
-            self.state = 114
+            self.state = 110
             self.match(PDDLGrammarParser.ACTION)
-            self.state = 115
+            self.state = 111
             self.actionSymbol()
-            self.state = 122
+            self.state = 118
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,2,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 1, self._ctx)
             if la_ == 1:
-                self.state = 116
+                self.state = 112
                 self.match(PDDLGrammarParser.COLON)
-                self.state = 117
+                self.state = 113
                 self.match(PDDLGrammarParser.PARAMETER)
-                self.state = 118
+                self.state = 114
                 self.match(PDDLGrammarParser.LB)
-                self.state = 119
+                self.state = 115
                 self.listVariable()
-                self.state = 120
+                self.state = 116
                 self.match(PDDLGrammarParser.RB)
 
-
-            self.state = 127
+            self.state = 123
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,3,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 2, self._ctx)
             if la_ == 1:
-                self.state = 124
+                self.state = 120
                 self.match(PDDLGrammarParser.COLON)
-                self.state = 125
+                self.state = 121
                 self.match(PDDLGrammarParser.PRECONDITION)
-                self.state = 126
+                self.state = 122
                 self.emptyOrPreGD()
 
-
-            self.state = 132
+            self.state = 128
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la==PDDLGrammarParser.COLON:
-                self.state = 129
+            if _la == PDDLGrammarParser.COLON:
+                self.state = 125
                 self.match(PDDLGrammarParser.COLON)
-                self.state = 130
+                self.state = 126
                 self.match(PDDLGrammarParser.EFFECT)
-                self.state = 131
+                self.state = 127
                 self.emptyOrEffect()
 
-
-            self.state = 134
+            self.state = 130
             self.match(PDDLGrammarParser.RB)
         except RecognitionException as re:
             localctx.exception = re
@@ -959,10 +891,9 @@ class PDDLGrammarParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ActionSymbolContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -972,22 +903,20 @@ class PDDLGrammarParser ( Parser ):
         def getRuleIndex(self):
             return PDDLGrammarParser.RULE_actionSymbol
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitActionSymbol" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitActionSymbol"):
                 return visitor.visitActionSymbol(self)
             else:
                 return visitor.visitChildren(self)
 
-
-
-
     def actionSymbol(self):
 
-        localctx = PDDLGrammarParser.ActionSymbolContext(self, self._ctx, self.state)
+        localctx = PDDLGrammarParser.ActionSymbolContext(
+            self, self._ctx, self.state)
         self.enterRule(localctx, 16, self.RULE_actionSymbol)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 136
+            self.state = 132
             self.match(PDDLGrammarParser.NAME)
         except RecognitionException as re:
             localctx.exception = re
@@ -997,83 +926,113 @@ class PDDLGrammarParser ( Parser ):
             self.exitRule()
         return localctx
 
+    class TypeNameContext(ParserRuleContext):
 
-    class EmptyOrPreGDContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
+        def NAME(self):
+            return self.getToken(PDDLGrammarParser.NAME, 0)
+
+        def getRuleIndex(self):
+            return PDDLGrammarParser.RULE_typeName
+
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitTypeName"):
+                return visitor.visitTypeName(self)
+            else:
+                return visitor.visitChildren(self)
+
+    def typeName(self):
+
+        localctx = PDDLGrammarParser.TypeNameContext(
+            self, self._ctx, self.state)
+        self.enterRule(localctx, 18, self.RULE_typeName)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 134
+            self.match(PDDLGrammarParser.NAME)
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+    class EmptyOrPreGDContext(ParserRuleContext):
+
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
 
         def getRuleIndex(self):
             return PDDLGrammarParser.RULE_emptyOrPreGD
 
-     
-        def copyFrom(self, ctx:ParserRuleContext):
+        def copyFrom(self, ctx: ParserRuleContext):
             super().copyFrom(ctx)
-
-
 
     class PreGDBracketContext(EmptyOrPreGDContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.EmptyOrPreGDContext
+        # actually a PDDLGrammarParser.EmptyOrPreGDContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LB(self):
             return self.getToken(PDDLGrammarParser.LB, 0)
+
         def RB(self):
             return self.getToken(PDDLGrammarParser.RB, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitPreGDBracket" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitPreGDBracket"):
                 return visitor.visitPreGDBracket(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class IsGdContext(EmptyOrPreGDContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.EmptyOrPreGDContext
+        # actually a PDDLGrammarParser.EmptyOrPreGDContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def gd(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.GdContext,0)
+            return self.getTypedRuleContext(PDDLGrammarParser.GdContext, 0)
 
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitIsGd" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitIsGd"):
                 return visitor.visitIsGd(self)
             else:
                 return visitor.visitChildren(self)
 
-
-
     def emptyOrPreGD(self):
 
-        localctx = PDDLGrammarParser.EmptyOrPreGDContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 18, self.RULE_emptyOrPreGD)
+        localctx = PDDLGrammarParser.EmptyOrPreGDContext(
+            self, self._ctx, self.state)
+        self.enterRule(localctx, 20, self.RULE_emptyOrPreGD)
         try:
-            self.state = 141
+            self.state = 139
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,5,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 4, self._ctx)
             if la_ == 1:
                 localctx = PDDLGrammarParser.IsGdContext(self, localctx)
                 self.enterOuterAlt(localctx, 1)
-                self.state = 138
+                self.state = 136
                 self.gd()
                 pass
 
             elif la_ == 2:
-                localctx = PDDLGrammarParser.PreGDBracketContext(self, localctx)
+                localctx = PDDLGrammarParser.PreGDBracketContext(
+                    self, localctx)
                 self.enterOuterAlt(localctx, 2)
-                self.state = 139
+                self.state = 137
                 self.match(PDDLGrammarParser.LB)
-                self.state = 140
+                self.state = 138
                 self.match(PDDLGrammarParser.RB)
                 pass
-
 
         except RecognitionException as re:
             localctx.exception = re
@@ -1083,83 +1042,78 @@ class PDDLGrammarParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class EmptyOrEffectContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
-
 
         def getRuleIndex(self):
             return PDDLGrammarParser.RULE_emptyOrEffect
 
-     
-        def copyFrom(self, ctx:ParserRuleContext):
+        def copyFrom(self, ctx: ParserRuleContext):
             super().copyFrom(ctx)
-
-
 
     class IsEffectContext(EmptyOrEffectContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.EmptyOrEffectContext
+        # actually a PDDLGrammarParser.EmptyOrEffectContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def effect(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.EffectContext,0)
+            return self.getTypedRuleContext(PDDLGrammarParser.EffectContext, 0)
 
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitIsEffect" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitIsEffect"):
                 return visitor.visitIsEffect(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class EffectBracketContext(EmptyOrEffectContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.EmptyOrEffectContext
+        # actually a PDDLGrammarParser.EmptyOrEffectContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LB(self):
             return self.getToken(PDDLGrammarParser.LB, 0)
+
         def RB(self):
             return self.getToken(PDDLGrammarParser.RB, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitEffectBracket" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitEffectBracket"):
                 return visitor.visitEffectBracket(self)
             else:
                 return visitor.visitChildren(self)
 
-
-
     def emptyOrEffect(self):
 
-        localctx = PDDLGrammarParser.EmptyOrEffectContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 20, self.RULE_emptyOrEffect)
+        localctx = PDDLGrammarParser.EmptyOrEffectContext(
+            self, self._ctx, self.state)
+        self.enterRule(localctx, 22, self.RULE_emptyOrEffect)
         try:
-            self.state = 146
+            self.state = 144
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,6,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 5, self._ctx)
             if la_ == 1:
                 localctx = PDDLGrammarParser.IsEffectContext(self, localctx)
                 self.enterOuterAlt(localctx, 1)
-                self.state = 143
+                self.state = 141
                 self.effect()
                 pass
 
             elif la_ == 2:
-                localctx = PDDLGrammarParser.EffectBracketContext(self, localctx)
+                localctx = PDDLGrammarParser.EffectBracketContext(
+                    self, localctx)
                 self.enterOuterAlt(localctx, 2)
-                self.state = 144
+                self.state = 142
                 self.match(PDDLGrammarParser.LB)
-                self.state = 145
+                self.state = 143
                 self.match(PDDLGrammarParser.RB)
                 pass
-
 
         except RecognitionException as re:
             localctx.exception = re
@@ -1169,14 +1123,13 @@ class PDDLGrammarParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ListNameContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def NAME(self, i:int=None):
+        def NAME(self, i: int = None):
             if i is None:
                 return self.getTokens(PDDLGrammarParser.NAME)
             else:
@@ -1186,43 +1139,39 @@ class PDDLGrammarParser ( Parser ):
             return self.getToken(PDDLGrammarParser.MINUS, 0)
 
         def types(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.TypesContext,0)
-
+            return self.getTypedRuleContext(PDDLGrammarParser.TypesContext, 0)
 
         def listName(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.ListNameContext,0)
-
+            return self.getTypedRuleContext(PDDLGrammarParser.ListNameContext, 0)
 
         def getRuleIndex(self):
             return PDDLGrammarParser.RULE_listName
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitListName" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitListName"):
                 return visitor.visitListName(self)
             else:
                 return visitor.visitChildren(self)
 
-
-
-
     def listName(self):
 
-        localctx = PDDLGrammarParser.ListNameContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 22, self.RULE_listName)
-        self._la = 0 # Token type
+        localctx = PDDLGrammarParser.ListNameContext(
+            self, self._ctx, self.state)
+        self.enterRule(localctx, 24, self.RULE_listName)
+        self._la = 0  # Token type
         try:
-            self.state = 163
+            self.state = 161
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,9,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 8, self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 151
+                self.state = 149
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==PDDLGrammarParser.NAME:
-                    self.state = 148
+                while _la == PDDLGrammarParser.NAME:
+                    self.state = 146
                     self.match(PDDLGrammarParser.NAME)
-                    self.state = 153
+                    self.state = 151
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 
@@ -1230,26 +1179,25 @@ class PDDLGrammarParser ( Parser ):
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 155 
+                self.state = 153
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while True:
-                    self.state = 154
+                    self.state = 152
                     self.match(PDDLGrammarParser.NAME)
-                    self.state = 157 
+                    self.state = 155
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-                    if not (_la==PDDLGrammarParser.NAME):
+                    if not (_la == PDDLGrammarParser.NAME):
                         break
 
-                self.state = 159
+                self.state = 157
                 self.match(PDDLGrammarParser.MINUS)
-                self.state = 160
+                self.state = 158
                 self.types()
-                self.state = 161
+                self.state = 159
                 self.listName()
                 pass
-
 
         except RecognitionException as re:
             localctx.exception = re
@@ -1259,14 +1207,13 @@ class PDDLGrammarParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ListVariableContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def VAR(self, i:int=None):
+        def VAR(self, i: int = None):
             if i is None:
                 return self.getTokens(PDDLGrammarParser.VAR)
             else:
@@ -1276,43 +1223,39 @@ class PDDLGrammarParser ( Parser ):
             return self.getToken(PDDLGrammarParser.MINUS, 0)
 
         def types(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.TypesContext,0)
-
+            return self.getTypedRuleContext(PDDLGrammarParser.TypesContext, 0)
 
         def listVariable(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.ListVariableContext,0)
-
+            return self.getTypedRuleContext(PDDLGrammarParser.ListVariableContext, 0)
 
         def getRuleIndex(self):
             return PDDLGrammarParser.RULE_listVariable
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitListVariable" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitListVariable"):
                 return visitor.visitListVariable(self)
             else:
                 return visitor.visitChildren(self)
 
-
-
-
     def listVariable(self):
 
-        localctx = PDDLGrammarParser.ListVariableContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 24, self.RULE_listVariable)
-        self._la = 0 # Token type
+        localctx = PDDLGrammarParser.ListVariableContext(
+            self, self._ctx, self.state)
+        self.enterRule(localctx, 26, self.RULE_listVariable)
+        self._la = 0  # Token type
         try:
-            self.state = 180
+            self.state = 178
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,12,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 11, self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 168
+                self.state = 166
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==PDDLGrammarParser.VAR:
-                    self.state = 165
+                while _la == PDDLGrammarParser.VAR:
+                    self.state = 163
                     self.match(PDDLGrammarParser.VAR)
-                    self.state = 170
+                    self.state = 168
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 
@@ -1320,26 +1263,25 @@ class PDDLGrammarParser ( Parser ):
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 172 
+                self.state = 170
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while True:
-                    self.state = 171
+                    self.state = 169
                     self.match(PDDLGrammarParser.VAR)
-                    self.state = 174 
+                    self.state = 172
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-                    if not (_la==PDDLGrammarParser.VAR):
+                    if not (_la == PDDLGrammarParser.VAR):
                         break
 
-                self.state = 176
+                self.state = 174
                 self.match(PDDLGrammarParser.MINUS)
-                self.state = 177
+                self.state = 175
                 self.types()
-                self.state = 178
+                self.state = 176
                 self.listVariable()
                 pass
-
 
         except RecognitionException as re:
             localctx.exception = re
@@ -1349,17 +1291,16 @@ class PDDLGrammarParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class OneofDefineContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def ONEOF(self):
             return self.getToken(PDDLGrammarParser.ONEOF, 0)
 
-        def VAR(self, i:int=None):
+        def VAR(self, i: int = None):
             if i is None:
                 return self.getTokens(PDDLGrammarParser.VAR)
             else:
@@ -1368,34 +1309,32 @@ class PDDLGrammarParser ( Parser ):
         def getRuleIndex(self):
             return PDDLGrammarParser.RULE_oneofDefine
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitOneofDefine" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitOneofDefine"):
                 return visitor.visitOneofDefine(self)
             else:
                 return visitor.visitChildren(self)
 
-
-
-
     def oneofDefine(self):
 
-        localctx = PDDLGrammarParser.OneofDefineContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 26, self.RULE_oneofDefine)
-        self._la = 0 # Token type
+        localctx = PDDLGrammarParser.OneofDefineContext(
+            self, self._ctx, self.state)
+        self.enterRule(localctx, 28, self.RULE_oneofDefine)
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 182
+            self.state = 180
             self.match(PDDLGrammarParser.ONEOF)
-            self.state = 184 
+            self.state = 182
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
-                self.state = 183
+                self.state = 181
                 self.match(PDDLGrammarParser.VAR)
-                self.state = 186 
+                self.state = 184
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not (_la==PDDLGrammarParser.VAR):
+                if not (_la == PDDLGrammarParser.VAR):
                     break
 
         except RecognitionException as re:
@@ -1406,334 +1345,338 @@ class PDDLGrammarParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class GdContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
-
 
         def getRuleIndex(self):
             return PDDLGrammarParser.RULE_gd
 
-     
-        def copyFrom(self, ctx:ParserRuleContext):
+        def copyFrom(self, ctx: ParserRuleContext):
             super().copyFrom(ctx)
-
-
 
     class NotContext(GdContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.GdContext
+        # actually a PDDLGrammarParser.GdContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LB(self):
             return self.getToken(PDDLGrammarParser.LB, 0)
+
         def NOT(self):
             return self.getToken(PDDLGrammarParser.NOT, 0)
+
         def gd(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.GdContext,0)
+            return self.getTypedRuleContext(PDDLGrammarParser.GdContext, 0)
 
         def RB(self):
             return self.getToken(PDDLGrammarParser.RB, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitNot" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitNot"):
                 return visitor.visitNot(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class OrContext(GdContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.GdContext
+        # actually a PDDLGrammarParser.GdContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LB(self):
             return self.getToken(PDDLGrammarParser.LB, 0)
+
         def OR(self):
             return self.getToken(PDDLGrammarParser.OR, 0)
+
         def RB(self):
             return self.getToken(PDDLGrammarParser.RB, 0)
-        def gd(self, i:int=None):
+
+        def gd(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(PDDLGrammarParser.GdContext)
             else:
-                return self.getTypedRuleContext(PDDLGrammarParser.GdContext,i)
+                return self.getTypedRuleContext(PDDLGrammarParser.GdContext, i)
 
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitOr" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitOr"):
                 return visitor.visitOr(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class ImplyContext(GdContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.GdContext
+        # actually a PDDLGrammarParser.GdContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LB(self):
             return self.getToken(PDDLGrammarParser.LB, 0)
+
         def IMPLY(self):
             return self.getToken(PDDLGrammarParser.IMPLY, 0)
-        def gd(self, i:int=None):
+
+        def gd(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(PDDLGrammarParser.GdContext)
             else:
-                return self.getTypedRuleContext(PDDLGrammarParser.GdContext,i)
+                return self.getTypedRuleContext(PDDLGrammarParser.GdContext, i)
 
         def RB(self):
             return self.getToken(PDDLGrammarParser.RB, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitImply" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitImply"):
                 return visitor.visitImply(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class AndContext(GdContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.GdContext
+        # actually a PDDLGrammarParser.GdContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LB(self):
             return self.getToken(PDDLGrammarParser.LB, 0)
+
         def AND(self):
             return self.getToken(PDDLGrammarParser.AND, 0)
+
         def RB(self):
             return self.getToken(PDDLGrammarParser.RB, 0)
-        def gd(self, i:int=None):
+
+        def gd(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(PDDLGrammarParser.GdContext)
             else:
-                return self.getTypedRuleContext(PDDLGrammarParser.GdContext,i)
+                return self.getTypedRuleContext(PDDLGrammarParser.GdContext, i)
 
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitAnd" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitAnd"):
                 return visitor.visitAnd(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class ForallContext(GdContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.GdContext
+        # actually a PDDLGrammarParser.GdContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def LB(self, i:int=None):
+        def LB(self, i: int = None):
             if i is None:
                 return self.getTokens(PDDLGrammarParser.LB)
             else:
                 return self.getToken(PDDLGrammarParser.LB, i)
+
         def FORALL(self):
             return self.getToken(PDDLGrammarParser.FORALL, 0)
-        def listVariable(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.ListVariableContext,0)
 
-        def RB(self, i:int=None):
+        def listVariable(self):
+            return self.getTypedRuleContext(PDDLGrammarParser.ListVariableContext, 0)
+
+        def RB(self, i: int = None):
             if i is None:
                 return self.getTokens(PDDLGrammarParser.RB)
             else:
                 return self.getToken(PDDLGrammarParser.RB, i)
+
         def gd(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.GdContext,0)
+            return self.getTypedRuleContext(PDDLGrammarParser.GdContext, 0)
 
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitForall" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitForall"):
                 return visitor.visitForall(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class ExistsContext(GdContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.GdContext
+        # actually a PDDLGrammarParser.GdContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def LB(self, i:int=None):
+        def LB(self, i: int = None):
             if i is None:
                 return self.getTokens(PDDLGrammarParser.LB)
             else:
                 return self.getToken(PDDLGrammarParser.LB, i)
+
         def EXISTS(self):
             return self.getToken(PDDLGrammarParser.EXISTS, 0)
-        def listVariable(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.ListVariableContext,0)
 
-        def RB(self, i:int=None):
+        def listVariable(self):
+            return self.getTypedRuleContext(PDDLGrammarParser.ListVariableContext, 0)
+
+        def RB(self, i: int = None):
             if i is None:
                 return self.getTokens(PDDLGrammarParser.RB)
             else:
                 return self.getToken(PDDLGrammarParser.RB, i)
+
         def gd(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.GdContext,0)
+            return self.getTypedRuleContext(PDDLGrammarParser.GdContext, 0)
 
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExists" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitExists"):
                 return visitor.visitExists(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class AtomContext(GdContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.GdContext
+        # actually a PDDLGrammarParser.GdContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def termAtomForm(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.TermAtomFormContext,0)
+            return self.getTypedRuleContext(PDDLGrammarParser.TermAtomFormContext, 0)
 
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitAtom" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitAtom"):
                 return visitor.visitAtom(self)
             else:
                 return visitor.visitChildren(self)
 
-
-
     def gd(self):
 
         localctx = PDDLGrammarParser.GdContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 28, self.RULE_gd)
-        self._la = 0 # Token type
+        self.enterRule(localctx, 30, self.RULE_gd)
+        self._la = 0  # Token type
         try:
-            self.state = 234
+            self.state = 232
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,16,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 15, self._ctx)
             if la_ == 1:
                 localctx = PDDLGrammarParser.AtomContext(self, localctx)
                 self.enterOuterAlt(localctx, 1)
-                self.state = 188
+                self.state = 186
                 self.termAtomForm()
                 pass
 
             elif la_ == 2:
                 localctx = PDDLGrammarParser.AndContext(self, localctx)
                 self.enterOuterAlt(localctx, 2)
-                self.state = 189
+                self.state = 187
                 self.match(PDDLGrammarParser.LB)
-                self.state = 190
+                self.state = 188
                 self.match(PDDLGrammarParser.AND)
-                self.state = 192 
+                self.state = 190
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while True:
-                    self.state = 191
+                    self.state = 189
                     self.gd()
-                    self.state = 194 
+                    self.state = 192
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-                    if not (_la==PDDLGrammarParser.LB):
+                    if not (_la == PDDLGrammarParser.LB):
                         break
 
-                self.state = 196
+                self.state = 194
                 self.match(PDDLGrammarParser.RB)
                 pass
 
             elif la_ == 3:
                 localctx = PDDLGrammarParser.OrContext(self, localctx)
                 self.enterOuterAlt(localctx, 3)
-                self.state = 198
+                self.state = 196
                 self.match(PDDLGrammarParser.LB)
-                self.state = 199
+                self.state = 197
                 self.match(PDDLGrammarParser.OR)
-                self.state = 201 
+                self.state = 199
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while True:
-                    self.state = 200
+                    self.state = 198
                     self.gd()
-                    self.state = 203 
+                    self.state = 201
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-                    if not (_la==PDDLGrammarParser.LB):
+                    if not (_la == PDDLGrammarParser.LB):
                         break
 
-                self.state = 205
+                self.state = 203
                 self.match(PDDLGrammarParser.RB)
                 pass
 
             elif la_ == 4:
                 localctx = PDDLGrammarParser.NotContext(self, localctx)
                 self.enterOuterAlt(localctx, 4)
-                self.state = 207
+                self.state = 205
                 self.match(PDDLGrammarParser.LB)
-                self.state = 208
+                self.state = 206
                 self.match(PDDLGrammarParser.NOT)
-                self.state = 209
+                self.state = 207
                 self.gd()
-                self.state = 210
+                self.state = 208
                 self.match(PDDLGrammarParser.RB)
                 pass
 
             elif la_ == 5:
                 localctx = PDDLGrammarParser.ImplyContext(self, localctx)
                 self.enterOuterAlt(localctx, 5)
-                self.state = 212
+                self.state = 210
                 self.match(PDDLGrammarParser.LB)
-                self.state = 213
+                self.state = 211
                 self.match(PDDLGrammarParser.IMPLY)
+                self.state = 212
+                self.gd()
+                self.state = 213
+                self.gd()
                 self.state = 214
-                self.gd()
-                self.state = 215
-                self.gd()
-                self.state = 216
                 self.match(PDDLGrammarParser.RB)
                 pass
 
             elif la_ == 6:
                 localctx = PDDLGrammarParser.ExistsContext(self, localctx)
                 self.enterOuterAlt(localctx, 6)
+                self.state = 216
+                self.match(PDDLGrammarParser.LB)
+                self.state = 217
+                self.match(PDDLGrammarParser.EXISTS)
                 self.state = 218
                 self.match(PDDLGrammarParser.LB)
                 self.state = 219
-                self.match(PDDLGrammarParser.EXISTS)
-                self.state = 220
-                self.match(PDDLGrammarParser.LB)
-                self.state = 221
                 self.listVariable()
-                self.state = 222
+                self.state = 220
                 self.match(PDDLGrammarParser.RB)
-                self.state = 223
+                self.state = 221
                 self.gd()
-                self.state = 224
+                self.state = 222
                 self.match(PDDLGrammarParser.RB)
                 pass
 
             elif la_ == 7:
                 localctx = PDDLGrammarParser.ForallContext(self, localctx)
                 self.enterOuterAlt(localctx, 7)
+                self.state = 224
+                self.match(PDDLGrammarParser.LB)
+                self.state = 225
+                self.match(PDDLGrammarParser.FORALL)
                 self.state = 226
                 self.match(PDDLGrammarParser.LB)
                 self.state = 227
-                self.match(PDDLGrammarParser.FORALL)
-                self.state = 228
-                self.match(PDDLGrammarParser.LB)
-                self.state = 229
                 self.listVariable()
+                self.state = 228
+                self.match(PDDLGrammarParser.RB)
+                self.state = 229
+                self.gd()
                 self.state = 230
                 self.match(PDDLGrammarParser.RB)
-                self.state = 231
-                self.gd()
-                self.state = 232
-                self.match(PDDLGrammarParser.RB)
                 pass
-
 
         except RecognitionException as re:
             localctx.exception = re
@@ -1743,327 +1686,336 @@ class PDDLGrammarParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class TermAtomFormContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
-
 
         def getRuleIndex(self):
             return PDDLGrammarParser.RULE_termAtomForm
 
-     
-        def copyFrom(self, ctx:ParserRuleContext):
+        def copyFrom(self, ctx: ParserRuleContext):
             super().copyFrom(ctx)
-
-
 
     class EqualContext(TermAtomFormContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.TermAtomFormContext
+        # actually a PDDLGrammarParser.TermAtomFormContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LB(self):
             return self.getToken(PDDLGrammarParser.LB, 0)
+
         def EQ(self):
             return self.getToken(PDDLGrammarParser.EQ, 0)
-        def term(self, i:int=None):
+
+        def term(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(PDDLGrammarParser.TermContext)
             else:
-                return self.getTypedRuleContext(PDDLGrammarParser.TermContext,i)
+                return self.getTypedRuleContext(PDDLGrammarParser.TermContext, i)
 
         def RB(self):
             return self.getToken(PDDLGrammarParser.RB, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitEqual" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitEqual"):
                 return visitor.visitEqual(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class NEqualContext(TermAtomFormContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.TermAtomFormContext
+        # actually a PDDLGrammarParser.TermAtomFormContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LB(self):
             return self.getToken(PDDLGrammarParser.LB, 0)
+
         def NEQ(self):
             return self.getToken(PDDLGrammarParser.NEQ, 0)
-        def term(self, i:int=None):
+
+        def term(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(PDDLGrammarParser.TermContext)
             else:
-                return self.getTypedRuleContext(PDDLGrammarParser.TermContext,i)
+                return self.getTypedRuleContext(PDDLGrammarParser.TermContext, i)
 
         def RB(self):
             return self.getToken(PDDLGrammarParser.RB, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitNEqual" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitNEqual"):
                 return visitor.visitNEqual(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class LessThanEqualContext(TermAtomFormContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.TermAtomFormContext
+        # actually a PDDLGrammarParser.TermAtomFormContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LB(self):
             return self.getToken(PDDLGrammarParser.LB, 0)
+
         def LEQ(self):
             return self.getToken(PDDLGrammarParser.LEQ, 0)
-        def term(self, i:int=None):
+
+        def term(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(PDDLGrammarParser.TermContext)
             else:
-                return self.getTypedRuleContext(PDDLGrammarParser.TermContext,i)
+                return self.getTypedRuleContext(PDDLGrammarParser.TermContext, i)
 
         def RB(self):
             return self.getToken(PDDLGrammarParser.RB, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitLessThanEqual" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitLessThanEqual"):
                 return visitor.visitLessThanEqual(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class GreaterThanEqualContext(TermAtomFormContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.TermAtomFormContext
+        # actually a PDDLGrammarParser.TermAtomFormContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LB(self):
             return self.getToken(PDDLGrammarParser.LB, 0)
+
         def GEQ(self):
             return self.getToken(PDDLGrammarParser.GEQ, 0)
-        def term(self, i:int=None):
+
+        def term(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(PDDLGrammarParser.TermContext)
             else:
-                return self.getTypedRuleContext(PDDLGrammarParser.TermContext,i)
+                return self.getTypedRuleContext(PDDLGrammarParser.TermContext, i)
 
         def RB(self):
             return self.getToken(PDDLGrammarParser.RB, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitGreaterThanEqual" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitGreaterThanEqual"):
                 return visitor.visitGreaterThanEqual(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class PredicateAContext(TermAtomFormContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.TermAtomFormContext
+        # actually a PDDLGrammarParser.TermAtomFormContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LB(self):
             return self.getToken(PDDLGrammarParser.LB, 0)
+
         def predicate(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.PredicateContext,0)
+            return self.getTypedRuleContext(PDDLGrammarParser.PredicateContext, 0)
 
         def RB(self):
             return self.getToken(PDDLGrammarParser.RB, 0)
-        def term(self, i:int=None):
+
+        def term(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(PDDLGrammarParser.TermContext)
             else:
-                return self.getTypedRuleContext(PDDLGrammarParser.TermContext,i)
+                return self.getTypedRuleContext(PDDLGrammarParser.TermContext, i)
 
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitPredicateA" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitPredicateA"):
                 return visitor.visitPredicateA(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class LessThanContext(TermAtomFormContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.TermAtomFormContext
+        # actually a PDDLGrammarParser.TermAtomFormContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LB(self):
             return self.getToken(PDDLGrammarParser.LB, 0)
+
         def LT(self):
             return self.getToken(PDDLGrammarParser.LT, 0)
-        def term(self, i:int=None):
+
+        def term(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(PDDLGrammarParser.TermContext)
             else:
-                return self.getTypedRuleContext(PDDLGrammarParser.TermContext,i)
+                return self.getTypedRuleContext(PDDLGrammarParser.TermContext, i)
 
         def RB(self):
             return self.getToken(PDDLGrammarParser.RB, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitLessThan" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitLessThan"):
                 return visitor.visitLessThan(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class GreaterThanContext(TermAtomFormContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.TermAtomFormContext
+        # actually a PDDLGrammarParser.TermAtomFormContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LB(self):
             return self.getToken(PDDLGrammarParser.LB, 0)
+
         def GT(self):
             return self.getToken(PDDLGrammarParser.GT, 0)
-        def term(self, i:int=None):
+
+        def term(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(PDDLGrammarParser.TermContext)
             else:
-                return self.getTypedRuleContext(PDDLGrammarParser.TermContext,i)
+                return self.getTypedRuleContext(PDDLGrammarParser.TermContext, i)
 
         def RB(self):
             return self.getToken(PDDLGrammarParser.RB, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitGreaterThan" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitGreaterThan"):
                 return visitor.visitGreaterThan(self)
             else:
                 return visitor.visitChildren(self)
 
-
-
     def termAtomForm(self):
 
-        localctx = PDDLGrammarParser.TermAtomFormContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 30, self.RULE_termAtomForm)
-        self._la = 0 # Token type
+        localctx = PDDLGrammarParser.TermAtomFormContext(
+            self, self._ctx, self.state)
+        self.enterRule(localctx, 32, self.RULE_termAtomForm)
+        self._la = 0  # Token type
         try:
-            self.state = 282
+            self.state = 280
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,18,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 17, self._ctx)
             if la_ == 1:
                 localctx = PDDLGrammarParser.PredicateAContext(self, localctx)
                 self.enterOuterAlt(localctx, 1)
-                self.state = 236
+                self.state = 234
                 self.match(PDDLGrammarParser.LB)
-                self.state = 237
+                self.state = 235
                 self.predicate()
-                self.state = 241
+                self.state = 239
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << PDDLGrammarParser.LB) | (1 << PDDLGrammarParser.NAME) | (1 << PDDLGrammarParser.INTEGER) | (1 << PDDLGrammarParser.VAR))) != 0):
-                    self.state = 238
+                    self.state = 236
                     self.term()
-                    self.state = 243
+                    self.state = 241
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 
-                self.state = 244
+                self.state = 242
                 self.match(PDDLGrammarParser.RB)
                 pass
 
             elif la_ == 2:
                 localctx = PDDLGrammarParser.EqualContext(self, localctx)
                 self.enterOuterAlt(localctx, 2)
-                self.state = 246
+                self.state = 244
                 self.match(PDDLGrammarParser.LB)
-                self.state = 247
+                self.state = 245
                 self.match(PDDLGrammarParser.EQ)
+                self.state = 246
+                self.term()
+                self.state = 247
+                self.term()
                 self.state = 248
-                self.term()
-                self.state = 249
-                self.term()
-                self.state = 250
                 self.match(PDDLGrammarParser.RB)
                 pass
 
             elif la_ == 3:
                 localctx = PDDLGrammarParser.NEqualContext(self, localctx)
                 self.enterOuterAlt(localctx, 3)
-                self.state = 252
+                self.state = 250
                 self.match(PDDLGrammarParser.LB)
-                self.state = 253
+                self.state = 251
                 self.match(PDDLGrammarParser.NEQ)
+                self.state = 252
+                self.term()
+                self.state = 253
+                self.term()
                 self.state = 254
-                self.term()
-                self.state = 255
-                self.term()
-                self.state = 256
                 self.match(PDDLGrammarParser.RB)
                 pass
 
             elif la_ == 4:
                 localctx = PDDLGrammarParser.LessThanContext(self, localctx)
                 self.enterOuterAlt(localctx, 4)
-                self.state = 258
+                self.state = 256
                 self.match(PDDLGrammarParser.LB)
-                self.state = 259
+                self.state = 257
                 self.match(PDDLGrammarParser.LT)
+                self.state = 258
+                self.term()
+                self.state = 259
+                self.term()
                 self.state = 260
-                self.term()
-                self.state = 261
-                self.term()
-                self.state = 262
                 self.match(PDDLGrammarParser.RB)
                 pass
 
             elif la_ == 5:
-                localctx = PDDLGrammarParser.LessThanEqualContext(self, localctx)
+                localctx = PDDLGrammarParser.LessThanEqualContext(
+                    self, localctx)
                 self.enterOuterAlt(localctx, 5)
-                self.state = 264
+                self.state = 262
                 self.match(PDDLGrammarParser.LB)
-                self.state = 265
+                self.state = 263
                 self.match(PDDLGrammarParser.LEQ)
+                self.state = 264
+                self.term()
+                self.state = 265
+                self.term()
                 self.state = 266
-                self.term()
-                self.state = 267
-                self.term()
-                self.state = 268
                 self.match(PDDLGrammarParser.RB)
                 pass
 
             elif la_ == 6:
                 localctx = PDDLGrammarParser.GreaterThanContext(self, localctx)
                 self.enterOuterAlt(localctx, 6)
-                self.state = 270
+                self.state = 268
                 self.match(PDDLGrammarParser.LB)
-                self.state = 271
+                self.state = 269
                 self.match(PDDLGrammarParser.GT)
+                self.state = 270
+                self.term()
+                self.state = 271
+                self.term()
                 self.state = 272
-                self.term()
-                self.state = 273
-                self.term()
-                self.state = 274
                 self.match(PDDLGrammarParser.RB)
                 pass
 
             elif la_ == 7:
-                localctx = PDDLGrammarParser.GreaterThanEqualContext(self, localctx)
+                localctx = PDDLGrammarParser.GreaterThanEqualContext(
+                    self, localctx)
                 self.enterOuterAlt(localctx, 7)
-                self.state = 276
+                self.state = 274
                 self.match(PDDLGrammarParser.LB)
-                self.state = 277
+                self.state = 275
                 self.match(PDDLGrammarParser.GEQ)
+                self.state = 276
+                self.term()
+                self.state = 277
+                self.term()
                 self.state = 278
-                self.term()
-                self.state = 279
-                self.term()
-                self.state = 280
                 self.match(PDDLGrammarParser.RB)
                 pass
-
 
         except RecognitionException as re:
             localctx.exception = re
@@ -2073,16 +2025,14 @@ class PDDLGrammarParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class TermLiteralContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def termAtomForm(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.TermAtomFormContext,0)
-
+            return self.getTypedRuleContext(PDDLGrammarParser.TermAtomFormContext, 0)
 
         def LB(self):
             return self.getToken(PDDLGrammarParser.LB, 0)
@@ -2096,41 +2046,38 @@ class PDDLGrammarParser ( Parser ):
         def getRuleIndex(self):
             return PDDLGrammarParser.RULE_termLiteral
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTermLiteral" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitTermLiteral"):
                 return visitor.visitTermLiteral(self)
             else:
                 return visitor.visitChildren(self)
 
-
-
-
     def termLiteral(self):
 
-        localctx = PDDLGrammarParser.TermLiteralContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 32, self.RULE_termLiteral)
+        localctx = PDDLGrammarParser.TermLiteralContext(
+            self, self._ctx, self.state)
+        self.enterRule(localctx, 34, self.RULE_termLiteral)
         try:
-            self.state = 290
+            self.state = 288
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,19,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 18, self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 284
+                self.state = 282
                 self.termAtomForm()
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 285
+                self.state = 283
                 self.match(PDDLGrammarParser.LB)
-                self.state = 286
+                self.state = 284
                 self.match(PDDLGrammarParser.NOT)
-                self.state = 287
+                self.state = 285
                 self.termAtomForm()
-                self.state = 288
+                self.state = 286
                 self.match(PDDLGrammarParser.RB)
                 pass
-
 
         except RecognitionException as re:
             localctx.exception = re
@@ -2140,10 +2087,9 @@ class PDDLGrammarParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ConstTermContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2156,25 +2102,23 @@ class PDDLGrammarParser ( Parser ):
         def getRuleIndex(self):
             return PDDLGrammarParser.RULE_constTerm
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitConstTerm" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitConstTerm"):
                 return visitor.visitConstTerm(self)
             else:
                 return visitor.visitChildren(self)
 
-
-
-
     def constTerm(self):
 
-        localctx = PDDLGrammarParser.ConstTermContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 34, self.RULE_constTerm)
-        self._la = 0 # Token type
+        localctx = PDDLGrammarParser.ConstTermContext(
+            self, self._ctx, self.state)
+        self.enterRule(localctx, 36, self.RULE_constTerm)
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 292
+            self.state = 290
             _la = self._input.LA(1)
-            if not(_la==PDDLGrammarParser.NAME or _la==PDDLGrammarParser.INTEGER):
+            if not(_la == PDDLGrammarParser.NAME or _la == PDDLGrammarParser.INTEGER):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -2187,374 +2131,383 @@ class PDDLGrammarParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class TermContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
-
 
         def getRuleIndex(self):
             return PDDLGrammarParser.RULE_term
 
-     
-        def copyFrom(self, ctx:ParserRuleContext):
+        def copyFrom(self, ctx: ParserRuleContext):
             super().copyFrom(ctx)
-
-
 
     class ModTermTermContext(TermContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.TermContext
+        # actually a PDDLGrammarParser.TermContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LB(self):
             return self.getToken(PDDLGrammarParser.LB, 0)
+
         def MOD(self):
             return self.getToken(PDDLGrammarParser.MOD, 0)
-        def term(self, i:int=None):
+
+        def term(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(PDDLGrammarParser.TermContext)
             else:
-                return self.getTypedRuleContext(PDDLGrammarParser.TermContext,i)
+                return self.getTypedRuleContext(PDDLGrammarParser.TermContext, i)
 
         def RB(self):
             return self.getToken(PDDLGrammarParser.RB, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitModTermTerm" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitModTermTerm"):
                 return visitor.visitModTermTerm(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class MinusTermContext(TermContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.TermContext
+        # actually a PDDLGrammarParser.TermContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LB(self):
             return self.getToken(PDDLGrammarParser.LB, 0)
+
         def MINUS(self):
             return self.getToken(PDDLGrammarParser.MINUS, 0)
+
         def term(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.TermContext,0)
+            return self.getTypedRuleContext(PDDLGrammarParser.TermContext, 0)
 
         def RB(self):
             return self.getToken(PDDLGrammarParser.RB, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitMinusTerm" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitMinusTerm"):
                 return visitor.visitMinusTerm(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class TermMinusTermContext(TermContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.TermContext
+        # actually a PDDLGrammarParser.TermContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LB(self):
             return self.getToken(PDDLGrammarParser.LB, 0)
-        def term(self, i:int=None):
+
+        def term(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(PDDLGrammarParser.TermContext)
             else:
-                return self.getTypedRuleContext(PDDLGrammarParser.TermContext,i)
+                return self.getTypedRuleContext(PDDLGrammarParser.TermContext, i)
 
         def MINUS(self):
             return self.getToken(PDDLGrammarParser.MINUS, 0)
+
         def RB(self):
             return self.getToken(PDDLGrammarParser.RB, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTermMinusTerm" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitTermMinusTerm"):
                 return visitor.visitTermMinusTerm(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class TermModTermContext(TermContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.TermContext
+        # actually a PDDLGrammarParser.TermContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LB(self):
             return self.getToken(PDDLGrammarParser.LB, 0)
-        def term(self, i:int=None):
+
+        def term(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(PDDLGrammarParser.TermContext)
             else:
-                return self.getTypedRuleContext(PDDLGrammarParser.TermContext,i)
+                return self.getTypedRuleContext(PDDLGrammarParser.TermContext, i)
 
         def MOD(self):
             return self.getToken(PDDLGrammarParser.MOD, 0)
+
         def RB(self):
             return self.getToken(PDDLGrammarParser.RB, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTermModTerm" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitTermModTerm"):
                 return visitor.visitTermModTerm(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class BracketTermContext(TermContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.TermContext
+        # actually a PDDLGrammarParser.TermContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LB(self):
             return self.getToken(PDDLGrammarParser.LB, 0)
+
         def term(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.TermContext,0)
+            return self.getTypedRuleContext(PDDLGrammarParser.TermContext, 0)
 
         def RB(self):
             return self.getToken(PDDLGrammarParser.RB, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitBracketTerm" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitBracketTerm"):
                 return visitor.visitBracketTerm(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class VarContext(TermContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.TermContext
+        # actually a PDDLGrammarParser.TermContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def VAR(self):
             return self.getToken(PDDLGrammarParser.VAR, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitVar" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitVar"):
                 return visitor.visitVar(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class NameContext(TermContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.TermContext
+        # actually a PDDLGrammarParser.TermContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def NAME(self):
             return self.getToken(PDDLGrammarParser.NAME, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitName" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitName"):
                 return visitor.visitName(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class PlusTermTermContext(TermContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.TermContext
+        # actually a PDDLGrammarParser.TermContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LB(self):
             return self.getToken(PDDLGrammarParser.LB, 0)
+
         def PLUS(self):
             return self.getToken(PDDLGrammarParser.PLUS, 0)
-        def term(self, i:int=None):
+
+        def term(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(PDDLGrammarParser.TermContext)
             else:
-                return self.getTypedRuleContext(PDDLGrammarParser.TermContext,i)
+                return self.getTypedRuleContext(PDDLGrammarParser.TermContext, i)
 
         def RB(self):
             return self.getToken(PDDLGrammarParser.RB, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitPlusTermTerm" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitPlusTermTerm"):
                 return visitor.visitPlusTermTerm(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class MinusTermTermContext(TermContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.TermContext
+        # actually a PDDLGrammarParser.TermContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LB(self):
             return self.getToken(PDDLGrammarParser.LB, 0)
+
         def MINUS(self):
             return self.getToken(PDDLGrammarParser.MINUS, 0)
-        def term(self, i:int=None):
+
+        def term(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(PDDLGrammarParser.TermContext)
             else:
-                return self.getTypedRuleContext(PDDLGrammarParser.TermContext,i)
+                return self.getTypedRuleContext(PDDLGrammarParser.TermContext, i)
 
         def RB(self):
             return self.getToken(PDDLGrammarParser.RB, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitMinusTermTerm" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitMinusTermTerm"):
                 return visitor.visitMinusTermTerm(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class IntegerContext(TermContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.TermContext
+        # actually a PDDLGrammarParser.TermContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def INTEGER(self):
             return self.getToken(PDDLGrammarParser.INTEGER, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitInteger" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitInteger"):
                 return visitor.visitInteger(self)
             else:
                 return visitor.visitChildren(self)
 
-
-
     def term(self):
 
         localctx = PDDLGrammarParser.TermContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 36, self.RULE_term)
+        self.enterRule(localctx, 38, self.RULE_term)
         try:
-            self.state = 336
+            self.state = 334
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,20,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 19, self._ctx)
             if la_ == 1:
                 localctx = PDDLGrammarParser.NameContext(self, localctx)
                 self.enterOuterAlt(localctx, 1)
-                self.state = 294
+                self.state = 292
                 self.match(PDDLGrammarParser.NAME)
                 pass
 
             elif la_ == 2:
                 localctx = PDDLGrammarParser.VarContext(self, localctx)
                 self.enterOuterAlt(localctx, 2)
-                self.state = 295
+                self.state = 293
                 self.match(PDDLGrammarParser.VAR)
                 pass
 
             elif la_ == 3:
                 localctx = PDDLGrammarParser.IntegerContext(self, localctx)
                 self.enterOuterAlt(localctx, 3)
-                self.state = 296
+                self.state = 294
                 self.match(PDDLGrammarParser.INTEGER)
                 pass
 
             elif la_ == 4:
                 localctx = PDDLGrammarParser.BracketTermContext(self, localctx)
                 self.enterOuterAlt(localctx, 4)
-                self.state = 297
+                self.state = 295
                 self.match(PDDLGrammarParser.LB)
-                self.state = 298
+                self.state = 296
                 self.term()
-                self.state = 299
+                self.state = 297
                 self.match(PDDLGrammarParser.RB)
                 pass
 
             elif la_ == 5:
                 localctx = PDDLGrammarParser.MinusTermContext(self, localctx)
                 self.enterOuterAlt(localctx, 5)
-                self.state = 301
+                self.state = 299
                 self.match(PDDLGrammarParser.LB)
-                self.state = 302
+                self.state = 300
                 self.match(PDDLGrammarParser.MINUS)
-                self.state = 303
+                self.state = 301
                 self.term()
-                self.state = 304
+                self.state = 302
                 self.match(PDDLGrammarParser.RB)
                 pass
 
             elif la_ == 6:
-                localctx = PDDLGrammarParser.MinusTermTermContext(self, localctx)
+                localctx = PDDLGrammarParser.MinusTermTermContext(
+                    self, localctx)
                 self.enterOuterAlt(localctx, 6)
-                self.state = 306
+                self.state = 304
                 self.match(PDDLGrammarParser.LB)
-                self.state = 307
+                self.state = 305
                 self.match(PDDLGrammarParser.MINUS)
+                self.state = 306
+                self.term()
+                self.state = 307
+                self.term()
                 self.state = 308
-                self.term()
-                self.state = 309
-                self.term()
-                self.state = 310
                 self.match(PDDLGrammarParser.RB)
                 pass
 
             elif la_ == 7:
                 localctx = PDDLGrammarParser.ModTermTermContext(self, localctx)
                 self.enterOuterAlt(localctx, 7)
-                self.state = 312
+                self.state = 310
                 self.match(PDDLGrammarParser.LB)
-                self.state = 313
+                self.state = 311
                 self.match(PDDLGrammarParser.MOD)
+                self.state = 312
+                self.term()
+                self.state = 313
+                self.term()
                 self.state = 314
-                self.term()
-                self.state = 315
-                self.term()
-                self.state = 316
                 self.match(PDDLGrammarParser.RB)
                 pass
 
             elif la_ == 8:
-                localctx = PDDLGrammarParser.TermMinusTermContext(self, localctx)
+                localctx = PDDLGrammarParser.TermMinusTermContext(
+                    self, localctx)
                 self.enterOuterAlt(localctx, 8)
-                self.state = 318
+                self.state = 316
                 self.match(PDDLGrammarParser.LB)
+                self.state = 317
+                self.term()
+                self.state = 318
+                self.match(PDDLGrammarParser.MINUS)
                 self.state = 319
                 self.term()
                 self.state = 320
-                self.match(PDDLGrammarParser.MINUS)
-                self.state = 321
-                self.term()
-                self.state = 322
                 self.match(PDDLGrammarParser.RB)
                 pass
 
             elif la_ == 9:
                 localctx = PDDLGrammarParser.TermModTermContext(self, localctx)
                 self.enterOuterAlt(localctx, 9)
-                self.state = 324
+                self.state = 322
                 self.match(PDDLGrammarParser.LB)
+                self.state = 323
+                self.term()
+                self.state = 324
+                self.match(PDDLGrammarParser.MOD)
                 self.state = 325
                 self.term()
                 self.state = 326
-                self.match(PDDLGrammarParser.MOD)
-                self.state = 327
-                self.term()
-                self.state = 328
                 self.match(PDDLGrammarParser.RB)
                 pass
 
             elif la_ == 10:
-                localctx = PDDLGrammarParser.PlusTermTermContext(self, localctx)
+                localctx = PDDLGrammarParser.PlusTermTermContext(
+                    self, localctx)
                 self.enterOuterAlt(localctx, 10)
-                self.state = 330
+                self.state = 328
                 self.match(PDDLGrammarParser.LB)
-                self.state = 331
+                self.state = 329
                 self.match(PDDLGrammarParser.PLUS)
+                self.state = 330
+                self.term()
+                self.state = 331
+                self.term()
                 self.state = 332
-                self.term()
-                self.state = 333
-                self.term()
-                self.state = 334
                 self.match(PDDLGrammarParser.RB)
                 pass
-
 
         except RecognitionException as re:
             localctx.exception = re
@@ -2564,106 +2517,100 @@ class PDDLGrammarParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class EffectContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
-
 
         def getRuleIndex(self):
             return PDDLGrammarParser.RULE_effect
 
-     
-        def copyFrom(self, ctx:ParserRuleContext):
+        def copyFrom(self, ctx: ParserRuleContext):
             super().copyFrom(ctx)
-
-
 
     class AndCEffectContext(EffectContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.EffectContext
+        # actually a PDDLGrammarParser.EffectContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LB(self):
             return self.getToken(PDDLGrammarParser.LB, 0)
+
         def AND(self):
             return self.getToken(PDDLGrammarParser.AND, 0)
+
         def RB(self):
             return self.getToken(PDDLGrammarParser.RB, 0)
-        def cEffect(self, i:int=None):
+
+        def cEffect(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(PDDLGrammarParser.CEffectContext)
             else:
-                return self.getTypedRuleContext(PDDLGrammarParser.CEffectContext,i)
+                return self.getTypedRuleContext(PDDLGrammarParser.CEffectContext, i)
 
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitAndCEffect" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitAndCEffect"):
                 return visitor.visitAndCEffect(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class CeffectContext(EffectContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.EffectContext
+        # actually a PDDLGrammarParser.EffectContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def cEffect(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.CEffectContext,0)
+            return self.getTypedRuleContext(PDDLGrammarParser.CEffectContext, 0)
 
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitCeffect" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitCeffect"):
                 return visitor.visitCeffect(self)
             else:
                 return visitor.visitChildren(self)
 
-
-
     def effect(self):
 
         localctx = PDDLGrammarParser.EffectContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 38, self.RULE_effect)
-        self._la = 0 # Token type
+        self.enterRule(localctx, 40, self.RULE_effect)
+        self._la = 0  # Token type
         try:
-            self.state = 348
+            self.state = 346
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,22,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 21, self._ctx)
             if la_ == 1:
                 localctx = PDDLGrammarParser.AndCEffectContext(self, localctx)
                 self.enterOuterAlt(localctx, 1)
-                self.state = 338
+                self.state = 336
                 self.match(PDDLGrammarParser.LB)
-                self.state = 339
+                self.state = 337
                 self.match(PDDLGrammarParser.AND)
-                self.state = 341 
+                self.state = 339
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while True:
-                    self.state = 340
+                    self.state = 338
                     self.cEffect()
-                    self.state = 343 
+                    self.state = 341
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-                    if not (_la==PDDLGrammarParser.LB):
+                    if not (_la == PDDLGrammarParser.LB):
                         break
 
-                self.state = 345
+                self.state = 343
                 self.match(PDDLGrammarParser.RB)
                 pass
 
             elif la_ == 2:
                 localctx = PDDLGrammarParser.CeffectContext(self, localctx)
                 self.enterOuterAlt(localctx, 2)
-                self.state = 347
+                self.state = 345
                 self.cEffect()
                 pass
-
 
         except RecognitionException as re:
             localctx.exception = re
@@ -2673,97 +2620,94 @@ class PDDLGrammarParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class CEffectContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
-
 
         def getRuleIndex(self):
             return PDDLGrammarParser.RULE_cEffect
 
-     
-        def copyFrom(self, ctx:ParserRuleContext):
+        def copyFrom(self, ctx: ParserRuleContext):
             super().copyFrom(ctx)
-
-
 
     class WhenCondEffectContext(CEffectContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.CEffectContext
+        # actually a PDDLGrammarParser.CEffectContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LB(self):
             return self.getToken(PDDLGrammarParser.LB, 0)
+
         def WHEN(self):
             return self.getToken(PDDLGrammarParser.WHEN, 0)
+
         def gd(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.GdContext,0)
+            return self.getTypedRuleContext(PDDLGrammarParser.GdContext, 0)
 
         def condEffect(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.CondEffectContext,0)
+            return self.getTypedRuleContext(PDDLGrammarParser.CondEffectContext, 0)
 
         def RB(self):
             return self.getToken(PDDLGrammarParser.RB, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitWhenCondEffect" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitWhenCondEffect"):
                 return visitor.visitWhenCondEffect(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class CEffectPEffectContext(CEffectContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.CEffectContext
+        # actually a PDDLGrammarParser.CEffectContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def pEffect(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.PEffectContext,0)
+            return self.getTypedRuleContext(PDDLGrammarParser.PEffectContext, 0)
 
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitCEffectPEffect" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitCEffectPEffect"):
                 return visitor.visitCEffectPEffect(self)
             else:
                 return visitor.visitChildren(self)
 
-
-
     def cEffect(self):
 
-        localctx = PDDLGrammarParser.CEffectContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 40, self.RULE_cEffect)
+        localctx = PDDLGrammarParser.CEffectContext(
+            self, self._ctx, self.state)
+        self.enterRule(localctx, 42, self.RULE_cEffect)
         try:
-            self.state = 357
+            self.state = 355
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,23,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 22, self._ctx)
             if la_ == 1:
-                localctx = PDDLGrammarParser.WhenCondEffectContext(self, localctx)
+                localctx = PDDLGrammarParser.WhenCondEffectContext(
+                    self, localctx)
                 self.enterOuterAlt(localctx, 1)
-                self.state = 350
+                self.state = 348
                 self.match(PDDLGrammarParser.LB)
-                self.state = 351
+                self.state = 349
                 self.match(PDDLGrammarParser.WHEN)
-                self.state = 352
+                self.state = 350
                 self.gd()
-                self.state = 353
+                self.state = 351
                 self.condEffect()
-                self.state = 354
+                self.state = 352
                 self.match(PDDLGrammarParser.RB)
                 pass
 
             elif la_ == 2:
-                localctx = PDDLGrammarParser.CEffectPEffectContext(self, localctx)
+                localctx = PDDLGrammarParser.CEffectPEffectContext(
+                    self, localctx)
                 self.enterOuterAlt(localctx, 2)
-                self.state = 356
+                self.state = 354
                 self.pEffect()
                 pass
-
 
         except RecognitionException as re:
             localctx.exception = re
@@ -2773,106 +2717,102 @@ class PDDLGrammarParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class CondEffectContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
-
 
         def getRuleIndex(self):
             return PDDLGrammarParser.RULE_condEffect
 
-     
-        def copyFrom(self, ctx:ParserRuleContext):
+        def copyFrom(self, ctx: ParserRuleContext):
             super().copyFrom(ctx)
-
-
 
     class AndPEffectContext(CondEffectContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.CondEffectContext
+        # actually a PDDLGrammarParser.CondEffectContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LB(self):
             return self.getToken(PDDLGrammarParser.LB, 0)
+
         def AND(self):
             return self.getToken(PDDLGrammarParser.AND, 0)
+
         def RB(self):
             return self.getToken(PDDLGrammarParser.RB, 0)
-        def pEffect(self, i:int=None):
+
+        def pEffect(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(PDDLGrammarParser.PEffectContext)
             else:
-                return self.getTypedRuleContext(PDDLGrammarParser.PEffectContext,i)
+                return self.getTypedRuleContext(PDDLGrammarParser.PEffectContext, i)
 
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitAndPEffect" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitAndPEffect"):
                 return visitor.visitAndPEffect(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class CondEffectPEffectContext(CondEffectContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.CondEffectContext
+        # actually a PDDLGrammarParser.CondEffectContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def pEffect(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.PEffectContext,0)
+            return self.getTypedRuleContext(PDDLGrammarParser.PEffectContext, 0)
 
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitCondEffectPEffect" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitCondEffectPEffect"):
                 return visitor.visitCondEffectPEffect(self)
             else:
                 return visitor.visitChildren(self)
 
-
-
     def condEffect(self):
 
-        localctx = PDDLGrammarParser.CondEffectContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 42, self.RULE_condEffect)
-        self._la = 0 # Token type
+        localctx = PDDLGrammarParser.CondEffectContext(
+            self, self._ctx, self.state)
+        self.enterRule(localctx, 44, self.RULE_condEffect)
+        self._la = 0  # Token type
         try:
-            self.state = 369
+            self.state = 367
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,25,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 24, self._ctx)
             if la_ == 1:
                 localctx = PDDLGrammarParser.AndPEffectContext(self, localctx)
                 self.enterOuterAlt(localctx, 1)
-                self.state = 359
+                self.state = 357
                 self.match(PDDLGrammarParser.LB)
-                self.state = 360
+                self.state = 358
                 self.match(PDDLGrammarParser.AND)
-                self.state = 362 
+                self.state = 360
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while True:
-                    self.state = 361
+                    self.state = 359
                     self.pEffect()
-                    self.state = 364 
+                    self.state = 362
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-                    if not (_la==PDDLGrammarParser.LB):
+                    if not (_la == PDDLGrammarParser.LB):
                         break
 
-                self.state = 366
+                self.state = 364
                 self.match(PDDLGrammarParser.RB)
                 pass
 
             elif la_ == 2:
-                localctx = PDDLGrammarParser.CondEffectPEffectContext(self, localctx)
+                localctx = PDDLGrammarParser.CondEffectPEffectContext(
+                    self, localctx)
                 self.enterOuterAlt(localctx, 2)
-                self.state = 368
+                self.state = 366
                 self.pEffect()
                 pass
-
 
         except RecognitionException as re:
             localctx.exception = re
@@ -2882,10 +2822,9 @@ class PDDLGrammarParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class PEffectContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2893,15 +2832,13 @@ class PDDLGrammarParser ( Parser ):
             return self.getToken(PDDLGrammarParser.LB, 0)
 
         def assignop(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.AssignopContext,0)
-
+            return self.getTypedRuleContext(PDDLGrammarParser.AssignopContext, 0)
 
         def VAR(self):
             return self.getToken(PDDLGrammarParser.VAR, 0)
 
         def term(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.TermContext,0)
-
+            return self.getTypedRuleContext(PDDLGrammarParser.TermContext, 0)
 
         def RB(self):
             return self.getToken(PDDLGrammarParser.RB, 0)
@@ -2909,30 +2846,28 @@ class PDDLGrammarParser ( Parser ):
         def getRuleIndex(self):
             return PDDLGrammarParser.RULE_pEffect
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitPEffect" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitPEffect"):
                 return visitor.visitPEffect(self)
             else:
                 return visitor.visitChildren(self)
 
-
-
-
     def pEffect(self):
 
-        localctx = PDDLGrammarParser.PEffectContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 44, self.RULE_pEffect)
+        localctx = PDDLGrammarParser.PEffectContext(
+            self, self._ctx, self.state)
+        self.enterRule(localctx, 46, self.RULE_pEffect)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 371
+            self.state = 369
             self.match(PDDLGrammarParser.LB)
-            self.state = 372
+            self.state = 370
             self.assignop()
-            self.state = 373
+            self.state = 371
             self.match(PDDLGrammarParser.VAR)
-            self.state = 374
+            self.state = 372
             self.term()
-            self.state = 375
+            self.state = 373
             self.match(PDDLGrammarParser.RB)
         except RecognitionException as re:
             localctx.exception = re
@@ -2942,96 +2877,91 @@ class PDDLGrammarParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class AssignopContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
-
 
         def getRuleIndex(self):
             return PDDLGrammarParser.RULE_assignop
 
-     
-        def copyFrom(self, ctx:ParserRuleContext):
+        def copyFrom(self, ctx: ParserRuleContext):
             super().copyFrom(ctx)
-
-
 
     class DecContext(AssignopContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.AssignopContext
+        # actually a PDDLGrammarParser.AssignopContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def DEC(self):
             return self.getToken(PDDLGrammarParser.DEC, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitDec" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitDec"):
                 return visitor.visitDec(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class IncContext(AssignopContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.AssignopContext
+        # actually a PDDLGrammarParser.AssignopContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def INC(self):
             return self.getToken(PDDLGrammarParser.INC, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitInc" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitInc"):
                 return visitor.visitInc(self)
             else:
                 return visitor.visitChildren(self)
 
-
     class AssignContext(AssignopContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a PDDLGrammarParser.AssignopContext
+        # actually a PDDLGrammarParser.AssignopContext
+        def __init__(self, parser, ctx: ParserRuleContext):
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def ASSIGN(self):
             return self.getToken(PDDLGrammarParser.ASSIGN, 0)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitAssign" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitAssign"):
                 return visitor.visitAssign(self)
             else:
                 return visitor.visitChildren(self)
 
-
-
     def assignop(self):
 
-        localctx = PDDLGrammarParser.AssignopContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 46, self.RULE_assignop)
+        localctx = PDDLGrammarParser.AssignopContext(
+            self, self._ctx, self.state)
+        self.enterRule(localctx, 48, self.RULE_assignop)
         try:
-            self.state = 380
+            self.state = 378
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [PDDLGrammarParser.INC]:
                 localctx = PDDLGrammarParser.IncContext(self, localctx)
                 self.enterOuterAlt(localctx, 1)
-                self.state = 377
+                self.state = 375
                 self.match(PDDLGrammarParser.INC)
                 pass
             elif token in [PDDLGrammarParser.DEC]:
                 localctx = PDDLGrammarParser.DecContext(self, localctx)
                 self.enterOuterAlt(localctx, 2)
-                self.state = 378
+                self.state = 376
                 self.match(PDDLGrammarParser.DEC)
                 pass
             elif token in [PDDLGrammarParser.ASSIGN]:
                 localctx = PDDLGrammarParser.AssignContext(self, localctx)
                 self.enterOuterAlt(localctx, 3)
-                self.state = 379
+                self.state = 377
                 self.match(PDDLGrammarParser.ASSIGN)
                 pass
             else:
@@ -3045,10 +2975,9 @@ class PDDLGrammarParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ProblemNameContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -3058,19 +2987,52 @@ class PDDLGrammarParser ( Parser ):
         def getRuleIndex(self):
             return PDDLGrammarParser.RULE_problemName
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitProblemName" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitProblemName"):
                 return visitor.visitProblemName(self)
             else:
                 return visitor.visitChildren(self)
 
-
-
-
     def problemName(self):
 
-        localctx = PDDLGrammarParser.ProblemNameContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 48, self.RULE_problemName)
+        localctx = PDDLGrammarParser.ProblemNameContext(
+            self, self._ctx, self.state)
+        self.enterRule(localctx, 50, self.RULE_problemName)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 380
+            self.match(PDDLGrammarParser.NAME)
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+    class DomainNameContext(ParserRuleContext):
+
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def NAME(self):
+            return self.getToken(PDDLGrammarParser.NAME, 0)
+
+        def getRuleIndex(self):
+            return PDDLGrammarParser.RULE_domainName
+
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitDomainName"):
+                return visitor.visitDomainName(self)
+            else:
+                return visitor.visitChildren(self)
+
+    def domainName(self):
+
+        localctx = PDDLGrammarParser.DomainNameContext(
+            self, self._ctx, self.state)
+        self.enterRule(localctx, 52, self.RULE_domainName)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 382
@@ -3083,48 +3045,9 @@ class PDDLGrammarParser ( Parser ):
             self.exitRule()
         return localctx
 
-
-    class DomainNameContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def NAME(self):
-            return self.getToken(PDDLGrammarParser.NAME, 0)
-
-        def getRuleIndex(self):
-            return PDDLGrammarParser.RULE_domainName
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitDomainName" ):
-                return visitor.visitDomainName(self)
-            else:
-                return visitor.visitChildren(self)
-
-
-
-
-    def domainName(self):
-
-        localctx = PDDLGrammarParser.DomainNameContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 50, self.RULE_domainName)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 384
-            self.match(PDDLGrammarParser.NAME)
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
     class AgentDefineContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -3140,7 +3063,7 @@ class PDDLGrammarParser ( Parser ):
         def RB(self):
             return self.getToken(PDDLGrammarParser.RB, 0)
 
-        def NAME(self, i:int=None):
+        def NAME(self, i: int = None):
             if i is None:
                 return self.getTokens(PDDLGrammarParser.NAME)
             else:
@@ -3149,41 +3072,39 @@ class PDDLGrammarParser ( Parser ):
         def getRuleIndex(self):
             return PDDLGrammarParser.RULE_agentDefine
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitAgentDefine" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitAgentDefine"):
                 return visitor.visitAgentDefine(self)
             else:
                 return visitor.visitChildren(self)
 
-
-
-
     def agentDefine(self):
 
-        localctx = PDDLGrammarParser.AgentDefineContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 52, self.RULE_agentDefine)
-        self._la = 0 # Token type
+        localctx = PDDLGrammarParser.AgentDefineContext(
+            self, self._ctx, self.state)
+        self.enterRule(localctx, 54, self.RULE_agentDefine)
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 386
+            self.state = 384
             self.match(PDDLGrammarParser.LB)
-            self.state = 387
+            self.state = 385
             self.match(PDDLGrammarParser.COLON)
-            self.state = 388
+            self.state = 386
             self.match(PDDLGrammarParser.AGENT)
-            self.state = 390 
+            self.state = 388
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
-                self.state = 389
+                self.state = 387
                 self.match(PDDLGrammarParser.NAME)
-                self.state = 392 
+                self.state = 390
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not (_la==PDDLGrammarParser.NAME):
+                if not (_la == PDDLGrammarParser.NAME):
                     break
 
-            self.state = 394
+            self.state = 392
             self.match(PDDLGrammarParser.RB)
         except RecognitionException as re:
             localctx.exception = re
@@ -3193,10 +3114,9 @@ class PDDLGrammarParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ObjectDeclarationContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -3210,8 +3130,7 @@ class PDDLGrammarParser ( Parser ):
             return self.getToken(PDDLGrammarParser.OBJS, 0)
 
         def listName(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.ListNameContext,0)
-
+            return self.getTypedRuleContext(PDDLGrammarParser.ListNameContext, 0)
 
         def RB(self):
             return self.getToken(PDDLGrammarParser.RB, 0)
@@ -3219,30 +3138,28 @@ class PDDLGrammarParser ( Parser ):
         def getRuleIndex(self):
             return PDDLGrammarParser.RULE_objectDeclaration
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitObjectDeclaration" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitObjectDeclaration"):
                 return visitor.visitObjectDeclaration(self)
             else:
                 return visitor.visitChildren(self)
 
-
-
-
     def objectDeclaration(self):
 
-        localctx = PDDLGrammarParser.ObjectDeclarationContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 54, self.RULE_objectDeclaration)
+        localctx = PDDLGrammarParser.ObjectDeclarationContext(
+            self, self._ctx, self.state)
+        self.enterRule(localctx, 56, self.RULE_objectDeclaration)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 396
+            self.state = 394
             self.match(PDDLGrammarParser.LB)
-            self.state = 397
+            self.state = 395
             self.match(PDDLGrammarParser.COLON)
-            self.state = 398
+            self.state = 396
             self.match(PDDLGrammarParser.OBJS)
-            self.state = 399
+            self.state = 397
             self.listName()
-            self.state = 400
+            self.state = 398
             self.match(PDDLGrammarParser.RB)
         except RecognitionException as re:
             localctx.exception = re
@@ -3252,10 +3169,9 @@ class PDDLGrammarParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class InitContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -3271,49 +3187,45 @@ class PDDLGrammarParser ( Parser ):
         def RB(self):
             return self.getToken(PDDLGrammarParser.RB, 0)
 
-        def constTermAtomForm(self, i:int=None):
+        def constTermAtomForm(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(PDDLGrammarParser.ConstTermAtomFormContext)
             else:
-                return self.getTypedRuleContext(PDDLGrammarParser.ConstTermAtomFormContext,i)
-
+                return self.getTypedRuleContext(PDDLGrammarParser.ConstTermAtomFormContext, i)
 
         def getRuleIndex(self):
             return PDDLGrammarParser.RULE_init
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitInit" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitInit"):
                 return visitor.visitInit(self)
             else:
                 return visitor.visitChildren(self)
 
-
-
-
     def init(self):
 
         localctx = PDDLGrammarParser.InitContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 56, self.RULE_init)
-        self._la = 0 # Token type
+        self.enterRule(localctx, 58, self.RULE_init)
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 402
+            self.state = 400
             self.match(PDDLGrammarParser.LB)
-            self.state = 403
+            self.state = 401
             self.match(PDDLGrammarParser.COLON)
-            self.state = 404
+            self.state = 402
             self.match(PDDLGrammarParser.INIT)
-            self.state = 408
+            self.state = 406
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==PDDLGrammarParser.LB:
-                self.state = 405
+            while _la == PDDLGrammarParser.LB:
+                self.state = 403
                 self.constTermAtomForm()
-                self.state = 410
+                self.state = 408
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 411
+            self.state = 409
             self.match(PDDLGrammarParser.RB)
         except RecognitionException as re:
             localctx.exception = re
@@ -3323,10 +3235,9 @@ class PDDLGrammarParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ConstTermAtomFormContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -3334,18 +3245,16 @@ class PDDLGrammarParser ( Parser ):
             return self.getToken(PDDLGrammarParser.LB, 0)
 
         def predicate(self):
-            return self.getTypedRuleContext(PDDLGrammarParser.PredicateContext,0)
-
+            return self.getTypedRuleContext(PDDLGrammarParser.PredicateContext, 0)
 
         def RB(self):
             return self.getToken(PDDLGrammarParser.RB, 0)
 
-        def constTerm(self, i:int=None):
+        def constTerm(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(PDDLGrammarParser.ConstTermContext)
             else:
-                return self.getTypedRuleContext(PDDLGrammarParser.ConstTermContext,i)
-
+                return self.getTypedRuleContext(PDDLGrammarParser.ConstTermContext, i)
 
         def EQ(self):
             return self.getToken(PDDLGrammarParser.EQ, 0)
@@ -3365,114 +3274,111 @@ class PDDLGrammarParser ( Parser ):
         def getRuleIndex(self):
             return PDDLGrammarParser.RULE_constTermAtomForm
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitConstTermAtomForm" ):
+        def accept(self, visitor: ParseTreeVisitor):
+            if hasattr(visitor, "visitConstTermAtomForm"):
                 return visitor.visitConstTermAtomForm(self)
             else:
                 return visitor.visitChildren(self)
 
-
-
-
     def constTermAtomForm(self):
 
-        localctx = PDDLGrammarParser.ConstTermAtomFormContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 58, self.RULE_constTermAtomForm)
-        self._la = 0 # Token type
+        localctx = PDDLGrammarParser.ConstTermAtomFormContext(
+            self, self._ctx, self.state)
+        self.enterRule(localctx, 60, self.RULE_constTermAtomForm)
+        self._la = 0  # Token type
         try:
-            self.state = 453
+            self.state = 451
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,30,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 29, self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 413
+                self.state = 411
                 self.match(PDDLGrammarParser.LB)
-                self.state = 414
+                self.state = 412
                 self.predicate()
-                self.state = 418
+                self.state = 416
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==PDDLGrammarParser.NAME or _la==PDDLGrammarParser.INTEGER:
-                    self.state = 415
+                while _la == PDDLGrammarParser.NAME or _la == PDDLGrammarParser.INTEGER:
+                    self.state = 413
                     self.constTerm()
-                    self.state = 420
+                    self.state = 418
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 
-                self.state = 421
+                self.state = 419
                 self.match(PDDLGrammarParser.RB)
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 423
+                self.state = 421
                 self.match(PDDLGrammarParser.LB)
-                self.state = 424
+                self.state = 422
                 self.match(PDDLGrammarParser.EQ)
+                self.state = 423
+                self.constTerm()
+                self.state = 424
+                self.constTerm()
                 self.state = 425
-                self.constTerm()
-                self.state = 426
-                self.constTerm()
-                self.state = 427
                 self.match(PDDLGrammarParser.RB)
                 pass
 
             elif la_ == 3:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 429
+                self.state = 427
                 self.match(PDDLGrammarParser.LB)
-                self.state = 430
+                self.state = 428
                 self.match(PDDLGrammarParser.LT)
+                self.state = 429
+                self.constTerm()
+                self.state = 430
+                self.constTerm()
                 self.state = 431
-                self.constTerm()
-                self.state = 432
-                self.constTerm()
-                self.state = 433
                 self.match(PDDLGrammarParser.RB)
                 pass
 
             elif la_ == 4:
                 self.enterOuterAlt(localctx, 4)
-                self.state = 435
+                self.state = 433
                 self.match(PDDLGrammarParser.LB)
-                self.state = 436
+                self.state = 434
                 self.match(PDDLGrammarParser.LEQ)
+                self.state = 435
+                self.constTerm()
+                self.state = 436
+                self.constTerm()
                 self.state = 437
-                self.constTerm()
-                self.state = 438
-                self.constTerm()
-                self.state = 439
                 self.match(PDDLGrammarParser.RB)
                 pass
 
             elif la_ == 5:
                 self.enterOuterAlt(localctx, 5)
-                self.state = 441
+                self.state = 439
                 self.match(PDDLGrammarParser.LB)
-                self.state = 442
+                self.state = 440
                 self.match(PDDLGrammarParser.GT)
+                self.state = 441
+                self.constTerm()
+                self.state = 442
+                self.constTerm()
                 self.state = 443
-                self.constTerm()
-                self.state = 444
-                self.constTerm()
-                self.state = 445
                 self.match(PDDLGrammarParser.RB)
                 pass
 
             elif la_ == 6:
                 self.enterOuterAlt(localctx, 6)
-                self.state = 447
+                self.state = 445
                 self.match(PDDLGrammarParser.LB)
-                self.state = 448
+                self.state = 446
                 self.match(PDDLGrammarParser.GEQ)
+                self.state = 447
+                self.constTerm()
+                self.state = 448
+                self.constTerm()
                 self.state = 449
-                self.constTerm()
-                self.state = 450
-                self.constTerm()
-                self.state = 451
                 self.match(PDDLGrammarParser.RB)
                 pass
-
 
         except RecognitionException as re:
             localctx.exception = re
@@ -3481,8 +3387,3 @@ class PDDLGrammarParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
-
-
-
-
-

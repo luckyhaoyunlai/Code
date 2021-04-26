@@ -14,8 +14,7 @@ domain: LB DEFINE LB DOMAIN NAME RB
 objectDefine: LB COLON OBJS listVariable RB;
 //numericDefine: LB COLON NUMS numericSymbol+ RB;
 //numericSymbol: NAME;
-typeDefine: LB COLON TYPE NORMAL RB |
-            LB COLON TYPE MISER RB;
+typeDefine: LB COLON TYPE typeName RB;
 terconditionDefine: LB COLON TERCONDITION emptyOrPreGD RB;
 constraintDefine:LB COLON CONSTRAINT emptyOrPreGD RB;
 //predicateDefine: LB COLON PREDICATE atomFormSkeleton+ RB;
@@ -30,6 +29,7 @@ actionDefine: LB COLON ACTION actionSymbol
                 (COLON EFFECT emptyOrEffect)?
               RB;
 actionSymbol: NAME;
+typeName:NAME;
 
 
 emptyOrPreGD: gd # isGd

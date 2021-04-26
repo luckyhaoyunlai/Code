@@ -15,9 +15,8 @@ if __name__ == '__main__':   #非导入的模块时
     token_stream = CommonTokenStream(lexer)
     parser = PDDLGrammarParser(token_stream)
     tree = parser.domain()
-    s = Solver()
-        
-    visitor = MyVisitor()
-    visitor.visit(tree)
+    s = Solver()  
+    visitor = MyVisitor()#访问器对象  myvisitor继承了PDDLGrammarVisitor
+    visitor.visit(tree) #visit()
     
     

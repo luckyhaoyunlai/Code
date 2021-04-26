@@ -38,18 +38,20 @@ class Action:
         self.name=''
         self.precondition=Bool('precondition')
         self.effect=Bool('effect')
-
+        self.transitionFormula=Bool('transitionFormula')
+        self.oneActionList=[]
 
 class Item:
     def __init__(self):
         self.domain_name = ''
+        self.type=''
         # l.append(self.domain_name)
-        self.objects = []
-        self.type = ''
+        self.objectsCount = 0
         self.action_list = []
+        self.constraint=Bool('constraint')
         self.tercondition = Bool('tercondition')
-
-
+        
+global game
 game = Item()
 
 class MyVisitor(PDDLGrammarVisitor):
@@ -72,15 +74,17 @@ class MyVisitor(PDDLGrammarVisitor):
         return self.visit(ctx.gd())
 
     def visitConstraintDefine(self, ctx):
-        constraint = self.visit(ctx.emptyOrPreGD())
-        print("Constraint:",constraint)
+        game.constraint = self.visit(ctx.emptyOrPreGD())
+        print("Constraint:",game.constraint)
      
     def visitActionDefine(self, ctx):
         action = Action()
         action.name = ctx.actionSymbol().getText()
         print("Action Name:",action.name)
+        action.oneActionList.append(action.name)
         action.precondition = self.visit(ctx.emptyOrPreGD())
         print("Precondition:",action.precondition)
+        action.oneActionList.append(action.precondition)
         firstEffect = self.visit(ctx.emptyOrEffect())
 
 
@@ -133,7 +137,7 @@ class MyVisitor(PDDLGrammarVisitor):
                     formu = Bool(a)
                     formula3 = Or(i[0],formu)
                     formula_3 = Or(formula3,formula_3)
-                print("formula_3:", formula_3)
+                # print("formula_3:", formula_3)
 
         # Formula 4
 
@@ -141,7 +145,7 @@ class MyVisitor(PDDLGrammarVisitor):
         for i in object_list:
             sub_obj.append(i)
 
-        print("effectList:",effectList)
+        # print("effectList:",effectList)
 
         for i in effectList:
             for j in sub_obj:
@@ -160,7 +164,7 @@ class MyVisitor(PDDLGrammarVisitor):
                     c = str(i + '\'' + ' == ' + i)
                     formula_5 = Bool(c)
                     formula_4 = And(formula_4, formula_5)
-            print("formula_4:", formula_4)
+            # print("formula_4:", formula_4)
 
         transitionFormula = Bool('transitionFormula')
         if len(sub_obj)>0:
@@ -173,11 +177,11 @@ class MyVisitor(PDDLGrammarVisitor):
                 transitionFormula = And(action.precondition,FinalEffect, formula_3)
             elif flag == 0:
                 transitionFormula = And(action.precondition, FinalEffect)
-
-        print("Transition Formula:", transitionFormula)
-
+        action.transitionFormula=transitionFormula
+        print("Transition Formula:", action.transitionFormula)
+        action.oneActionList.append(action.transitionFormula)
+        game.action_list.append(action.oneActionList)
         parameter_list = self.visit(ctx.listVariable())
-
         exist_list = []
         for i in parameter_list:
             exist_list.append(i[1:])
@@ -309,7 +313,7 @@ class MyVisitor(PDDLGrammarVisitor):
     # 【】【】【】
     def visitInteger(self,ctx):
         # value = ctx.getText()
-        # print(value)
+        # print("Integer",value)
         return int(ctx.getText())
 
     # 【】【】【】
@@ -370,9 +374,9 @@ class MyVisitor(PDDLGrammarVisitor):
     # 【】【】【】
     def visitName(self, ctx):
         value = ctx.getText()
-        # value = self.visit(ctx.term(0))
+        value = self.visit(ctx.term(0))
         # print("Name:", value)
-        return value
+        # return value
 
     def visitObjectDefine(self, ctx):
         obj = self.visit(ctx.listVariable())
@@ -380,6 +384,7 @@ class MyVisitor(PDDLGrammarVisitor):
             i = i[1:]
             object_list.append(i)
         obj_two = object_list
+        game.objectsCount=len(object_list)
         return object_list
 
     def visitTerconditionDefine(self, ctx):
@@ -387,3 +392,8 @@ class MyVisitor(PDDLGrammarVisitor):
         print("Terminal Condition:",game.tercondition)
         # print(game.tercondition)
         # return 0
+    def visitTypeDefine(self, ctx):
+        game.type=ctx.typeName().getText()
+        print("Type:",game.type) 
+
+
