@@ -457,6 +457,7 @@ while(True):
     if(e!=last_e):
         # The following are the constraints for the winning formula
         # s.set('timeout',6000)
+        #拆分去比较 如果终态--P--N--分别加入比较
         s.add(Or(And(Game["Terminal_Condition"], Not(e[0])),
                     Not(Implies(And(e[0],Game["Constraint"]), ForAll([Y, Y1], Implies(global_transition_formula, Not(e[1]))))),
                     Not(Implies(And(Not(e[0]),Game["Constraint"]), Exists([Y, Y1], And(global_transition_formula, e[1]))))))
