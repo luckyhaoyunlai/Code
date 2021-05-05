@@ -5,7 +5,6 @@ from subfile.PDDLGrammarParser import PDDLGrammarParser
 from z3 import *
 from MyVisitor import MyVisitor
 from MyVisitor import game
-from z3 import *
 import copy
 import time
 from opera import *
@@ -17,11 +16,11 @@ Y1=Int('Y1')
 k=Int('k')
 print("==============================================================================")
 if __name__ == '__main__':   #非导入的模块时 
-    if len(sys.argv) > 1:
-        input_stream = FileStream(sys.argv[1])
-    else:
-        input_stream = InputStream(sys.stdin.readline()) #文件流
-        
+    # if len(sys.argv) > 1:
+    #     input_stream = FileStream(sys.argv[1])
+    # else:
+    #     input_stream = InputStream(sys.stdin.readline()) #命令行输入文件流的形式
+    input_stream = FileStream("pddl\Chomp_game.pddl")   #输入文件相对路径 
     lexer = PDDLGrammarLexer(input_stream)
     token_stream = CommonTokenStream(lexer)
     parser = PDDLGrammarParser(token_stream)
@@ -50,7 +49,7 @@ Game = {"Terminal_Condition":Terminal_Condition ,
         "actions": actions,
         "Constraint":Constarint,
         "var_num":game.objectsCount ,
-        "type":game.type,
+        "type":game.type,            #可手动去改游戏类型
         "appeal_constants": []}   
 
 NUMBER_CONSTANT = {1:"One",2:"Two", 3:"Three", 4:"Four", 5:"Five", 6:"Six", 7:"Seven",
@@ -444,12 +443,62 @@ def Findnum(ConcreteExs):
 # The following is the process of generating the winning formula
 # This process will continue until  find the winning formula
 # This process will generate the losing formula, and the winning formula is its negation
+def unkownfindstate():
+    if (Game["var_num"] == 1):
+            while True:
+                v1 = Findnum(ConcreteExs)
+                if F(v1) == 'illegal':
+                    continue
+                else:
+                    return v1
+                    
+    if (Game["var_num"] == 2):
+        while True:
+            v1, v2 = Findnum(ConcreteExs)
+            print("找到的反例：",v1,v2)
+            if F(v1,v2) == 'illegal':#非法位置
+                print(v1,v2,"非法位置")
+                continue
+            else:
+                return v1,v2
+   
+
+def satfindstate():
+    m=s.model()
+    if (Game["var_num"] == 1):
+        v1 = m[X].as_long()
+        print("v1",v1)
+        if F(v1) == 'illegal':
+            while True:
+                v1 = Findnum(ConcreteExs)
+                if F(v1)=='illegal':
+                    continue
+                else:
+                    return v1
+        else:
+            return v1
+
+    if (Game["var_num"] == 2):
+        v1 = m[X].as_long()
+        v2 = m[X1].as_long()
+        if F(v1,v2) == 'illegal':
+            while True:
+                v1, v2 = Findnum(ConcreteExs)
+                print("找到的反例：",v1,v2)
+                if F(v1,v2)=='illegal':
+                    print("怎么会有这一步呢")
+                    continue
+                else:
+                    return v1,v2
+        else:
+            return v1,v2
+
 while(True):
     last_e=e
     e=Enumerate_algorithm(num,'Bool')
     print("枚举出候选的必败态：", e)
-    print('反例集合', ConcreteExs)
-    print("反例的数目",len(ConcreteExs))
+    # print('反例集合', ConcreteExs)
+    print("反例的数目",num)
     i = Int('i')
     i1=Int('i1')
     s = Solver()
@@ -461,7 +510,6 @@ while(True):
         s.add(Or(And(Game["Terminal_Condition"], Not(e[0])),
                     Not(Implies(And(e[0],Game["Constraint"]), ForAll([Y, Y1], Implies(global_transition_formula, Not(e[1]))))),
                     Not(Implies(And(Not(e[0]),Game["Constraint"]), Exists([Y, Y1], And(global_transition_formula, e[1]))))))
-    # print(s.check())
         if(s.check()==unsat):
                 losing_formula=e[0]
                 losing_formula_Y=e[1]
@@ -469,73 +517,22 @@ while(True):
                 generate_winning_formula_time = (time.time() - start_winning_formula_time)
                 print("Time to generate the winning formula:", generate_winning_formula_time)
                 break
-        # elif(s.check()==unknown):
-        #     if(Game["var_num"]==1):
-        #         while True:
-        #             num4 = Findnum(ConcreteExs)
-        #             if F(num4)=='illegal':
-        #                 continue
-        #             else:
-        #                 break
-        #     if(Game["var_num"]==2):
-        #         while True:
-        #             num4, num5 = Findnum(ConcreteExs)
-        #             if F(num4,num5)=='illegal':
-        #                 continue
-        #             else:
-        #                 break
-        #elif(s.check()==sat):
-        else:
-            m=s.model()
-            if (Game["var_num"] == 1):
-                num4 = m[X].as_long()
-                if F(num4) == 'illegal':
-                    while True:
-                        num4 = Findnum(ConcreteExs)
-                        if F(num4)=='illegal':
-                            continue
-                        else:
-                            break
-            if (Game["var_num"] == 2):
-                num4 = m[X].as_long()
-                num5 = m[X1].as_long()
-                if F(num4,num5) == 'illegal':
-                    while True:
-                        num4, num5 = Findnum(ConcreteExs)
-                        print("找到的反例：",num4,num5)
-                        if F(num4,num5)=='illegal':
-                            print("怎么会有这一步呢")
-                            continue
-                        else:
-                            break
+        elif(s.check()==unknown):
+            exampleState=unkownfindstate()
+        elif(s.check()==sat):
+            exampleState=satfindstate()
     else:
-        # When the the state s is not suitable to improve the candidate
-        # Use the function Findnum to find an suitable state
-        while True:
-            if (Game["var_num"] == 1):
-                num4 = Findnum(ConcreteExs)
-                if F(num4) == 'illegal':
-                    continue
-                else:
-                    break
-            if (Game["var_num"] == 2):
-                num4, num5 = Findnum(ConcreteExs)
-                print("找到的反例：",num4,num5)
-                if F(num4,num5) == 'illegal':#非法位置
-                    print(num4,num5,"非法位置")
-                    continue
-                else:
-                    break
-    # Add the counterexample to ConcreteExs
+        exampleState=unkownfindstate()
+
     if (Game["var_num"] == 1):
-        if ({'Input':{c:num4},'Output':F(num4)}) not in ConcreteExs:
-            ConcreteExs.append({'Input':{c:num4},'Output':F(num4)})
-            goal['value'].append(F(num4))
+        if ({'Input':{c:exampleState},'Output':F(exampleState)}) not in ConcreteExs:
+            ConcreteExs.append({'Input':{c:exampleState},'Output':F(exampleState)})
+            goal['value'].append(F(exampleState))
             num = num + 1
     if (Game["var_num"] == 2):
-        if ({'Input':{c:num4,d:num5},'Output':F(num4,num5)}) not in ConcreteExs:
-            ConcreteExs.append({'Input':{c:num4,d:num5},'Output':F(num4,num5)})
-            goal['value'].append(F(num4,num5))
+        if ({'Input':{c:exampleState[0],d:exampleState[1]},'Output':F(exampleState[0],exampleState[1])}) not in ConcreteExs:
+            ConcreteExs.append({'Input':{c:exampleState[0],d:exampleState[1]},'Output':F(exampleState[0],exampleState[1])})
+            goal['value'].append(F(exampleState[0],exampleState[1]))
             num = num + 1
 # ------------------------------------------------------------------
 
@@ -647,101 +644,103 @@ def findnum_strategy(cover,ConcreteExs,action_constraint):
         return m[X].as_long(),m[X1].as_long()
 
 
-Winning_strategy=[]
-refinement,refine_time_used=refine_the_winning_formula(Losing_formula())
+# Winning_strategy=[]
+# refinement,refine_time_used=refine_the_winning_formula(Losing_formula())
 
 # The following is the process of generating the winning strategy for every covers of winning formula
 # This process will choose the corresponding action and action parameter of every cover
-for cover in refinement:
-    # print("cover:",cover)
-    s=Solver()
-    s.add(cover)
-    s.add(Game["Constraint"])
-    if(s.check()==unsat):
-        continue
 
-    # The type of the initial search target is int
-    ConcreteExs.clear()
-    goal = {'value': [], 'type': ''}
-    goal['type'] = 'Int'
-    for action in actions:
-        # print(action)
-        it_mum = 1
-        e = 1
-        while (True):
-            # print(ConcreteExs)
-            last_e = e
-            # print("expression_searching......")
-            e = Enumerate_algorithm(it_mum,'Int')
-            e=e[0]
-            # print("expression_search_done")
-            if(type(e)==type(X)):
-                e=simplify(e)
 
-            s = Solver()
-            if (str(e) != str(last_e)):
-                action_temp=copy.deepcopy(action)
-                if (str(action_temp).find("k") != -1):
-                    action_temp = eval(str(action_temp).replace("k", '('+str(e)+')'))
+# for cover in refinement:
+#     # print("cover:",cover)
+#     s=Solver()
+#     s.add(cover)
+#     s.add(Game["Constraint"])
+#     if(s.check()==unsat):
+#         continue
 
-                # This is the constrains of this cover
-                s.add(Game["Constraint"])
-                s.add(Not(Implies(And(cover,Game["Constraint"]),And(action_temp["precondition"],
-                 ForAll([Y,Y1],Implies(action_temp["transition_formula"],Not(Winning_formula_Y())))))))
-                # print(s.check())
-                if (s.check() == unsat):
-                    Winning_strategy.append([cover,action["action_name"]+"("+str(e)+")"])
-                    # print("find")
-                    # print(Winning_strategy)
-                    break
-                else:
-                    m = s.model()
-                    # print(m)
-                    num1=0
-                    num2=0
-                    num1 = m[X].as_long()
-                    if(Game["var_num"]==2):
-                        num2 = m[X1].as_long()
-                    s_tem=Solver()
-                    s_tem.add(cover)
-                    s_tem.add(X==num1)
-                    if (Game["var_num"] == 2):
-                        s_tem.add(X1==num2)
-                    if(s_tem.check()!=sat):
-                        if (Game["var_num"] == 1):
-                            num1 = findnum_strategy(cover, ConcreteExs, Game["Constraint"])
-                        if (Game["var_num"] == 2):
-                            num1, num2 = findnum_strategy(cover, ConcreteExs, Game["Constraint"])
-                    if(f_strategy(action["precondition"], action["transition_formula"], Game["Constraint"],num1,num2)=="no suitable k"):
-                        # print("no suitable k")
-                        break
-                    result = f_strategy(action["precondition"], action["transition_formula"], Game["Constraint"],num1,num2)
-            else:
-                print('two expresion equal')
-                if(f_strategy(action["precondition"], action["transition_formula"],Game["Constraint"],num1, num2) == "no suitable k"):
-                    # print("no suitable k")
-                    break
-                if(Game["var_num"]==1):
-                    num1= findnum_strategy(cover, ConcreteExs, Game["Constraint"])
-                if(Game["var_num"]==2):
-                    num1,num2=findnum_strategy(cover,ConcreteExs,Game["Constraint"])
-                result=f_strategy(action["precondition"],action["transition_formula"],Game["Constraint"],num1,num2)
-            if (Game["var_num"] == 1):
-                if ({'Input': {c: num1}, 'Output': result}) not in ConcreteExs:
-                    ConcreteExs.append({'Input': {c: num1}, 'Output': result})
-                    goal['value'].append(result)
-                    it_mum = it_mum + 1
-            if(Game["var_num"]==2):
-                if ({'Input': {c: num1, d:num2}, 'Output': result}) not in ConcreteExs:
-                    ConcreteExs.append({'Input': {c: num1, d:num2}, 'Output': result})
-                    goal['value'].append(result)
-                    it_mum = it_mum + 1
+#     # The type of the initial search target is int
+#     ConcreteExs.clear()
+#     goal = {'value': [], 'type': ''}
+#     goal['type'] = 'Int'
+#     for action in actions:
+#         # print(action)
+#         it_mum = 1
+#         e = 1
+#         while (True):
+#             # print(ConcreteExs)
+#             last_e = e
+#             # print("expression_searching......")
+#             e = Enumerate_algorithm(it_mum,'Int')
+#             e=e[0]
+#             # print("expression_search_done")
+#             if(type(e)==type(X)):
+#                 e=simplify(e)
+
+#             s = Solver()
+#             if (str(e) != str(last_e)):
+#                 action_temp=copy.deepcopy(action)
+#                 if (str(action_temp).find("k") != -1):
+#                     action_temp = eval(str(action_temp).replace("k", '('+str(e)+')'))
+
+#                 # This is the constrains of this cover
+#                 s.add(Game["Constraint"])
+#                 s.add(Not(Implies(And(cover,Game["Constraint"]),And(action_temp["precondition"],
+#                  ForAll([Y,Y1],Implies(action_temp["transition_formula"],Not(Winning_formula_Y())))))))
+#                 # print(s.check())
+#                 if (s.check() == unsat):
+#                     Winning_strategy.append([cover,action["action_name"]+"("+str(e)+")"])
+#                     # print("find")
+#                     # print(Winning_strategy)
+#                     break
+#                 else:
+#                     m = s.model()
+#                     # print(m)
+#                     num1=0
+#                     num2=0
+#                     num1 = m[X].as_long()
+#                     if(Game["var_num"]==2):
+#                         num2 = m[X1].as_long()
+#                     s_tem=Solver()
+#                     s_tem.add(cover)
+#                     s_tem.add(X==num1)
+#                     if (Game["var_num"] == 2):
+#                         s_tem.add(X1==num2)
+#                     if(s_tem.check()!=sat):
+#                         if (Game["var_num"] == 1):
+#                             num1 = findnum_strategy(cover, ConcreteExs, Game["Constraint"])
+#                         if (Game["var_num"] == 2):
+#                             num1, num2 = findnum_strategy(cover, ConcreteExs, Game["Constraint"])
+#                     if(f_strategy(action["precondition"], action["transition_formula"], Game["Constraint"],num1,num2)=="no suitable k"):
+#                         # print("no suitable k")
+#                         break
+#                     result = f_strategy(action["precondition"], action["transition_formula"], Game["Constraint"],num1,num2)
+#             else:
+#                 print('two expresion equal')
+#                 if(f_strategy(action["precondition"], action["transition_formula"],Game["Constraint"],num1, num2) == "no suitable k"):
+#                     # print("no suitable k")
+#                     break
+#                 if(Game["var_num"]==1):
+#                     num1= findnum_strategy(cover, ConcreteExs, Game["Constraint"])
+#                 if(Game["var_num"]==2):
+#                     num1,num2=findnum_strategy(cover,ConcreteExs,Game["Constraint"])
+#                 result=f_strategy(action["precondition"],action["transition_formula"],Game["Constraint"],num1,num2)
+#             if (Game["var_num"] == 1):
+#                 if ({'Input': {c: num1}, 'Output': result}) not in ConcreteExs:
+#                     ConcreteExs.append({'Input': {c: num1}, 'Output': result})
+#                     goal['value'].append(result)
+#                     it_mum = it_mum + 1
+#             if(Game["var_num"]==2):
+#                 if ({'Input': {c: num1, d:num2}, 'Output': result}) not in ConcreteExs:
+#                     ConcreteExs.append({'Input': {c: num1, d:num2}, 'Output': result})
+#                     goal['value'].append(result)
+#                     it_mum = it_mum + 1
 
 # ---------------------------------------------------------------------------------------------
 total_time_use = (time.time() - start_total)
-print("------------------------------------------------------------------------------------------------")
-print("winning strategy:",Winning_strategy)
-# for i in Winning_strategy:
-#     print(i)
-print("Winning strategy Time used:",total_time_use-refine_time_used-generate_winning_formula_time)
-print("Total Time used:",total_time_use)
+# print("------------------------------------------------------------------------------------------------")
+# print("winning strategy:",Winning_strategy)
+# # for i in Winning_strategy:
+# #     print(i)
+# print("Winning strategy Time used:",total_time_use-refine_time_used-generate_winning_formula_time)
+# print("Total Time used:",total_time_use)

@@ -1,3 +1,4 @@
+from pkg_resources import SOURCE_DIST
 from subfile.PDDLGrammarVisitor import PDDLGrammarVisitor
 from subfile.PDDLGrammarParser import PDDLGrammarParser
 from z3 import *
@@ -96,7 +97,7 @@ class MyVisitor(PDDLGrammarVisitor):
         else:
             d = Int(str(effectList[0][1]) + '\'')
             # FinalEffect = e == effectList[0][2]
-            FinalEffect = And(effectList[0][0], d == effectList[0][2])
+            FinalEffect = If(effectList[0][0],d == effectList[0][2],e == effectList[0][2])
         ff = 0
         # 初始版本
         for i in effectList:
@@ -114,38 +115,39 @@ class MyVisitor(PDDLGrammarVisitor):
                     # print("apple")
                     # print("saiojdioaj:",i[0])
                     d = Int(str(i[1]) + '\'')
-                    FinalEffect = And(FinalEffect, i[0], d == i[2])
+                    FinalEffect = And(FinalEffect, If(i[0],d == i[2],d == i[1]))
+        FinalEffect=simplify(FinalEffect)
 
-        j = 1
-        flag = 0
-        for i in effectList:
+        # j = 1
+        # flag = 0
+        # for i in effectList:
 
-            if i[0] == True:
-                continue
-            else:
-                if j == 1:
-                    flag = 1
-                    a = str(i[1]) + '\'' + ' == ' + str(i[1])
-                    formu = Bool(a)
-                    formula4 = Or(i[0], formu)
-                    formula_3 = formula4
-                    j = j + 1
-                else:
-                    flag = 1
-                    j = j + 1
-                    a = str(i[1]) + '\'' + '==' + str(i[1])
-                    formu = Bool(a)
-                    formula3 = Or(i[0],formu)
-                    formula_3 = Or(formula3,formula_3)
+        #     if i[0] == True:
+        #         continue
+        #     else:
+        #         if j == 1:
+        #             flag = 1
+        #             a = str(i[1]) + '\'' + ' == ' + str(i[1])
+        #             formu = Bool(a)
+        #             formula4 = Or(i[0], formu)
+        #             formula_3 = formula4
+        #             j = j + 1
+        #         else:
+        #             flag = 1
+        #             j = j + 1
+        #             a = str(i[1]) + '\'' + '==' + str(i[1])
+        #             formu = Bool(a)
+        #             formula3 = Or(i[0],formu)
+        #             formula_3 = Or(formula3,formula_3)
                 # print("formula_3:", formula_3)
 
         # Formula 4
 
-        sub_obj = []
+        sub_obj = [] #当[]中不包含变量v1时，要额外去设置v1'=v1
         for i in object_list:
             sub_obj.append(i)
 
-        # print("effectList:",effectList)
+        print("effectList:",effectList)
 
         for i in effectList:
             for j in sub_obj:
@@ -153,7 +155,7 @@ class MyVisitor(PDDLGrammarVisitor):
                     sub_obj.remove(j)
         # print("Formula 4中的sub_obj:",sub_obj)
 
-        if len(sub_obj)>0:
+        if len(sub_obj)>0: #该动作不包含某变量 
             k=0
             for i in sub_obj:
                 if k==0:
@@ -164,19 +166,15 @@ class MyVisitor(PDDLGrammarVisitor):
                     c = str(i + '\'' + ' == ' + i)
                     formula_5 = Bool(c)
                     formula_4 = And(formula_4, formula_5)
-            # print("formula_4:", formula_4)
+        #     print("formula_4:", formula_4)
+
 
         transitionFormula = Bool('transitionFormula')
+        
         if len(sub_obj)>0:
-            if flag == 1:
-                transitionFormula = And(action.precondition,FinalEffect, formula_3, formula_4)
-            elif flag == 0:
-                transitionFormula = And(action.precondition, FinalEffect, formula_4)
+            transitionFormula=And(action.precondition,FinalEffect,formula_4)     
         else:
-            if flag == 1:
-                transitionFormula = And(action.precondition,FinalEffect, formula_3)
-            elif flag == 0:
-                transitionFormula = And(action.precondition, FinalEffect)
+            transitionFormula=And(action.precondition,FinalEffect)
         action.transitionFormula=transitionFormula
         print("Transition Formula:", action.transitionFormula)
         action.oneActionList.append(action.transitionFormula)
@@ -201,7 +199,6 @@ class MyVisitor(PDDLGrammarVisitor):
         for i in range(len(ctx.cEffect())):
             cEffect = self.visit(ctx.cEffect(i))
             effectList.append(cEffect)
-
         return effectList
 
 
@@ -253,7 +250,7 @@ class MyVisitor(PDDLGrammarVisitor):
         cEffect.pEffectList.append(self.visit(ctx.gd()))
         effList = cEffect.condEffect
         for i in effList:
-            cEffect.pEffectList.append(i)   
+            cEffect.pEffectList.append(i)  
         return cEffect.pEffectList
 
 

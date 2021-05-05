@@ -1,8 +1,8 @@
 (define (domain chomp-game)
     (:objects ?v1 ?v2)
-    (:type misere)
+    (:type normal)
     (:tercondition (and (= ?v1 1) (= ?v2 0) ))
-    (:constraint (and (>= ?v1 1) (>= ?v2 0)))
+    (:constraint (and (>= ?v1 1) (>= ?v2 0)(>= ?v1 ?v2)))
     (:action eat1
         :parameters (?k)
         :precondition (and (>= ?v1 ?k) (> ?k 1))

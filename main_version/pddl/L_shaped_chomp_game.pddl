@@ -11,3 +11,4 @@
         :parameters (?k)
         :precondition (and (>= ?v2 ?k) (> ?k 1))
         :effect (assign ?v2 (- ?k 1)))
+)

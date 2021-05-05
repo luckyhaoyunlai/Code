@@ -29,8 +29,7 @@ actionDefine: LB COLON ACTION actionSymbol
                 (COLON EFFECT emptyOrEffect)?
               RB;
 actionSymbol: NAME;
-typeName:NAME;
-
+typeName:NORMAL|MISERE;
 
 emptyOrPreGD: gd # isGd
             | LB RB  # preGDBracket
@@ -47,7 +46,7 @@ gd: termAtomForm                        # atom
   | LB AND gd+ RB                       # and
   | LB OR gd+ RB                        # or
   | LB NOT gd RB                        # not
-  | LB IMPLY gd gd RB                   # imply
+  | LB IMPLIES gd gd RB                   # imply
   | LB EXISTS LB listVariable RB gd RB  # exists
   | LB FORALL LB listVariable RB gd RB  # forall
   ;
@@ -156,7 +155,7 @@ MIN: 'min';
 MAX: 'max';
 NUMS: 'numbers';
 NORMAL:'normal';
-MISER: 'miser';
+MISERE: 'misere';
 EFFECT: 'effect';
 OBJECT: 'object';
 INC: 'increase';
@@ -194,7 +193,7 @@ AND: 'and';
 OR: 'or';
 NOT: 'not';
 ONEOF: 'oneof';
-IMPLY: 'imply';
+IMPLIES: 'Implies';
 FORALL: 'forall';
 EXISTS: 'exists';
 WHEN: 'when';

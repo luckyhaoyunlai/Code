@@ -46,10 +46,8 @@ def Gt(a, b):
 def Equal(a, b):
     return a == b
 
-
 def Unequal(a, b):
     return a != b
-
 
 def OR(a, b):
     return (a or b)
@@ -141,43 +139,27 @@ c = Int('c')
 d = Int('d')
 k_num = Int('k_num')
 #empty and divide
-# actions = [{"action_name": "empty1", "precondition": And(X1 > k_num, k_num >= 1), "transition_formula": And(And(X1 > k_num, k_num >= 1), And(Y == k_num, Y1 == X1 - k_num))},
-#            {"action_name": "empty2", "precondition": And(X > k_num, k_num >= 1), "transition_formula": And(And(X > k_num, k_num >= 1), And(Y1 == k_num, Y == X - k_num))}]
-# Game = {"Terminal_Condition": And(X == 1, X1 == 1),
-#         "actions": actions,
-#         "Constraint": And(X >= 1, X1 >= 1),
-#         "var_num": 2,
-#         "type":"misere",
-#         "appeal_constants": [2,3]}
-
-# Monotonic_2_piled_nim
-# actions = [{"action_name": "take1", "precondition":And(X >= k_num, k_num >= 1) , "transition_formula": And(And(X >= k_num, k_num >= 1), Y == X - k_num, Y1 == X1)},
-#            {"action_name": "take2", "precondition":And(X1 - k_num >= X, k_num >= 1), "transition_formula":And(And(X1 - k_num >= X, k_num >= 1), Y1 == X1 - k_num, Y == X)}]
-# Game = {"Terminal_Condition":And(X == 0, X1 == 0) ,
-#         "actions": actions,
-#         "Constraint":And(X >= 0, X1 >= 0),
-#         "var_num": 2,
-#         "type":"misere",
-#         "appeal_constants": []}
-# two_piled_nim
-# actions = [{"action_name": "take1", "precondition": And(X >= k_num, k_num >= 1) , "transition_formula":And(And(X >= k_num, k_num >= 1), Y == X - k_num, Y1 == X1)},
-#            {"action_name": "take2", "precondition": And(X1 >= k_num, k_num >= 1) , "transition_formula":And(And(X1 >= k_num, k_num >= 1), Y1 == X1 - k_num, Y == X)}]
-# Game = {"Terminal_Condition": And(X == 0, X1 == 0) ,
-#         "actions": actions,
-#         "Constraint": And(X >= 0, X1 >= 0),
-#         "var_num": 2,
-#         "type":"misere",
-#         "appeal_constants": []} 
-
-# Subtraction_game s={1,2,4}
-actions = [{"action_name": "take", "precondition":And(X >= k_num, Or(k_num == 1, k_num == 2, k_num == 3)) , 
-            "transition_formula":And(And(X >= k_num,Or(k_num == 1, k_num == 2, k_num == 3)), Y == X - k_num)}]
-Game = {"Terminal_Condition": And(X >= 0, X < 1),
+actions = [{"action_name": "empty1", "precondition": And(X1 > k_num, k_num >= 1), "transition_formula": And(And(X1 > k_num, k_num >= 1), And(Y == k_num, Y1 == X1 - k_num))},
+           {"action_name": "empty2", "precondition": And(X > k_num, k_num >= 1), "transition_formula": And(And(X > k_num, k_num >= 1), And(Y1 == k_num, Y == X - k_num))}]
+Game = {"Terminal_Condition": And(X == 1, X1 == 1),
         "actions": actions,
-        "Constraint":X >= 0,
-        "var_num": 1,
+        "Constraint": And(X >= 1, X1 >= 1),
+        "var_num": 2,
         "type":"normal",
-        "appeal_constants": [2,3]} 
+        "appeal_constants": []}
+
+
+
+# monotonic_2_diet_wythoff_game
+# actions=[{"action_name":"take1","precondition":Or(And(k_num == 1, X > 0), And(k_num == 2, X > 1)),"transition_formula": And( Or(And(k_num == 1, X > 0), And(k_num == 2, X > 1)),Y == X - k_num, Y1 == X1)},
+#          {"action_name": "take2", "precondition":Or(And(k_num == 1, X1 > X), And(k_num == 2, X1 > X + 1)),"transition_formula": And(Or(And(k_num == 1, X1 > X), And(k_num == 2, X1 > X + 1)),Y1==X1-k_num,Y==X)},
+#          {"action_name": "takeBoth", "precondition":And(X ==X1 , X > 0),"transition_formula": And(And(X ==X1 , X > 0),Y==X-1,Y1==X1-1)}]
+# Game= {"Terminal_Condition":And(X == 0, X1 == 0),
+#        "actions":actions,
+#        "Constraint":And(X >= 0, X1 >= X),
+#        "var_num":2,
+#        "appeal_constants":[]}
+
 
 p_vocabulary = [{'Input': ['Int', 'Int'], 'Function_name': 'Equal', 'arity': 2},
                 # {'Input': ['Int', 'Int'],'Function_name': 'Unequal', 'arity': 2},
@@ -221,15 +203,14 @@ FunExg = {'Add': Add, 'Sub': Sub, 'Inc': Inc, 'Dec': Dec, 'Ge': Ge, 'ITE': ITE,
 """
 按大小枚举谓词
 """
-def enumeratePredicate(MaxSize):
+def enumerateItems(MaxSize):
     SigSet = []
     ExpSet = []
     SizeOneExps = []
-    TempTerms = []
-
+    
+    SizeOneExps.append({'Expression': X, 'arity': 1, 'size': 1})
     SizeOneExps.append({'Expression': 0, 'arity': 0, 'size': 1})
     SizeOneExps.append({'Expression': 1, 'arity': 0, 'size': 1})
-    SizeOneExps.append({'Expression': X, 'arity': 1, 'size': 1})
     for i in Game["appeal_constants"]:
         SizeOneExps.append({'Expression': i, 'arity': 0, 'size': 1})
     if(Game["var_num"] == 2):
@@ -278,25 +259,35 @@ def enumeratePredicate(MaxSize):
                                     ExpSet.append({'Expression': term, 'arity': i['arity'], 'outputData': Goal, 'size': li})
 
         li = li+1
-    for i in ExpSet:
-        TempTerms.append(i['Expression'])
-    # 找出规定大小的terms 从小term枚举到大term 更具这个terms合成preds 小谓词 >= > == != %
-    print("枚举谓词需要用到的项",TempTerms)
+    return ExpSet
+    # for i in ExpSet:
+    #     TempTerms.append(i['Expression'])
+    # # 找出规定大小的terms 从小term枚举到大term 更具这个terms合成preds 小谓词 >= > == != %
+    # print("枚举谓词需要用到的术语",TempTerms)
     #优化1 如果谓词集合的大小为2^len(pts)则退出 因为已经满足了所有的情况
     #优化2 如果
-    # maxsize=MaxSize+1
+     
+
+        # if i['arity']==3:
+        #     for choose1 in TempTerms:
+        #         for choose2 in TempTerms:
+        #             for choose3 in TempTerms:
+        #                 tempPredicate=FunExg[i['Function_name']](choose1,choose2,choose3):
+        #                 #choosee2是否要满足 只能是整数
+
+def enumeratePreds(MaxSize,ExpSet):
     predGoal = []
     for i in p_vocabulary:
         if i['arity'] == 2:
-            # for num1 in range(1,maxsize):
-            #     for num2 in range(1,maxsize):
-                    # if num1+num2==maxsize:
-                        for choose1 in TempTerms:
-                            # if choose1['size']==num1:
-                                for choose2 in TempTerms:
-                                    # if choose2["size"]==num2:
+            for num1 in range(1,MaxSize):
+                for num2 in range(1,MaxSize):
+                    if num1+num2==MaxSize:
+                        for choose1 in ExpSet:
+                            if choose1['size']==num1:
+                                for choose2 in ExpSet:
+                                    if choose2["size"]==num2:
                                         if str(choose1) != str(choose2):
-                                            tempPredicate = FunExg[i['Function_name']](choose1, choose2)
+                                            tempPredicate = FunExg[i['Function_name']](choose1['Expression'], choose2['Expression'])
                                             if str(tempPredicate) != 'False' and str(tempPredicate) != 'True':
                                                 goal = []
                                                 for pt in pts:
@@ -309,18 +300,18 @@ def enumeratePredicate(MaxSize):
                                                         if len(preds)==pow(2,len(pts)):
                                                             return
         if i['arity']==3:
-            # for num1 in range(1,maxsize):
-            #     for num2 in range(1,maxsize):
-            #         for num3 in range(1,maxsize):
-                        # if num1+num2+num3==maxsize:
-                            for choose1 in TempTerms:
-                                # if choose1["size"]==num1:
-                                    for choose2 in TempTerms:
-                                        # if choose2["size"]==num2:
-                                            for choose3 in TempTerms:
-                                                # if choose3["size"]==num3:
+            for num1 in range(1,MaxSize):
+                for num2 in range(1,MaxSize):
+                    for num3 in range(1,MaxSize):
+                        if num1+num2+num3==MaxSize:
+                            for choose1 in ExpSet:
+                                if choose1["size"]==num1:
+                                    for choose2 in ExpSet:
+                                        if choose2["size"]==num2:
+                                            for choose3 in ExpSet:
+                                                if choose3["size"]==num3:
                                                     try:
-                                                        tempPredicate = FunExg[i['Function_name']](choose1, choose2,choose3)
+                                                        tempPredicate = FunExg[i['Function_name']](choose1['Expression'], choose2['Expression'],choose3['Expression'])
                                                         if str(tempPredicate) != 'False' and str(tempPredicate) != 'True':
                                                             goal=[]
                                                             for pt in pts:
@@ -332,15 +323,7 @@ def enumeratePredicate(MaxSize):
                                                                     if len(preds)==pow(2,len(pts)):
                                                                         return
                                                     except ZeroDivisionError:  
-                                                        pass 
-
-        # if i['arity']==3:
-        #     for choose1 in TempTerms:
-        #         for choose2 in TempTerms:
-        #             for choose3 in TempTerms:
-        #                 tempPredicate=FunExg[i['Function_name']](choose1,choose2,choose3):
-        #                 #choosee2是否要满足 只能是整数
-
+                                                        pass
 
 """
 找到下个term不属于covers的
@@ -608,7 +591,7 @@ def ptSatPred(pt, pred) -> bool:  # 将pt值代替pred中的未知数
 # DT.right.right = TreeNode(X1)
 
 
-# 将树转化为条件表达式
+# 将树转化为表达式
 def tree2Expr(DT) -> str:
     if not DT:return "DT为空"
     # 结点时术语
@@ -627,11 +610,6 @@ def tree2Expr(DT) -> str:
     return expr
 #将树转化成Z3表达式
 def tree2LossingFormula(DT)->str:
-    if DT == True: #假设的是pts为空 将树默认设置为True
-        return "True"
-    if(type(DT.val)==type("False")):
-        # print(DT.val)
-        return DT.val
     t2ftime = time.time()
     paths=[] #存储一条路径 And(,,,)
     #如果single大于0 那么就 Or(,,,)起来
@@ -889,7 +867,8 @@ start_winning_formula_time = time.time()
 #合成必败公式
 pts=[]
 ptsGoal=[]
-Maxsize=1
+MaxItemSize=1
+item=[]
 while(True):
     terms=[True,False]
     cover={}
@@ -908,28 +887,36 @@ while(True):
     DTflag=True
     e=X==X  #默认表达式
     last_e=e
+    MaxPreSize=2
     DTTime=time.time()
-     
     while(pts!= [] and (DT==None or  DTflag==False)):
         DTflag=True
         enumPredsTime=time.time()
-        enumeratePredicate(Maxsize)
-        print("枚举谓词所用的时间：",time.time()-enumPredsTime)
-        print("术语",terms)
+        if(item==[]):
+            item=enumerateItems(MaxItemSize)
+        items=[]
+        for i in item:
+            items.append(i["Expression"])
+        print("枚举谓词用到的项",items)
+        enumeratePreds(MaxPreSize,item)
+        # print("枚举谓词所用的时间：",time.time()-enumPredsTime)
+        # print("术语",terms)
         print("谓词",preds)
-        print("反例集合",pts)
+        # print("反例集合",pts)
         print("反例的个数",len(pts))
         calculateIGTime=time.time()
         DT=learn_DT(pts,preds)  #lenrnDT中可能会出现 找出不了最好的谓词划分
         # print("计算信息增益的时间是：",time.time()-calculateIGTime)
-        if(DTflag==False):
-            Maxsize+=1
-            print('不能划分，没有树可以生成，MAXSIZE',Maxsize)
+        if(DTflag==False):#谓词不足以合成一颗树
+            if MaxPreSize >= 3*MaxItemSize:
+                MaxItemSize+=1#谓词大小加到最大时，加item大小
+                item=enumerateItems(MaxItemSize)
+            else:
+                MaxPreSize+=MaxItemSize #先加项的大小
+            print('不能划分，没有树可以生成，MAXSIZE',MaxPreSize,MaxItemSize)
     print("合成DT需要的时间：",time.time()-DTTime) 
     if DT!=None :e = eval(tree2Expr(DT)) 
     print("枚举的决策树：",e)
-    if DT!=None :e=eval(tree2LossingFormula(DT))
-    print(e)
     e1=eval(str(e).replace("X1","Y1").replace("X","Y"))
     if(str(e)!=str(last_e)):
         s=Solver()
@@ -944,7 +931,7 @@ while(True):
                     And(Game["Constraint"],Not(e),Not(Game["Terminal_Condition"]),ForAll([Y,Y1],Or(Not(global_transition_formula),Not(e1)))),
                     And(Game["Constraint"],e,Exists([Y,Y1],And(global_transition_formula,e1)))))
         if(s.check()==unsat):
-            print("unsat SMT判断所用时间：",time.time()-smttime)
+            print("SMT判断所用时间：",time.time()-smttime)
             # losing_formula = e
             # print("树的表达式：",tree2LossingFormula(DT))
             lossing_formula=eval(tree2LossingFormula(DT))
@@ -956,13 +943,11 @@ while(True):
             print("花费的时间是：",winning_formula_time)
             break
         elif(s.check()==unknown):
-            print("unkown SMT判断所用时间：",time.time()-smttime)
             if (Game["var_num"] == 1):
                 num4 = FindCountExample(e)
             if (Game["var_num"] == 2):
                 num4, num5 = FindCountExample(e)
         else: #优化 可以把sat给计算出来
-            print("sat SMT判断所用时间：",time.time()-smttime)
             m=s.model()
             if (Game["var_num"] == 1):
                 num4 = m[X].as_long()
@@ -986,22 +971,20 @@ while(True):
         if (Game["var_num"] == 1):
             num4 = FindCountExample(e)
         if (Game["var_num"] == 2):
-            num4, num5 = FindCountExample(e)  
+            num4, num5 = FindCountExample(e)      
     if (Game["var_num"] == 1):
         print("反例点",num4)
-    if(Game["var_num"]==2):
-        print("反例点",num4,num5)       
-    if (Game["var_num"] == 1):
         if {c: num4} not in pts:
             pts.append({c: num4})
             ptsGoal.append(isLossingState(num4))    
     if (Game["var_num"] == 2):
+        print("反例点",num4,num5) 
         if {c: num4, d: num5} not in pts:
             pts.append({c: num4, d: num5})
             ptsGoal.append(isLossingState(num4,num5))   
              
 # print("开始测试")
-# e=(X1-X)%3==1
+# e=(X+X1)==2
 # e1=eval(str(e).replace("X1","Y1").replace("X","Y"))
 # s=Solver()
 # s.add(Or(And(Game["Terminal_Condition"], Not(e)),  # normal

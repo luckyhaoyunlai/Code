@@ -1,3 +1,8 @@
+from MyVisitor import MyVisitor
+from MyVisitor import game
+from antlr4 import *
+from subfile.PDDLGrammarLexer import PDDLGrammarLexer
+from subfile.PDDLGrammarParser import PDDLGrammarParser
 from z3 import *
 import copy
 import time
@@ -9,7 +14,7 @@ X = Int('X')
 Y = Int('Y')
 X1 = Int('X1')
 Y1 = Int('Y1')
-k_num = Int('k_num')
+k = Int('k')
 #
 c = Int('c')
 d = Int('d')
@@ -130,35 +135,56 @@ def ModTest(a, b, c):
 
 # Chomp game(2 x n)
 # 字典数组action game
-# 游戏初始化，终结条件，动作，约束，变量数量，appeal_constants（基本的常数量，一般只有0,1，0，1就可以靠运算代表所有的数字）
+# 游戏初始化，终结条件，动作，约束，变量数量
 # 动作，动作名，前提，转移公式(约束的组成部分)  translation_formula And(pre,v'==k-1,eff,frame axiom)
-actions = [{"action_name": "eat1", "precondition": And(X >= k_num, k_num > 1), "transition_formula": And(And(X >= k_num, k_num > 1), Y == k_num - 1, Implies(X1 >= k_num, Y1 == k_num - 1), Or(X1 >= k_num, Y1 == X1))},
-           {"action_name": "eat2", "precondition": And(X1 >= k_num, k_num > 0), "transition_formula": And(And(X1 >= k_num, k_num > 0), Y1 == k_num - 1, Y == X)}]
-Game = {"Terminal_Condition": And(X == 1, X1 == 0),
+# actions = [{"action_name": "eat1", "precondition": And(X >= k, k > 1), "transition_formula": 
+# And(And(X >= k, k > 1), Y == k - 1, Implies(X1 >= k, Y1 == k - 1), 
+# Or(X1 >= k, Y1 == X1))},
+#            {"action_name": "eat2", "precondition": And(X1 >= k, k > 0), "transition_formula": And(And(X1 >= k, k > 0), Y1 == k - 1, Y == X)}]
+# Game = {"Terminal_Condition": And(X == 1, X1 == 0),
+#         "actions": actions,
+#         "Constraint": And(X >= 1, X1 >= 0, X >= X1),
+#         "var_num": 2,
+#         "type":"normal",
+#         "appeal_constants": []}
+
+print("==============================================================================")
+if __name__ == '__main__':   #非导入的模块时 
+    # if len(sys.argv) > 1:
+    #     input_stream = FileStream(sys.argv[1])
+    # else:
+    #     input_stream = InputStream(sys.stdin.readline()) #命令行输入文件流的形式
+    input_stream = FileStream("pddl\Chomp_game.pddl")    
+    lexer = PDDLGrammarLexer(input_stream)
+    token_stream = CommonTokenStream(lexer)
+    parser = PDDLGrammarParser(token_stream)
+    tree = parser.domain()
+    s = Solver()  
+    visitor = MyVisitor()#访问器对象  myvisitor继承了PDDLGrammarVisitor
+    visitor.visit(tree) #visit()
+print("==============================================================================")
+# -----------------------------------------------------------
+print("var_num:",game.objectsCount)
+Terminal_Condition=eval(str(game.tercondition).replace('v1','X').replace('v2','X1'))
+Constarint=eval(str(game.constraint).replace('v1','X').replace('v2','X1'))
+actions=[]
+for i in game.action_list:
+    one={"action_name":i[0],
+         "precondition":eval(str(i[1]).replace('v1','X').replace('v2','X1')),
+         "transition_formula":eval(str(i[2]).replace('v1\'','Y').replace('v2\'','Y1').replace('v1','X').replace('v2','X1')) }
+    actions.append(one)
+#2-chomp-game
+# print(actions)
+# print(game.objectsCount)
+# print(Terminal_Condition)
+# print(Constarint)
+# print("类型",game.type)
+Game = {"Terminal_Condition":Terminal_Condition ,
         "actions": actions,
-        "Constraint": And(X >= 1, X1 >= 0, X >= X1),
-        "var_num": 2,
-        "type":"normal",
-        "appeal_constants": []}
-
-
-# empty and divide
-# actions = [{"action_name": "empty1", "precondition": And(X1 > k_num, k_num >= 1), "transition_formula": And(And(X1 > k_num, k_num >= 1), And(Y == k_num, Y1 == X1 - k_num))},
-#            {"action_name": "empty2", "precondition": And(X > k_num, k_num >= 1), "transition_formula": And(And(X > k_num, k_num >= 1), And(Y1 == k_num, Y == X - k_num))}]
-# Game = {"Terminal_Condition": And(X == 1, X1 == 1),
-#         "actions": actions,
-#         "Constraint": And(X >= 1, X1 >= 1),
-#         "var_num": 2,
-#         "appeal_constants": []}
-
-# actions = [{"action_name": "take1", "precondition": Or(And(k_num == 1, X > 0), And(k_num == 2, X > 1)), "transition_formula": And(Or(And(k_num == 1, X > 0), And(k_num == 2, X > 1)), Y == X - k_num, Y1 == X1)},
-#            {"action_name": "take2", "precondition": Or(And(k_num == 1, X1 > X), And(k_num == 2, X1 > X + 1)), "transition_formula": And(Or(And(k_num == 1, X1 > X), And(k_num == 2, X1 > X + 1)), Y1 == X1-k_num, Y == X)},
-#            {"action_name": "takeBoth", "precondition": And(X == X1, X > 0), "transition_formula": And(And(X == X1, X > 0), Y == X-1, Y1 == X1-1)}]
-# Game = {"Terminal_Condition": And(X == 0, X1 == 0),
-#         "actions": actions,
-#         "Constraint": And(X >= 0, X1 >= X),
-#         "var_num": 2,
-#         "appeal_constants": []}
+        "Constraint":Constarint,
+        "var_num":game.objectsCount ,
+        "type":game.type, #也可手动去改游戏类型
+        "appeal_constants": []} 
 
 NUMBER_CONSTANT = {1: "One", 2: "Two", 3: "Three", 4: "Four", 5: "Five", 6: "Six", 7: "Seven",
                    8: "Eight", 9: "Nine"}
@@ -300,8 +326,8 @@ def Enumerate_algorithm(count, Goal_type):
                             j['z3Expression'][0])  # x+1  X是Int('x')
                         z3TempExp2 = Z3FunExg[i['Function_name']](
                             j['z3Expression'][1])  # x+1
-                        for k in j['Output_data']:  # [] [2] [2 2] [2 2 1] [2, 2, 1, 2]
-                            O = FunExg[i['Function_name']](k)
+                        for k1 in j['Output_data']:  # [] [2] [2 2] [2 2 1] [2, 2, 1, 2]
+                            O = FunExg[i['Function_name']](k1)
                             Goal1.append(O)
                         if Goal1 not in SigSet:  # 更新sigset
                             SigSet.append(Goal1)  # 存储枚举的结果的挂号
@@ -330,8 +356,8 @@ def Enumerate_algorithm(count, Goal_type):
                                 j['z3Expression'][0])
                             z3TempExp2 = Z3FunExg[i['Function_name']](
                                 j['z3Expression'][1])  # [x+1,x+1]
-                            for k in j['Output_data']:
-                                O = FunExg[i['Function_name']](k)
+                            for k1 in j['Output_data']:
+                                O = FunExg[i['Function_name']](k1)
                                 Goal1.append(O)
                             if Goal1 not in SigSet:  # 跟新Sigset才更型ExpSet
                                 SigSet.append(Goal1)
@@ -370,9 +396,9 @@ def Enumerate_algorithm(count, Goal_type):
                                                     z3TempExp2 = Z3FunExg[i['Function_name']](
                                                         choose1['z3Expression'][1], choose2['z3Expression'][1])
                                                     # 更型Goal1 zip成（a，b）
-                                                    for k, h in zip(choose1['Output_data'], choose2['Output_data']):
+                                                    for k1, h in zip(choose1['Output_data'], choose2['Output_data']):
                                                         O = FunExg[i['Function_name']](
-                                                            k, h)
+                                                            k1, h)
                                                         # print('258',i['Function_name'],choose1['Expression'],choose1['Output_data'],choose2['Expression'],choose2['Output_data'],O)
                                                         # goal={e,concertExs}  [True, True, True]
                                                         Goal1.append(O)
@@ -415,9 +441,9 @@ def Enumerate_algorithm(count, Goal_type):
                                                                         choose1['z3Expression'][0], choose2['z3Expression'][0], choose3['z3Expression'][0])
                                                                     z3TempExp2 = Z3FunExg[i['Function_name']](
                                                                         choose1['z3Expression'][1], choose2['z3Expression'][1], choose3['z3Expression'][1])
-                                                                    for k, h, g in zip(choose1['Output_data'], choose2['Output_data'], choose3['Output_data']):
+                                                                    for k1, h, g in zip(choose1['Output_data'], choose2['Output_data'], choose3['Output_data']):
                                                                         O = FunExg[i['Function_name']](
-                                                                            k, h, g)
+                                                                            k1, h, g)
                                                                         Goal1.append(
                                                                             O)
                                                                     if Goal1 not in SigSet:
@@ -454,9 +480,9 @@ def Enumerate_algorithm(count, Goal_type):
                                                                         choose1['z3Expression'][0], choose2['z3Expression'][0], choose3['z3Expression'][0])
                                                                     z3TempExp2 = Z3FunExg[i['Function_name']](
                                                                         choose1['z3Expression'][1], choose2['z3Expression'][1], choose3['z3Expression'][1])
-                                                                    for k, h, g in zip(choose1['Output_data'], choose2['Output_data'], choose3['Output_data']):
+                                                                    for k1, h, g in zip(choose1['Output_data'], choose2['Output_data'], choose3['Output_data']):
                                                                         O = FunExg[i['Function_name']](
-                                                                            k, h, g)
+                                                                            k1, h, g)
                                                                         # print('327',O)
                                                                         Goal1.append(
                                                                             O)
@@ -476,7 +502,7 @@ def Enumerate_algorithm(count, Goal_type):
 
 
 # 全局转换公式
-global_transition_formula = "Exists(k_num,Or("
+global_transition_formula = "Exists(k,Or("
 for i in Game["actions"]:
     global_transition_formula = global_transition_formula + \
         str(i["transition_formula"])+","
@@ -880,9 +906,9 @@ while(True):  # 合成制胜公式
 #     # print(s.check())
 #     if(s.check() == sat):
 #         m = s.model()
-#         return m[k_num].as_long()
+#         return m[k].as_long()
 #     else:
-#         return "no suitable k_num"
+#         return "no suitable k"
 
 # # 找位置
 
@@ -942,9 +968,9 @@ while(True):  # 合成制胜公式
 #             s = Solver()
 #             if (str(e) != str(last_e)):
 #                 action_temp = copy.deepcopy(action)
-#                 if (str(action_temp).find("k_num") != -1):  # 用枚举得int代替action中的K_num
+#                 if (str(action_temp).find("k") != -1):  # 用枚举得int代替action中的K_num
 #                     action_temp = eval(
-#                         str(action_temp).replace("k_num", '('+str(e)+')'))
+#                         str(action_temp).replace("k", '('+str(e)+')'))
 #                 # This is the constrains of this cover
 #                 s.add(Game["Constraint"])  # 定义7
 #                 s.add(Not(Implies(And(cover, Game["Constraint"]), And(action_temp["precondition"],
@@ -978,16 +1004,16 @@ while(True):  # 合成制胜公式
 #                             num1, num2 = findnum_strategy(
 #                                 cover, ConcreteExs, Game["Constraint"])
 #                             # print("785找新的num值：", num1, "  ", num2)
-#                     if(f_strategy(action["precondition"], action["transition_formula"], Game["Constraint"], num1, num2) == "no suitable k_num"):
-#                         print("794no suitable k_num")
+#                     if(f_strategy(action["precondition"], action["transition_formula"], Game["Constraint"], num1, num2) == "no suitable k"):
+#                         print("794no suitable k")
 #                         break
 #                     result = f_strategy(
 #                         action["precondition"], action["transition_formula"], Game["Constraint"], num1, num2)
 #             else:
 #                 print('two expresion equal')
 #                 # 草率了，这里需要判断是否只有num1
-#                 if(f_strategy(action["precondition"], action["transition_formula"], Game["Constraint"], num1, num2) == "no suitable k_num"):
-#                     print("798no suitable k_num")
+#                 if(f_strategy(action["precondition"], action["transition_formula"], Game["Constraint"], num1, num2) == "no suitable k"):
+#                     print("798no suitable k")
 #                     break
 #                 if(Game["var_num"] == 1):
 #                     num1 = findnum_strategy(

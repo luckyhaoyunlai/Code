@@ -1,5 +1,9 @@
 from z3 import *
 # The operator that the enumrate algorithm used
+
+# s.add(Or(And(Game["Terminal_Condition"], Not(e[0])),
+        #Not(Implies(And(e[0], Game["Constraint"]), ForAll([Y, Y1], Implies(global_transition_formula, Not(e[1]))))),
+        #Not(Implies(And(Not(e[0]), Game["Constraint"]), Exists([Y, Y1], And(global_transition_formula, e[1]))))))
 def Add(a,b):
     return a+b
 
