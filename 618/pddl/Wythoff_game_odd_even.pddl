@@ -1,6 +1,5 @@
 (define (domain Wythoff_game)
     (:objects ?m ?n)
-    (:type normal)
     (:tercondition (and (= ?m 0) (= ?n 0)))
     (:constraint (or (> ?m 0) (> ?n 0)))
     (:action take1

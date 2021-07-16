@@ -1,6 +1,5 @@
 (define (domain Subtraction_game)
     (:objects ?v1)
-    (:type normal)
     (:tercondition (and (>= ?v1 0) (< ?v1 1) ))
     (:constraint (>= ?v1 0))
     (:action take

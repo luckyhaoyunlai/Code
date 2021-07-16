@@ -1,6 +1,5 @@
 (define (domain Monotonic_two_piled_wythoff_game)
     (:objects ?v1 ?v2)
-    (:type normal)
     (:tercondition (and (= ?v1 0) (= ?v2 0)))
     (:constraint (and (>= ?v1 0) (>= ?v2 ?v1)))
     (:action take1

@@ -13,11 +13,26 @@ from z3 import *
 # def OR(a,b):
 #     return False or True
 # print(OR(x==1,x>1))
-x=Int('x')
-y=Int('y')
-z=Int('z')
-term=0
-term+=y
-term+=x
-term+=z
-print(simplify(term))
+# x=Int('x')
+# y=Int('y')
+# z=Int('z')
+# term=0
+# term+=y
+# term+=x
+# term+=z
+# print(simplify(term))
+
+
+
+# def display():
+#     print(x)
+
+# def run():
+#     print("x is run?")
+#     display()
+
+# for i in range(0,5):
+#     x=i
+#     run()
+
+

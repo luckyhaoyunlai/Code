@@ -1,6 +1,5 @@
 (define (domain Empty_and_divide)
     (:objects ?v1 ?v2)
-    (:type normal)
     (:tercondition (and (= ?v1 1) (= ?v2 1)))
     (:constraint (and (>= ?v1 1) (>= ?v2 1)))
     (:action empty1

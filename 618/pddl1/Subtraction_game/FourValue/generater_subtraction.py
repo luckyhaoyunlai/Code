@@ -18,7 +18,7 @@ def generateSub1(a):
 def generateSub2(a,b):
     a=str(a)
     b=str(b)
-    filename = 'pddl1/Subtraction_game/Subtraction-('+a+','+b+').pddl'
+    filename = 'pddl1\Subtraction_game\TwoValue\Subtraction-('+a+','+b+').pddl'
     fp = open(filename,'w') 
     fp.write('(define (domain Subtraction_game)'+'\n')
     fp.write('\t'+'(:objects ?v1)'+'\n')

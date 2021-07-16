@@ -1,4 +1,3 @@
-from pkg_resources import SOURCE_DIST
 from subfile.PDDLGrammarVisitor import PDDLGrammarVisitor
 from subfile.PDDLGrammarParser import PDDLGrammarParser
 from z3 import *
@@ -79,7 +78,8 @@ class MyVisitor(PDDLGrammarVisitor):
     def visitConstraintDefine(self, ctx):
         game.constraint = self.visit(ctx.emptyOrPreGD())
         print("Constraint:",game.constraint)
-     
+
+
     def visitActionDefine(self, ctx):
         action = Action()
         action.name = ctx.actionSymbol().getText()
@@ -317,7 +317,7 @@ class MyVisitor(PDDLGrammarVisitor):
     # 【】【】【】
     def visitInteger(self,ctx):
         value = ctx.getText()
-        if value != '1' and value != '0':
+        if value != '1' and value != '0' and value not in game.constantList:
             game.constantList.append(value)
         return int(ctx.getText())
 

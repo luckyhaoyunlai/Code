@@ -154,7 +154,7 @@ if __name__ == '__main__':   #非导入的模块时
     #     input_stream = FileStream(sys.argv[1])
     # else:
     #     input_stream = InputStream(sys.stdin.readline()) #命令行输入文件流的形式
-    input_stream = FileStream("pddl1\Take-away\Take-away-2.pddl")    
+    input_stream = FileStream("pddl\Chomp_game.pddl")    
     lexer = PDDLGrammarLexer(input_stream)
     token_stream = CommonTokenStream(lexer)
     parser = PDDLGrammarParser(token_stream)

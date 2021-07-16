@@ -1,6 +1,5 @@
 (define (domain Max_min_two_piled_nim)
     (:objects ?v1 ?v2)
-    (:type normal)
     (:tercondition (and (= ?v1 0) (= ?v2 0)))
     (:constraint (and (>= ?v1 0) (>= ?v2 0)))
     (:action take1
