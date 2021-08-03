@@ -1,0 +1,2 @@
+Chomp_game.pddl	Not(X == 1 + X1)	3.51
+Monotonic-3-piled-Nim.pddl	time-more-than-600s

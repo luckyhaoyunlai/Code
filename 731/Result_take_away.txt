@@ -1,0 +1,2 @@
+Take-away-2.pddl	Not(X%3 == 0)	1.82
+Take-away-2.pddl	Not(X%3 == 0)	1.87
