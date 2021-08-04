@@ -1108,6 +1108,12 @@ ptsGoal = []
 
 
 Maxsize = 1
+terms = [True, False]
+cover = {}
+preds = []
+cover[True] = []
+cover[False] = []
+
 while(True):
     if termination_sign or example_run_out_sign:
         print("Time out,about to exit the program")
@@ -1126,13 +1132,7 @@ while(True):
         # fp.write(pddlFile.split('\\')[-1]+"\t")
         # fp.write("time-more-than-600s\n")
         break
-    terms = [True, False]
-    cover = {}
-    preds = []
-    cover[True] = []
-    cover[False] = []
     DT = None
-
     # cover all pt cover={False:[[1],[2]]}
     # print("Example set\t", pts)
     for num in range(len(pts)):
