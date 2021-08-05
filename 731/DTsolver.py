@@ -34,7 +34,7 @@ ptk2 = 7
 # pddlFile =sys.argv[1] #由文件main.py输入路径
 # resultFile =sys.argv[2]
 # pddlFile = r"pddl\Chomp_game.pddl"
-pddlFile = r"pddl\Wythoff_game_odd_even.pddl"  # 执行单个pddl
+pddlFile = r"6.29pddl\_Nim\Anther_nim\Monotonic-3-piled-Nim.pddl"  # 执行单个pddl
 resultFile = r"C:\Users\admin\Desktop\result\_625.xls"  # 生成的结果文件
 
 oldwb = xlrd.open_workbook(resultFile, encoding_override='utf-8')
@@ -290,7 +290,11 @@ def enumerateTerm(pt,ptGoal):
     sizeOneExps.append({'Expression': 0, 'arity': 0, 'size': 1})
     sizeOneExps.append({'Expression': 1, 'arity': 0, 'size': 1})
     sizeOneExps.append({'Expression': X, 'arity': 1, 'size': 1})
-    sizeOneExps.append({'Expression': X1, 'arity': 1, 'size': 1})
+    if Game["var_num"] == 2:
+        sizeOneExps.append({'Expression': X1, 'arity': 1, 'size': 1})
+    if Game["var_num"] == 3:
+        sizeOneExps.append({'Expression': X1, 'arity': 1, 'size': 1})
+        sizeOneExps.append({'Expression': X2, 'arity': 1, 'size': 1})
     for i in sizeOneExps:
         if i['arity']==0:
             term = i['Expression']
@@ -312,6 +316,15 @@ def enumerateTerm(pt,ptGoal):
         if i['Expression'] == X1:
             term = X1
             Goal = pt[1]
+            if Goal not in SigSet:
+                SigSet.append(Goal)
+                i['outputData'] = Goal
+                ExpSet.append(i)
+                if Goal == ptGoal:
+                    return term
+        if i['Expression'] == X2:
+            term = X2
+            Goal = pt[2]
             if Goal not in SigSet:
                 SigSet.append(Goal)
                 i['outputData'] = Goal
@@ -353,11 +366,15 @@ def nextSizeTerm(termMaxSize,DTFlag):
         sizeOneExps.append({'Expression': 0,'Isnum':True, 'arity': 0, 'size': 1})
         sizeOneExps.append({'Expression': 1,'Isnum':True, 'arity': 0, 'size': 1})
         sizeOneExps.append({'Expression': X,'Isnum':False,'arity': 1, 'size': 1})
-        sizeOneExps.append({'Expression': X1,'Isnum':False, 'arity': 1, 'size': 1})
+        if Game["var_num"] == 2:
+            sizeOneExps.append({'Expression': X1,'Isnum':False, 'arity': 1, 'size': 1})
+        elif Game["var_num"] == 3:
+            sizeOneExps.append({'Expression': X1, 'Isnum': False, 'size': 1})
+            sizeOneExps.append({'Expression': X2, 'Isnum': False, 'size': 1})
         for i in Game["appeal_constants"]:
             sizeOneExps.append({'Expression': eval(i), 'Isnum': True, 'size': 1})
         for i in sizeOneExps:
-            if(i['arity'] == 0):  # 枚举 0和1 不需要计算出k
+            if i['Isnum'] :  # 枚举 0和1 不需要计算出k
                 Goal = []
                 term = i['Expression']  # term是取值'Zero'
                 for num in range(len(pts)):
@@ -382,9 +399,12 @@ def nextSizeTerm(termMaxSize,DTFlag):
                             if coverTemp != []:
                                 flag = False
                                 for t in cover:
-                                    if dict(cover[t]) == dict(coverTemp):
-                                        flag = True
-                                        break
+                                    if len(cover[t]) == len(coverTemp):
+                                        list1 = deepcopy(cover[t])
+                                        list2 = deepcopy(cover[t])
+                                        if list1.sort() == list2.sort():
+                                            flag = True
+                                            break
                                 if(flag == False):
                                     terms.append(Term)
                                     cover[Term]=coverTemp
@@ -416,9 +436,12 @@ def nextSizeTerm(termMaxSize,DTFlag):
                                 if coverTemp != []:
                                     flag = False
                                     for t in cover:
-                                        if dict(cover[t]) == dict(coverTemp):
-                                            flag = True
-                                            break
+                                        if len(cover[t]) == len(coverTemp):
+                                            list1 = deepcopy(cover[t])
+                                            list2 = deepcopy(cover[t])
+                                            if list1.sort() == list2.sort():
+                                                flag = True
+                                                break
                                     if(flag == False):
                                         terms.append(Term)
                                         cover[Term] = coverTemp
@@ -449,9 +472,12 @@ def nextSizeTerm(termMaxSize,DTFlag):
                                 if coverTemp != []:
                                     flag = False
                                     for t in cover:
-                                        if dict(cover[t]) == dict(coverTemp):
-                                            flag = True
-                                            break
+                                        if len(cover[t]) == len(coverTemp):
+                                            list1 = deepcopy(cover[t])
+                                            list2 = deepcopy(cover[t])
+                                            if list1.sort() == list2.sort():
+                                                flag = True
+                                                break
                                     if(flag == False):
                                         terms.append(Term)
                                         cover[Term] = coverTemp
@@ -500,9 +526,12 @@ def nextSizeTerm(termMaxSize,DTFlag):
                                                         if coverTemp != []:
                                                             flag = False
                                                             for t in cover:
-                                                                if dict(cover[t]) == dict(coverTemp):
-                                                                    flag = True
-                                                                    break
+                                                                if len(cover[t]) == len(coverTemp):
+                                                                    list1 = deepcopy(cover[t])
+                                                                    list2 = deepcopy(cover[t])
+                                                                    if list1.sort() == list2.sort():
+                                                                        flag = True
+                                                                        break
                                                             if(flag == False):
                                                                 terms.append(Term)
                                                                 cover[Term] = coverTemp
@@ -537,9 +566,12 @@ def nextSizeTerm(termMaxSize,DTFlag):
                                                     if coverTemp != []:
                                                         flag = False
                                                         for t in cover:
-                                                            if dict(cover[t]) == dict(coverTemp):
-                                                                flag = True
-                                                                break
+                                                            if len(cover[t]) == len(coverTemp):
+                                                                list1 = deepcopy(cover[t])
+                                                                list2 = deepcopy(cover[t])
+                                                                if list1.sort() == list2.sort():
+                                                                    flag = True
+                                                                    break
                                                         if(flag == False):
                                                             terms.append(Term)
                                                             cover[Term] = coverTemp
@@ -576,9 +608,12 @@ def nextSizeTerm(termMaxSize,DTFlag):
                                                         if coverTemp != []:
                                                             flag = False
                                                             for t in cover:
-                                                                if dict(cover[t]) == dict(coverTemp):
-                                                                    flag = True
-                                                                    break
+                                                                if len(cover[t]) == len(coverTemp):
+                                                                    list1 = deepcopy(cover[t])
+                                                                    list2 = deepcopy(cover[t])
+                                                                    if list1.sort() == list2.sort():
+                                                                        flag = True
+                                                                        break
                                                             if(flag == False):
                                                                 terms.append(Term)
                                                                 cover[Term] = coverTemp
@@ -1379,7 +1414,12 @@ def genOutput(pt):
             for output in outputList:
                 if i == output[0]:
                     s.add(k!=output[1])
-            s.add(X == pt[0],X1 == pt[1])
+            if Game['var_num'] == 1:
+                s.add(X == pt[0])
+            elif Game["var_num"] == 2:
+                s.add(X == pt[0],X1 == pt[1])
+            elif Game["var_num"] == 3:
+                s.add(X == pt[0], X1 == pt[1], X2 == pt[2])
             s.add(actions[i]['precondition'])
             s.add(actions[i]['transition_formula'])
             s.add(losing_formula_Y)
@@ -1395,7 +1435,25 @@ def genOutput(pt):
 #生成的例子满足path（f） game.condition 不满足terCon 
 #ptList 每轮生成的例子集合
 def genPtSatFormula(formula,ptList):
-    if Game['var_num'] == 2:
+    if Game['var_num'] == 1:
+        i = 1
+        if i>100:
+            example_run_out_sign = True
+            return 'illegal'
+        while True:
+            for v1 in range(0,i+1):
+                if [v1] not in ptList and [v1] not in pts:
+                    s = Solver()
+                    s.add(Game['Constraint']) #满足游戏约束
+                    s.add(Not(Game["Terminal_Condition"])) #不属于终点
+                    s.add(winning_formula)
+                    s.add(formula) #满足路径公式
+                    s.add(X == v1)
+                    if s.check() == sat:
+                        # print("find state:",v1,v2)
+                        return [v1]
+            i=i+1
+    elif Game['var_num'] == 2:
         i = 1
         if i>100:
             example_run_out_sign = True
@@ -1413,6 +1471,26 @@ def genPtSatFormula(formula,ptList):
                     if s.check() == sat:
                         # print("find state:",v1,v2)
                         return [v1,v2]
+            i=i+1
+    elif Game['var_num'] == 3:
+        i = 1
+        if i>100:
+            example_run_out_sign = True
+            return 'illegal'
+        while True:
+            for v1 in range(0,i+1):
+                for v2 in range(0,i-v1+1):
+                    v3 = i-v1
+                    if [v1,v2,v3] not in ptList and [v1,v2,v3] not in pts:
+                        s = Solver()
+                        s.add(Game['Constraint']) #满足游戏约束
+                        s.add(Not(Game["Terminal_Condition"])) #不属于终点
+                        s.add(winning_formula)
+                        s.add(formula) #满足路径公式
+                        s.add(X == v1, X1 == v2,X2 == v3)
+                        if s.check() == sat:
+                            # print("find state:",v1,v2)
+                            return [v1,v2,v3]
             i=i+1
     
 #返回存放path()的  [str,str...]
@@ -1506,8 +1584,14 @@ def pathOfAct(DT):
     return paths
 #THIS term = [act.id parameter]
 def isTermSatExample(term,pt,output):
-    return output[0] == term[0] and eval(str(term[1]).replace('X1',str(pt[1])).
-           replace('X',str(pt[0]))) == output[1] 
+    if Game["var_num"] == 2:
+        return output[0] == term[0] and eval(str(term[1]).replace('X1',str(pt[1])).
+            replace('X',str(pt[0]))) == output[1] 
+    elif Game['var_num'] == 3:
+        return output[0] == term[0] and eval(str(term[1]).replace('X1',str(pt[1])).
+        replace('X2',str(pt[2])).replace('X',str(pt[0])) ) == output[1]
+    elif Game["var_num"] == 1:
+        return output[0] == term[0] and eval(str(term[1]).replace('X',str(pt[0]))) == output[1]
 # Ensure that pt-outputs all output have term cover
 #每个out都要有至少一个term cover
 def ptsAllCover():
