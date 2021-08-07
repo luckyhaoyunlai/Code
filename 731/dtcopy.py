@@ -28,18 +28,19 @@ k = Int('k')
 l = Int('l')
 (k1, k2, k3) = Ints('k1 k2 k3')
 
-ptk = 3
-ptk2 = 3
+ptk = 15
+ptk2 = 7
 """=================game import========================="""
 # pddlFile =sys.argv[1] #由文件main.py输入路径
 # resultFile =sys.argv[2]
 # pddlFile = r"pddl\Chomp_game.pddl"
-pddlFile = r"pddl\Chomp_game.pddl"  # 执行单个pddl
-resultFile = r"C:\Users\admin\Desktop\result\_625.xls"  # 生成的结果文件
+pddlFile = r"pddl1\Subtraction_game\Take-away\Take-away-30.pddl"  # 执行单个pddl
+resultFile = r"C:\Users\admin\Desktop\result\8_7.xls"  # 生成的结果文件
 
 oldwb = xlrd.open_workbook(resultFile, encoding_override='utf-8')
 sheet1 = oldwb.sheet_by_index(0)
 row = sheet1.nrows
+
 
 
 input_stream = FileStream(pddlFile)
@@ -68,7 +69,6 @@ for i in game.action_list:
            "transition_formula": eval(str(i[3]).replace('v1\'', 'Y').replace('v2\'', 'Y1').replace('v3\'', 'Y2').replace('v3', 'X2').replace('v1', 'X').replace('v2', 'X1'))}
     actions.append(one)
 
-
 Game = {"Terminal_Condition": Terminal_Condition,
         "varList": varList,
         "actions": actions,
@@ -76,7 +76,6 @@ Game = {"Terminal_Condition": Terminal_Condition,
         "var_num": game.objectsCount,
         "type": "normal",
         "appeal_constants": game.constantList}
-
 
 print("Var List:",varList)
 varListY = eval(str(varList).replace('X2','Y2').replace('X1','Y1').replace('X','Y'))
@@ -87,7 +86,6 @@ print("appeal constant", Game['appeal_constants'])
 print("================================================================")
 """=============================================================================="""
 
-
 p_vocabulary = [{'Input': ['Int', 'Int'], 'Function_name': 'Equal', 'arity': 2},
                 {'Input': ['Int', 'Int'], 'Function_name': 'Ge', 'arity':2},
                 {'Input': ['Int', 'Int'], 'Function_name': 'Gt', 'arity':2},
@@ -96,18 +94,18 @@ p_vocabulary = [{'Input': ['Int', 'Int'], 'Function_name': 'Equal', 'arity': 2},
 t_vocabulary = [{'Input': ['Int', 'Int'],  'Function_name':'Add', 'arity':2},
                 {'Input': ['Int', 'Int'], 'Function_name': 'Sub', 'arity':2}, ]
 
-
 FunExg = {'Add': Add, 'Sub': Sub, 'Inc': Inc, 'Dec': Dec, 'Ge': Ge, 'ITE': ITE,
           'Gt': Gt, 'OR': OR, 'AND': AND, 'NOT': NOT, 'Equal': Equal, 'Mod': Mod,
           'Unequal': Unequal, 'X': X, 'Y': Y, 'Zero': Zero, 'One': One, 'ModTest': ModTest}
 
 
-#枚举时的中间结果
+#interResult of enumerate
 class InterResult:
     def __init__(self,expSet,sigSet) -> None:
         self.SigSet = sigSet
         self.ExpSet = expSet
-interResult = InterResult("","") 
+interResultPred = InterResult("","") 
+interResultTerm = InterResult("","") 
 
 class TreeNode:
     def __init__(self, x):
@@ -116,15 +114,15 @@ class TreeNode:
         self.right = None
 
 """按大小枚举谓词"""
-def enumeratePredicate(MaxSize,flag):
+def enumeratePredicate(MaxSize,DTFlag):
+    global interResultPred
     SigSet = []
     ExpSet = []
     SizeOneExps = []
     Items = []
     ItemsNum = []
     ItemsVar = []
-
-    if flag == True:
+    if DTFlag:
         SizeOneExps.append({'Expression': 0, 'Isnum': True, 'size': 1})
         SizeOneExps.append({'Expression': 1, 'Isnum': True, 'size': 1})
         SizeOneExps.append({'Expression': X, 'Isnum': False, 'size': 1})
@@ -143,7 +141,6 @@ def enumeratePredicate(MaxSize,flag):
                     Goal1.append(i['Expression'])
                 if Goal1 not in SigSet:  # Sigset标记
                     SigSet.append(Goal1)
-                    
                     i['outputData'] = Goal1
                     ExpSet.append(i)  # 表达式添加一个输出项，将表达式加到表达式集合中
             else:
@@ -168,68 +165,70 @@ def enumeratePredicate(MaxSize,flag):
                         SigSet.append(Goal1)
                         i['outputData'] = Goal1
                         ExpSet.append(i)
-        li = 2
-        while (li <= MaxSize):
-            for i in t_vocabulary:
-                if i['Function_name'] == 'Add':
-                    if li == 2:  # add(var,-)
-                        for size1 in range(1, li):
-                            for choose1 in ExpSet:
-                                # 修枝 sub第一个参数必须非num
-                                if choose1['size'] == size1 and choose1['Isnum'] == False:
-                                    for choose2 in ExpSet:
-                                        if choose2['size'] == li-size1:
-                                            term = FunExg[i['Function_name']](
-                                                choose1['Expression'], choose2['Expression'])
-                                            Goal = []
-                                            for k1, h in zip(choose1['outputData'], choose2['outputData']):
-                                                Goal.append(
-                                                    FunExg[i['Function_name']](k1, h))
-                                            if Goal not in SigSet:
-                                                SigSet.append(Goal)
-                                                i['outputData'] = Goal
-                                                ExpSet.append(
-                                                    {'Expression': term, 'Isnum': False, 'outputData': Goal, 'size': li})
-                    for size1 in range(1, li):  # add(num,num)
+    
+    li = 2
+    if DTFlag == False: #表示在生成树失败，需要借助上一次枚举的结果继续往下枚举
+        SigSet = interResultPred.SigSet
+        ExpSet = interResultPred.ExpSet
+        li = MaxSize
+    while li <= MaxSize:
+        for i in t_vocabulary:
+            if i['Function_name'] == 'Add':
+                # if li == 2:  # add(var,-)
+                for size1 in range(1, li):
+                    for choose1 in ExpSet:
+                        # 修枝 sub第一个参数必须非num
+                        if choose1['size'] == size1 and choose1['Isnum'] == False:
+                            for choose2 in ExpSet:
+                                if choose2['size'] == li-size1:
+                                    term = FunExg[i['Function_name']](
+                                        choose1['Expression'], choose2['Expression'])
+                                    Goal = []
+                                    for k1, h in zip(choose1['outputData'], choose2['outputData']):
+                                        Goal.append(
+                                            FunExg[i['Function_name']](k1, h))
+                                    if Goal not in SigSet:
+                                        SigSet.append(Goal)
+                                        i['outputData'] = Goal
+                                        ExpSet.append(
+                                            {'Expression': term, 'Isnum': False, 'outputData': Goal, 'size': li})
+                for size1 in range(1, li):  # add(num,num)
+                    for choose1 in ExpSet:
+                        if choose1['size'] == size1 and choose1['Isnum'] == True:
+                            for choose2 in ExpSet:
+                                if choose2['size'] == li-size1 and choose2['Isnum']:
+                                    term = FunExg[i['Function_name']](
+                                        choose1['Expression'], choose2['Expression'])
+                                    Goal = []
+                                    for k1, h in zip(choose1['outputData'], choose2['outputData']):
+                                        Goal.append(
+                                            FunExg[i['Function_name']](k1, h))
+                                    if Goal not in SigSet:  # 更新SigSet ExgSet
+                                        SigSet.append(Goal)
+                                        i['outputData'] = Goal
+                                        ExpSet.append(
+                                            {'Expression': term, 'Isnum': choose1['Isnum'] and choose2['Isnum'], 'outputData': Goal, 'size': li})
+            elif i['Function_name'] == 'Sub':
+                # if li == 2:  # 自己修枝sub 只有li=2时出现
+                    for size1 in range(1, li):
                         for choose1 in ExpSet:
-                            if choose1['size'] == size1 and choose1['Isnum'] == True:
+                            # 修枝 sub第一个参数必须非num
+                            if choose1['size'] == size1 and choose1['Isnum'] == False:
                                 for choose2 in ExpSet:
-                                    if choose2['size'] == li-size1 and choose2['Isnum']:
+                                    if choose2['size'] == li - size1 and str(choose1['Expression']) != str(choose2['Expression']):
                                         term = FunExg[i['Function_name']](
                                             choose1['Expression'], choose2['Expression'])
                                         Goal = []
                                         for k1, h in zip(choose1['outputData'], choose2['outputData']):
                                             Goal.append(
                                                 FunExg[i['Function_name']](k1, h))
-                                        if Goal not in SigSet:  # 更新SigSet ExgSet
+                                        if Goal not in SigSet:
                                             SigSet.append(Goal)
                                             i['outputData'] = Goal
                                             ExpSet.append(
-                                                {'Expression': term, 'Isnum': choose1['Isnum'] and choose2['Isnum'], 'outputData': Goal, 'size': li})
-                elif i['Function_name'] == 'Sub':
-
-                    if li == 2:  # 自己修枝sub 只有li=2时出现
-                        for size1 in range(1, li):
-                            for choose1 in ExpSet:
-                                # 修枝 sub第一个参数必须非num
-                                if choose1['size'] == size1 and choose1['Isnum'] == False:
-                                    for choose2 in ExpSet:
-                                        if choose2['size'] == li - size1 and str(choose1['Expression']) != str(choose2['Expression']):
-                                            term = FunExg[i['Function_name']](
-                                                choose1['Expression'], choose2['Expression'])
-                                            Goal = []
-                                            for k1, h in zip(choose1['outputData'], choose2['outputData']):
-                                                Goal.append(
-                                                    FunExg[i['Function_name']](k1, h))
-                                            if Goal not in SigSet:
-                                                SigSet.append(Goal)
-                                                i['outputData'] = Goal
-                                                ExpSet.append(
-                                                    {'Expression': term, 'Isnum': False, 'outputData': Goal, 'size': li})
-            li = li+1
-    # elif flag == False:
-
-
+                                                {'Expression': term, 'Isnum': False, 'outputData': Goal, 'size': li})
+        li += 1
+    interResultPred = InterResult(ExpSet,SigSet)
     for i in ExpSet:
         Items.append(i['Expression'])
         if i['Isnum']:
@@ -278,8 +277,10 @@ def enumeratePredicate(MaxSize,flag):
                         except ZeroDivisionError:
                             pass
 
+
 """输出某个pt下的最小size的term
-eg. pt[[3,3],[1,3]] term =[1,V1]"""
+eg. pt[[3,3],[1,3]] term =[1,V1]
+eg pt = [5,1] output = [0,3] """
 def enumerateTerm(pt,ptGoal):
     ExpSet = []
     SigSet = []
@@ -288,7 +289,11 @@ def enumerateTerm(pt,ptGoal):
     sizeOneExps.append({'Expression': 0, 'arity': 0, 'size': 1})
     sizeOneExps.append({'Expression': 1, 'arity': 0, 'size': 1})
     sizeOneExps.append({'Expression': X, 'arity': 1, 'size': 1})
-    sizeOneExps.append({'Expression': X1, 'arity': 1, 'size': 1})
+    if Game["var_num"] == 2:
+        sizeOneExps.append({'Expression': X1, 'arity': 1, 'size': 1})
+    if Game["var_num"] == 3:
+        sizeOneExps.append({'Expression': X1, 'arity': 1, 'size': 1})
+        sizeOneExps.append({'Expression': X2, 'arity': 1, 'size': 1})
     for i in sizeOneExps:
         if i['arity']==0:
             term = i['Expression']
@@ -316,15 +321,24 @@ def enumerateTerm(pt,ptGoal):
                 ExpSet.append(i)
                 if Goal == ptGoal:
                     return term
-    MaxSize = 2
+        if i['Expression'] == X2:
+            term = X2
+            Goal = pt[2]
+            if Goal not in SigSet:
+                SigSet.append(Goal)
+                i['outputData'] = Goal
+                ExpSet.append(i)
+                if Goal == ptGoal:
+                    return term
+    sizeT = 2
     while True:
         ##之后补充修枝
         for i in t_vocabulary :
-            for size1 in range(1,MaxSize):
+            for size1 in range(1,sizeT):
                 for choose1 in ExpSet:
                     if choose1['size']== size1:
                         for choose2 in ExpSet:
-                            if choose2['size'] == MaxSize - size1:
+                            if choose2['size'] == sizeT - size1:
                                 term = FunExg[i['Function_name']](choose1['Expression'],
                                          choose2['Expression'])
                                 Goal = FunExg[i['Function_name']](choose1['outputData'],
@@ -334,171 +348,317 @@ def enumerateTerm(pt,ptGoal):
                                 if Goal not in SigSet:
                                     SigSet.append(Goal)
                                     i['outputData'] = Goal
-                                    ExpSet.append({'Expression': term, 'arity': i['arity'], 'outputData': Goal, 'size': MaxSize})
-                                   
+                                    ExpSet.append({'Expression': term, 'arity': i['arity'], 'outputData': Goal, 'size': sizeT})
+        sizeT += 1
 
-
-            
-
-
-
-    return term
-
-"""找到一个term不属于cover的满足某pt的"""
-def nextDistinctTerm(termMaxSize):
+"""找到size的term不属于cover的满足某pt的"""
+def nextSizeTerm(termMaxSize,DTFlag):
+    print("next size of term:",termMaxSize)
+    global interResultTerm
+    flagHaveTerm = False
     ExpSet = []  # 一轮枚举中枚举的term都但在这里，之后对这个进行运算，枚举更大的term
     SigSet = []
-    sizeOneExps = []
-    sizeOneExps.append({'Expression': 0, 'arity': 0, 'size': 1})
-    sizeOneExps.append({'Expression': 1, 'arity': 0, 'size': 1})
-    sizeOneExps.append({'Expression': X, 'arity': 1, 'size': 1})
-    sizeOneExps.append({'Expression': X1, 'arity': 1, 'size': 1})
     # 怎么修剪枚举term，怎么设置成已经枚举过了哪个term,还是每次加入pt时都要重新枚举一遍
     # 枚举term
-    for i in sizeOneExps:
-        if(i['arity'] == 0):  # 枚举 0和1 不需要计算出k
-            Goal = []
-            term = i['Expression']  # term是取值'Zero'
-            for num in range(len(pts)):
-                Goal.append(i['Expression'])
-            if Goal not in SigSet:  # 不要重复值的 不需要再判断term是否重复 还是需要判断cover是否相等
-                SigSet.append(Goal)
-                i['outputData'] = Goal
-                ExpSet.append(i)
-                # Goal和ptsGoal的匹配 从0匹配到最后一个 求cover[term]
-                # if term not in terms and term not in cover:
-                for actNum in range(len(actions)):
-                    Term = (actNum,term)
-                    if Term not in cover:
-                        coverTemp = []
-                        for num in range(len(pts)): #判断所有的点有多少个满足pt
-                            pt = pts[num]
-                            ptOutput = ptsOutput[num]
-                            for output in ptOutput: # 一个input对应多个output
-                                if output[0] == actNum and Goal[num] == output[1]:
-                                    coverTemp.append(pt)
-                                    break
-                        if coverTemp != []:
-                            flag = False
-                            for t in cover:
-                                if cover[t] == coverTemp:
-                                    flag = True
-                                    break
-                            if(flag == False):
-                                terms.append(Term)
-                                cover[Term]=coverTemp
-                                print("枚举到一个term",Term)
-                                # return 
-        else:
-            if i['Expression'] == X:
+    if  DTFlag:
+        sizeOneExps = []
+        sizeOneExps.append({'Expression': 0,'Isnum':True, 'arity': 0, 'size': 1})
+        sizeOneExps.append({'Expression': 1,'Isnum':True, 'arity': 0, 'size': 1})
+        sizeOneExps.append({'Expression': X,'Isnum':False,'arity': 1, 'size': 1})
+        if Game["var_num"] == 2:
+            sizeOneExps.append({'Expression': X1,'Isnum':False, 'arity': 1, 'size': 1})
+        elif Game["var_num"] == 3:
+            sizeOneExps.append({'Expression': X1, 'Isnum': False, 'size': 1})
+            sizeOneExps.append({'Expression': X2, 'Isnum': False, 'size': 1})
+        for i in Game["appeal_constants"]:
+            sizeOneExps.append({'Expression': eval(i), 'Isnum': True, 'size': 1})
+        for i in sizeOneExps:
+            if i['Isnum'] :  # 枚举 0和1 不需要计算出k
                 Goal = []
-                term = X
-                for pt in pts:
-                    Goal.append(pt[0])
+                term = i['Expression']  # term是取值'Zero'
+                for num in range(len(pts)):
+                    Goal.append(i['Expression'])
                 if Goal not in SigSet:  # 不要重复值的 不需要再判断term是否重复 还是需要判断cover是否相等
                     SigSet.append(Goal)
                     i['outputData'] = Goal
                     ExpSet.append(i)
-                    # Goal和ptsOutput的匹配 从0匹配到最后一个 求cover[term]
+                    # Goal和ptsGoal的匹配 从0匹配到最后一个 求cover[term]
+                    # if term not in terms and term not in cover:
                     for actNum in range(len(actions)):
                         Term = (actNum,term)
                         if Term not in cover:
                             coverTemp = []
-                            for num in range(len(pts)):
+                            for num in range(len(pts)): #判断所有的点有多少个满足pt
                                 pt = pts[num]
-                                ptOutput = ptsOutput[num]                                
-                                for output in ptOutput:
-                                    if output[0] ==actNum and Goal[num] == output[1]:
+                                ptOutput = ptsOutput[num]
+                                for output in ptOutput: # 一个input对应多个output
+                                    if output[0] == actNum and Goal[num] == output[1]:
                                         coverTemp.append(pt)
-                            # 判断cover[term]是否重复了
+                                        break
                             if coverTemp != []:
                                 flag = False
                                 for t in cover:
-                                    if cover[t] == coverTemp:
-                                        flag = True
-                                        break
+                                    if len(cover[t]) == len(coverTemp):
+                                        list1 = deepcopy(cover[t])
+                                        list2 = deepcopy(cover[t])
+                                        if list1.sort() == list2.sort():
+                                            flag = True
+                                            break
                                 if(flag == False):
                                     terms.append(Term)
-                                    cover[Term] = coverTemp
-                                    print("枚举到一个term",Term)
+                                    cover[Term]=coverTemp
+                        
+                                    # flagHaveTerm = True
                                     # return 
-            if i['Expression'] == X1:
-                Goal = []
-                term = X1
-                for pt in pts:
-                    Goal.append(pt[1])
-                if Goal not in SigSet:  # 不要重复值的 不需要再判断term是否重复 还是需要判断cover是否相等
-                    SigSet.append(Goal)
-                    i['outputData'] = Goal
-                    ExpSet.append(i)
-                    # Goal和ptsOutput的匹配 从0匹配到最后一个 求cover[term]
-                    for actNum in range(len(actions)):
-                        Term = (actNum,term)
-                        if Term not in cover:
-                            coverTemp = []
-                            for num in range(len(pts)):
-                                pt = pts[num]
-                                ptOutput = ptsOutput[num]                                
-                                for output in ptOutput:
-                                    if output[0] ==actNum and Goal[num] == output[1]:
-                                        coverTemp.append(pt)
-                            # 判断cover[term]是否重复了
-                            if coverTemp != []:
-                                flag = False
-                                for t in cover:
-                                    if cover[t] == coverTemp:
-                                        flag = True
-                                        break
-                                if(flag == False):
-                                    terms.append(Term)
-                                    cover[Term] = coverTemp
-                                    print("枚举到一个term",Term)
-                                    # return
-    # 上面0 1 ｘ　ｙ已经枚举完了　接下来按大小枚举更大的
-    # 设计下自己枚举顺序 先所有的++
-    MaxSize = 2
-    while(MaxSize <= termMaxSize):
-        # 严格按大小枚举term
-        # 单纯时term的化是不是不需要t_vocabulary集合
-        # 执行add sub 如果还要添加其他的操作再加入vocabulary
+            else:
+                if i['Expression'] == X:
+                    Goal = []
+                    term = X
+                    for pt in pts:
+                        Goal.append(pt[0])
+                    if Goal not in SigSet:  # 不要重复值的 不需要再判断term是否重复 还是需要判断cover是否相等
+                        SigSet.append(Goal)
+                        i['outputData'] = Goal
+                        ExpSet.append(i)
+                        # Goal和ptsOutput的匹配 从0匹配到最后一个 求cover[term]
+                        for actNum in range(len(actions)):
+                            Term = (actNum,term)
+                            if Term not in cover:
+                                coverTemp = []
+                                for num in range(len(pts)):
+                                    pt = pts[num]
+                                    ptOutput = ptsOutput[num]                                
+                                    for output in ptOutput:
+                                        if output[0] ==actNum and Goal[num] == output[1]:
+                                            coverTemp.append(pt)
+                                # 判断cover[term]是否重复了
+                                if coverTemp != []:
+                                    flag = False
+                                    for t in cover:
+                                        if len(cover[t]) == len(coverTemp):
+                                            list1 = deepcopy(cover[t])
+                                            list2 = deepcopy(cover[t])
+                                            if list1.sort() == list2.sort():
+                                                flag = True
+                                                break
+                                    if(flag == False):
+                                        terms.append(Term)
+                                        cover[Term] = coverTemp
+                    
+                                        # flagHaveTerm = True
+                                        # return 
+                if i['Expression'] == X1:
+                    Goal = []
+                    term = X1
+                    for pt in pts:
+                        Goal.append(pt[1])
+                    if Goal not in SigSet:  # 不要重复值的 不需要再判断term是否重复 还是需要判断cover是否相等
+                        SigSet.append(Goal)
+                        i['outputData'] = Goal
+                        ExpSet.append(i)
+                        # Goal和ptsOutput的匹配 从0匹配到最后一个 求cover[term]
+                        for actNum in range(len(actions)):
+                            Term = (actNum,term)
+                            if Term not in cover:
+                                coverTemp = []
+                                for num in range(len(pts)):
+                                    pt = pts[num]
+                                    ptOutput = ptsOutput[num]                                
+                                    for output in ptOutput:
+                                        if output[0] ==actNum and Goal[num] == output[1]:
+                                            coverTemp.append(pt)
+                                # 判断cover[term]是否重复了
+                                if coverTemp != []:
+                                    flag = False
+                                    for t in cover:
+                                        if len(cover[t]) == len(coverTemp):
+                                            list1 = deepcopy(cover[t])
+                                            list2 = deepcopy(cover[t])
+                                            if list1.sort() == list2.sort():
+                                                flag = True
+                                                break
+                                    if(flag == False):
+                                        terms.append(Term)
+                                        cover[Term] = coverTemp
+
+                if i['Expression'] == X2:
+                    Goal = []
+                    term = X2
+                    for pt in pts:
+                        Goal.append(pt[2])
+                    if Goal not in SigSet:  # 不要重复值的 不需要再判断term是否重复 还是需要判断cover是否相等
+                        SigSet.append(Goal)
+                        i['outputData'] = Goal
+                        ExpSet.append(i)
+                        # Goal和ptsOutput的匹配 从0匹配到最后一个 求cover[term]
+                        for actNum in range(len(actions)):
+                            Term = (actNum,term)
+                            if Term not in cover:
+                                coverTemp = []
+                                for num in range(len(pts)):
+                                    pt = pts[num]
+                                    ptOutput = ptsOutput[num]                                
+                                    for output in ptOutput:
+                                        if output[0] ==actNum and Goal[num] == output[1]:
+                                            coverTemp.append(pt)
+                                # 判断cover[term]是否重复了
+                                if coverTemp != []:
+                                    flag = False
+                                    for t in cover:
+                                        if len(cover[t]) == len(coverTemp):
+                                            list1 = deepcopy(cover[t])
+                                            list2 = deepcopy(cover[t])
+                                            if list1.sort() == list2.sort():
+                                                flag = True
+                                                break
+                                    if(flag == False):
+                                        terms.append(Term)
+                                        cover[Term] = coverTemp
+                            
+                                        # flagHaveTerm = True
+                                        # return
+        # if flagHaveTerm == False: 
+            # termMaxSize += 1
+    li = 2
+    if DTFlag == False:
+        SigSet = interResultTerm.SigSet
+        ExpSet = interResultTerm.ExpSet
+        li = termMaxSize
+    print("")
+    while li <= termMaxSize:
         for i in t_vocabulary:
-            for size1 in range(1, MaxSize):
-                for choose1 in ExpSet:
-                    if(choose1['size'] == size1):
-                        for choose2 in ExpSet:
-                            if(choose2['size'] == MaxSize-size1):
-                                term = FunExg[i['Function_name']](
-                                    choose1['Expression'], choose2['Expression'])
-                                Goal = []  # 计算goal
-                                for k1, h in zip(choose1['outputData'], choose2['outputData']):
-                                    Goal.append(FunExg[i['Function_name']](k1, h))
-                                if Goal not in SigSet:  # 更新SigSet ExgSet
-                                    SigSet.append(Goal)
-                                    i['outputData'] = Goal
-                                    ExpSet.append({'Expression': term, 'arity': i['arity'], 'outputData': Goal, 'size': MaxSize})
-                                    for actNum in range(len(actions)):
-                                        Term = (actNum,term)
-                                        if Term not in cover:
-                                            coverTemp = []
-                                            for num in range(len(pts)):
-                                                pt = pts[num]
-                                                ptOutput = ptsOutput[num]                                
-                                                for output in ptOutput:
-                                                    if output[0] ==actNum and Goal[num] == output[1]:
-                                                        coverTemp.append(pt)
-                                            # 判断cover[term]是否重复了
-                                            if coverTemp != []:
-                                                flag = False
-                                                for t in cover:
-                                                    if cover[t] == coverTemp:
-                                                        flag = True
-                                                        break
-                                                if(flag == False):
-                                                    terms.append(Term)
-                                                    cover[Term] = coverTemp
-                                                    print("枚举到一个term",Term)
-                                                    return
-        MaxSize += 1
+            if i['Function_name'] == 'Add':
+                # if li <= 3:  #add(var,-)
+                for size1 in range(1, li):
+                    for choose1 in ExpSet:
+                        if choose1['size'] == size1 and choose1['Isnum'] == False:
+                            for choose2 in ExpSet:
+                                if choose2['size'] == li-size1:
+                                    term = FunExg[i['Function_name']](
+                                        choose1['Expression'], choose2['Expression'])
+                                    print("计算得term505",term)
+                                    Goal = []  # 计算goal
+                                    for k1, h in zip(choose1['outputData'], choose2['outputData']):
+                                        Goal.append(FunExg[i['Function_name']](k1, h))
+                                    if Goal not in SigSet:  # 更新SigSet ExgSet
+                                        SigSet.append(Goal)
+                                        i['outputData'] = Goal
+                                        ExpSet.append({'Expression': term, 'Isnum': False,'arity': i['arity'], 
+                                                    'outputData': Goal, 'size': li})
+                                        for actNum in range(len(actions)):
+                                            Term = (actNum,term)
+                                            if Term not in cover:
+                                                coverTemp = []
+                                                for num in range(len(pts)):
+                                                    pt = pts[num]
+                                                    ptOutput = ptsOutput[num]                                
+                                                    for output in ptOutput:
+                                                        if output[0] ==actNum and Goal[num] == output[1]:
+                                                            coverTemp.append(pt)
+                                                # 判断cover[term]是否重复了
+                                                if coverTemp != []:
+                                                    print("coverTemp",coverTemp)
+                                                    flag = False
+                                                    for t in cover:
+                                                        if len(cover[t]) == len(coverTemp):
+                                                            list1 = deepcopy(cover[t])
+                                                            list2 = deepcopy(cover[t])
+                                                            if list1.sort() == list2.sort():
+                                                                flag = True
+                                                                break
+                                                    if(flag == False):
+                                                        terms.append(Term)
+                                                        cover[Term] = coverTemp
+                                                        flagHaveTerm = True
+                                                        # return
+                for size1 in range(1,li): #add(num,num)
+                    for choose1 in ExpSet:
+                        if choose1['size'] == size1 and choose1['Isnum'] :
+                            for choose2 in ExpSet:
+                                if choose2['size'] == li-size1 and choose2['Isnum']:
+                                    term = FunExg[i['Function_name']](
+                                        choose1['Expression'], choose2['Expression'])
+                                    print("计算得term546",term)
+                                    Goal = []  # 计算goal
+                                    for k1, h in zip(choose1['outputData'], choose2['outputData']):
+                                        Goal.append(FunExg[i['Function_name']](k1, h))
+                                    if Goal not in SigSet:  # 更新SigSet ExgSet
+                                        SigSet.append(Goal)
+                                        i['outputData'] = Goal
+                                        ExpSet.append({'Expression': term,'Isnum': True, 'arity': i['arity'], 'outputData': Goal, 'size': li})
+                                        for actNum in range(len(actions)):
+                                            Term = (actNum,term)
+                                            if Term not in cover:
+                                                coverTemp = []
+                                                for num in range(len(pts)):
+                                                    pt = pts[num]
+                                                    ptOutput = ptsOutput[num]                                
+                                                    for output in ptOutput:
+                                                        if output[0] ==actNum and Goal[num] == output[1]:
+                                                            coverTemp.append(pt)
+                                                # 判断cover[term]是否重复了
+                                                if coverTemp != []:
+                                                    print("coverTemp:",coverTemp)
+                                                    flag = False
+                                                    for t in cover:
+                                                        if len(cover[t]) == len(coverTemp):
+                                                            list1 = deepcopy(cover[t])
+                                                            list2 = deepcopy(cover[t])
+                                                            if list1.sort() == list2.sort():
+                                                                flag = True
+                                                                break
+                                                    if(flag == False):
+                                                        terms.append(Term)
+                                                        cover[Term] = coverTemp
+                                                        flagHaveTerm = True
+
+            elif  i['Function_name'] == 'Sub': #sub(var,-)
+                # if li <= 3:
+                    for size1 in range(1, li):
+                        for choose1 in ExpSet:
+                            if choose1['size'] == size1 and choose1['Isnum'] == False:
+                                for choose2 in ExpSet:
+                                    if choose2['size'] == li-size1:
+                                        term = FunExg[i['Function_name']](
+                                            choose1['Expression'], choose2['Expression'])
+                                        print("计算得term590",simplify(term))
+                                        Goal = []  # 计算goal
+                                        for k1, h in zip(choose1['outputData'], choose2['outputData']):
+                                            Goal.append(FunExg[i['Function_name']](k1, h))
+                                        if Goal not in SigSet:  # 更新SigSet ExgSet
+                                            SigSet.append(Goal)
+                                            i['outputData'] = Goal
+                                            ExpSet.append({'Expression': term,'Isnum': False,'arity': i['arity'], 'outputData': Goal, 'size': li})
+                                            for actNum in range(len(actions)):
+                                                Term = (actNum,term)
+                                                if Term not in cover:
+                                                    coverTemp = []
+                                                    for num in range(len(pts)):
+                                                        pt = pts[num]
+                                                        ptOutput = ptsOutput[num]                                
+                                                        for output in ptOutput:
+                                                            if output[0] ==actNum and Goal[num] == output[1]:
+                                                                coverTemp.append(pt)
+                                                    # 判断cover[term]是否重复了
+                                                    if coverTemp != []:
+                                                        print("coverTemp",coverTemp)
+                                                        flag = False
+                                                        for t in cover:
+                                                            if len(cover[t]) == len(coverTemp):
+                                                                list1 = deepcopy(cover[t])
+                                                                list2 = deepcopy(cover[t])
+                                                                if list1.sort() == list2.sort():
+                                                                    flag = True
+                                                                    break
+                                                        if(flag == False):
+                                                            terms.append(Term)
+                                                            cover[Term] = coverTemp
+                                                            flagHaveTerm = True  
+        li += 1                                                                                   
+        # termMaxSize += 1
+        # print(termMaxSize)
+    interResultTerm = InterResult(ExpSet,SigSet)
+
 
 
 """递归合成一颗树"""
@@ -514,7 +674,7 @@ def learn_DT(pts, preds):
         return None
     Pick_pred = chooseBestPred(pts, preds)
     print("Choose best predicate :\n\t", Pick_pred)
-    if(Pick_pred == False):  # 谓词不足以去划分
+    if Pick_pred == False:  # 谓词不足以去划分
         global DTflag  # 全局变量DTflag来检测是否有树生成
         DTflag = False
         global RedundantPts 
@@ -528,8 +688,8 @@ def learn_DT(pts, preds):
             ptsYes.append(pt)
         else:
             ptsNo.append(pt)
-    print("Divide two part:\n\t")
-    print(ptsYes, ":", ptsNo)
+    # print("Divide two part:\n\t")
+    # print(ptsYes, ":", ptsNo)
     temp_preds = preds  # 不用深度复制
     temp_preds.remove(Pick_pred)
     # print("剩余的谓词",temp_preds)
@@ -538,27 +698,49 @@ def learn_DT(pts, preds):
 
     return root
 
-
+# def Entropy(pts):
+#     # print("熵")
+#     if len(pts) == 0:
+#         return 0
+#     entropy = 0.0
+#     sumcount = 0
+#     for pt in pts:
+#         for term in terms:
+#             if pt in cover[term]:
+#                 sumcount += 1
+#     for term in terms:
+#         probability = 0.0
+#         for pt in pts:
+#             if pt not in cover[term]:
+#                 probability += 0
+#             else:
+#                 probability += (1/len(pts))*(count_num_pt(term, pts)/sumcount)
+#         # print(term,"计算条件概率是", probability)
+#         if probability != 0:
+#             entropy -= probability * log(probability, 2)
+#     # print("熵为", entropy)
+#     return entropy
 def Entropy(pts):
     # print("熵")
     if len(pts) == 0:
         return 0
     entropy = 0.0
-    sumcount = 0
-    for pt in pts:
-        for term in terms:
-            if pt in cover[term]:
-                sumcount += 1
+    # print("概率和是为1吗：")
     for term in terms:
         probability = 0.0
         for pt in pts:
+            sumcount = 0
             if pt not in cover[term]:
                 probability += 0
             else:
-                probability += (1/len(pts))*(count_num_pt(term, pts)/sumcount)
-        # print("计算条件概率是", probability)
+                for term1 in terms:
+                    if pt in cover[term1]:
+                        sumcount+=1 
+                probability += (1/len(pts))*(1/sumcount)
+        # print(term,"计算条件概率是", probability)
         if probability != 0:
             entropy -= probability * log(probability, 2)
+        # print(term,probability)
     # print("熵为", entropy)
     return entropy
 
@@ -572,9 +754,9 @@ def count_num_pt(term, pts):
     return count
 
 
-def chooseBestPred(pts, preds):  # 比较每个pred的信息增益
+def chooseBestPred(pts, preds):  # 返回最大的list
     Best = {'maxInfoGain': 0, 'predicate': False}
-    print("Set of predicates\n\t", preds)
+    # print("Set of predicates\n\t", preds)
     # print("pts:", pts)
     for pred in preds:
         ptsYes = []
@@ -597,7 +779,6 @@ def chooseBestPred(pts, preds):  # 比较每个pred的信息增益
         if InfoGain > Best['maxInfoGain']:
             Best['maxInfoGain'] = InfoGain
             Best['predicate'] = pred
-
     return Best['predicate']
 
     # Not(False)
@@ -619,7 +800,7 @@ def ptSatPred(pt, pred) -> bool:  # 将pt值代替pred中的未知数
 
 def tree2Expr(DT) -> str:
     if not DT:
-        return "DT为空"
+        return "False"
     if DT == True:  # 假设的是pts为空 将树默认设置为True
         return "True"
     expr = ""
@@ -972,7 +1153,7 @@ def FindCountExample(ptList):
                     s.add(Game["Constraint"])  # 满足约束条件
                     s.add(X == v1, X1 == v2)
                     if s.check() == sat:
-                        print("find example:", v1, v2)
+                        # print("find example:", v1, v2)
                         return [v1, v2]
                         # print(expr)
                         # 要求在这里就设置为严格反例
@@ -1066,7 +1247,7 @@ def satfindstate(ptk):
             ptK -= 1
             ptList.append(pt)
             if(ptK == 0):
-                print("Three example(ptList):\t", ptList)
+                print( ptk,"example generate:\t", ptList)
                 return ptList
 
 
@@ -1083,7 +1264,7 @@ def unkownfindstate(ptk):
             ptK -= 1
             ptList.append(pt)
             if(ptK == 0):
-                print("Three example(ptList):\t", ptList)
+                print(ptk,"example generate:\t", ptList)
                 return ptList
 
 
@@ -1097,7 +1278,6 @@ def programTimeOut():
     global termination_sign
     termination_sign = True
 
-
 Thread1 = threading.Timer(3600, programTimeOut)
 Thread1.start()
 # 将终态添加到反例中
@@ -1109,12 +1289,7 @@ ptsGoal = []
 
 
 Maxsize = 1
-terms = [True, False]
-cover = {}
 preds = []
-cover[True] = []
-cover[False] = []
-
 while(True):
     if termination_sign or example_run_out_sign:
         print("Time out,about to exit the program")
@@ -1133,30 +1308,33 @@ while(True):
         # fp.write(pddlFile.split('\\')[-1]+"\t")
         # fp.write("time-more-than-600s\n")
         break
-    DT = None
-    # cover all pt cover={False:[[1],[2]]}
-    # print("Example set\t", pts)
+    terms = [True, False]
+    cover = {}
+    cover[True] = []
+    cover[False] = []
     for num in range(len(pts)):
         cover[ptsGoal[num]].append(pts[num])
-    print("Cover set:  \t", cover)
-    global DTflag
-    DTflag = True
+    print("Cover set: \t", cover)
+    DT = None
     e = X == X  # 默认表达式
     last_e = e
     DTTime = time.time()
-    enumerateFlag = True #表示枚举进程是否要接着上一步的继续枚举
-
-    while(pts != [] and (DT == None or DTflag == False)):
-        DTflag = True
+    # CycleNum = 2
+    global DTflag
+    DTflag = True
+    while pts != [] and (DT == None or DTflag == False):
         enumPredsTime = time.time()
-        enumeratePredicate(Maxsize,enumerateFlag)
+        enumeratePredicate(Maxsize,DTflag) #DTflag 表示pred不足接着上次的地方继续枚举谓词
+        print("preds:",preds)
         print("Num of pts:  ", len(pts))
         calculateIGTime = time.time()
+        DTflag = True
         DT = learn_DT(pts, preds)  # lenrnDT中可能会出现 找出不了最好的谓词划分
         # print("Information gain time ：",time.time()-calculateIGTime)
         if(DTflag == False):
             Maxsize += 1
-            enumerateFlag = False
+            # CycleNum -= 1
+            # print("剩余循环次数：",CycleNum)
             print('cannot solve,need more predicates,increase Maxsize', Maxsize)
     print("Time of learn DT：", time.time()-DTTime)
     if DT != None:
@@ -1221,7 +1399,7 @@ while(True):
                     sheet1.write(row, 0, pddlFile.split('\\')[-1][:-5])
                     sheet1.write(row, 1, str(winning_formula))
                     sheet1.write(row, 2, winning_formula_time)
-                    newwb.save(resultFile)
+                    # newwb.save(resultFile)
 
                     # fp = open(resultFile, 'a')
                     # fp.write(pddlFile.split('\\')[-1]+"\t")
@@ -1273,7 +1451,12 @@ def genOutput(pt):
             for output in outputList:
                 if i == output[0]:
                     s.add(k!=output[1])
-            s.add(X == pt[0],X1 == pt[1])
+            if Game['var_num'] == 1:
+                s.add(X == pt[0])
+            elif Game["var_num"] == 2:
+                s.add(X == pt[0],X1 == pt[1])
+            elif Game["var_num"] == 3:
+                s.add(X == pt[0], X1 == pt[1], X2 == pt[2])
             s.add(actions[i]['precondition'])
             s.add(actions[i]['transition_formula'])
             s.add(losing_formula_Y)
@@ -1289,7 +1472,25 @@ def genOutput(pt):
 #生成的例子满足path（f） game.condition 不满足terCon 
 #ptList 每轮生成的例子集合
 def genPtSatFormula(formula,ptList):
-    if Game['var_num'] == 2:
+    if Game['var_num'] == 1:
+        i = 1
+        if i>100:
+            example_run_out_sign = True
+            return 'illegal'
+        while True:
+            for v1 in range(0,i+1):
+                if [v1] not in ptList and [v1] not in pts:
+                    s = Solver()
+                    s.add(Game['Constraint']) #满足游戏约束
+                    s.add(Not(Game["Terminal_Condition"])) #不属于终点
+                    s.add(winning_formula)
+                    s.add(formula) #满足路径公式
+                    s.add(X == v1)
+                    if s.check() == sat:
+                        # print("find state:",v1,v2)
+                        return [v1]
+            i=i+1
+    elif Game['var_num'] == 2:
         i = 1
         if i>100:
             example_run_out_sign = True
@@ -1305,8 +1506,28 @@ def genPtSatFormula(formula,ptList):
                     s.add(formula) #满足路径公式
                     s.add(X == v1, X1 == v2)
                     if s.check() == sat:
-                        print("find state:",v1,v2)
+                        # print("find state:",v1,v2)
                         return [v1,v2]
+            i=i+1
+    elif Game['var_num'] == 3:
+        i = 1
+        if i>100:
+            example_run_out_sign = True
+            return 'illegal'
+        while True:
+            for v1 in range(0,i+1):
+                for v2 in range(0,i-v1+1):
+                    v3 = i-v1
+                    if [v1,v2,v3] not in ptList and [v1,v2,v3] not in pts:
+                        s = Solver()
+                        s.add(Game['Constraint']) #满足游戏约束
+                        s.add(Not(Game["Terminal_Condition"])) #不属于终点
+                        s.add(winning_formula)
+                        s.add(formula) #满足路径公式
+                        s.add(X == v1, X1 == v2,X2 == v3)
+                        if s.check() == sat:
+                            # print("find state:",v1,v2)
+                            return [v1,v2,v3]
             i=i+1
     
 #返回存放path()的  [str,str...]
@@ -1355,6 +1576,8 @@ def pathOfWF(DT):
 print("Decision tree2:",tree2Expr(resultDT))
 #所有的路径 list
 def pathOfAct(DT):
+    if type(DT.val) == type("term"): #只有一个而叶子节点的树
+        return  [["",eval(DT.val)]]
     paths =[]
     stack = []
     p = DT
@@ -1398,8 +1621,14 @@ def pathOfAct(DT):
     return paths
 #THIS term = [act.id parameter]
 def isTermSatExample(term,pt,output):
-    return output[0] == term[0] and eval(str(term[1]).replace('X1',str(pt[1])).
-           replace('X',str(pt[0]))) == output[1] 
+    if Game["var_num"] == 2:
+        return output[0] == term[0] and eval(str(term[1]).replace('X1',str(pt[1])).
+            replace('X',str(pt[0]))) == output[1] 
+    elif Game['var_num'] == 3:
+        return output[0] == term[0] and eval(str(term[1]).replace('X1',str(pt[1])).
+        replace('X2',str(pt[2])).replace('X',str(pt[0])) ) == output[1]
+    elif Game["var_num"] == 1:
+        return output[0] == term[0] and eval(str(term[1]).replace('X',str(pt[0]))) == output[1]
 # Ensure that pt-outputs all output have term cover
 #每个out都要有至少一个term cover
 def ptsAllCover():
@@ -1413,7 +1642,9 @@ def ptsAllCover():
                     flag_cover = True
                     break
             if flag_cover == False :# 需要枚举出cover来满足ptGoal[1] 
+                print(pt,ptOutput,"not term cover")
                 term=(ptOutput[0],enumerateTerm(pt,ptOutput[1]))
+                print("find term",term,"cover")
                 if term not in cover:
                     terms.append(term)
                     cover[term] = []
@@ -1445,7 +1676,7 @@ def tree2WinningStrategy(DT) ->str:
 def tree2Act(DT):
     if DT == None : return "None"
     expr = ""
-    if type(DT.val) == type("str"):
+    if type(DT.val) == type("term"):
         term = eval(DT.val)
         action = actions[term[0]]
         return str(action["action_name"])+"("+ str(term[1])+")"
@@ -1463,122 +1694,219 @@ def defaultAction():
         return [["",(0,para)]]
     return
 
+def defaultPreds(Losing_formula):
+    C = str(Losing_formula)
+    C = C.replace(' ', '')  # X==X1+1
+    if (C.find('And') == -1 and C.find('Or') == -1):  # 表达式没有and or
+        if (C.find('==') != -1 and (type(eval(C[(C.find('==') + 2):])) == type(1)) and C.find('%') == -1):
+            Ct = []
+            Ct.append(C.replace('==', '<'))
+            Ct.append(C.replace('==', '>'))
+        elif (C.find('==') != -1 and (type(eval(C[(C.find('==') + 2):])) == type(X)) and C.find('%') == -1):
+            Ct = []
+            Ct.append(C.replace('==', '<'))
+            Ct.append(C.replace('==', '>'))
+        # a%b==c
+        elif (C.find('%') != -1 and (type(eval(C[(C.find('==') + 2):])) == type(1))):
+            Ct = []
+            num = eval(C[(C.find('%') + 1):C.find('==')]) - 1  # b
+            num_original = eval(C[(C.find('==') + 2):])  # c
+            while (num >= 0):
+                if (num != num_original):  # b!=c and b>=0
+                    C = C[:C.find('==') + 2]
+                    C = C + str(num)     # a+b
+                    Ct.append(C)
+                    # Ct.append(C.replace(C[(C.find('==') + 2):], str(num)))
+                num = num - 1
+    else:
+        if ((C.find('X') != -1 and C.find('X1') == -1) or (C.find('X') == -1 and C.find('X1') != -1)):
+            if (C.find('%') != -1 and (type(eval(C[(C.find('==') + 2):C.find(',')])) == type(1)) and C.find(
+                    'Or') != -1):
+                Ct = []
+                num = eval(C[(C.find('%') + 1):C.find('==')]) - 1
+                prnum = []
+                pre = C.find('==')
+                while (pre != -1):
+                    prnum.append(eval(C[pre + 2]))
+                    pre = C.find('==', pre + 1)
+                # print(prnum)
+                while (num >= 0):
+                    if (num not in prnum):
+                        Ct.append(C[C.find('X'):C.find(',')].replace(
+                            C[C.find('==') + 2], str(num)))
+                    num = num - 1
+        else:
+            if (C.find('And') != -1):
+                C1 = C
+                C1 = C1.replace('And', 'Or')
+                C1 = C1.replace('==', '!=')
+                C1 = C1.replace('Or(', '')
+                C1 = C1.replace(')', '')
+                Ct = C1.split(',')
+    print("defaultPreds:", Ct)
+    preds = []
+    for i in Ct:
+        i = eval(i)
+        preds.append(i)
+    return preds
+
 print(eval(tree2Expr(DT)))
-print("Decision tree:",tree2Expr(resultDT))
-formulaPaths = pathOfWF(resultDT)
+print("Decision tree1:",tree2Expr(resultDT))
+formulaPaths = pathOfWF(deepcopy(resultDT))
 print("All paths: ",formulaPaths)
 
+
+Thread2 = threading.Timer(3600, programTimeOut)
+Thread2.start()
+
+startWinningStrategyTime = time.time()
+winningStrategy = []
 for pathFormula in formulaPaths:
-    winningStrategy = []
     print("-------one path:",pathFormula,"-------")
     pathFormula = eval(pathFormula) #str --> z3 
     pts = []
     ptsOutput = []
-    maxPredSize = 1 #谓词的大小
-    maxTermSize = 1 #术语的大小
-    # pt1 = [2,1]
-    # pt2 = [1,2]
-    # pt3 = [2,3]
-    # pt4 = [6,2]
-    # pt1 = [3,0]
-    # pt2 = [4,1]
-    # pt3 = [3,4]
-    # pt4 = [3,3]
-    # pts.append(pt1)
-    # pts.append(pt4)
-    # pts.append(pt2)
-    # pts.append(pt3)
     for pt in pts: #例子 pt[state]-output【act k 】
         outputs = genOutput(pt)
         ptsOutput.append(outputs)
+    preds = defaultPreds(pathFormula)
+    # preds = []
+    terms = []
+    # terms = [(2,X2-X1-X),(0,X+X1-X2)]
+    cover = {}
+    # cover[(2,X2-X1-X)]=[]
+    # cover[(0,X+X1-X2)]=[]
+    maxSizePred = 1
+    maxSizeTerm = 0
     while True:
-        terms = [] 
-        cover = {}
-        preds = []
-        DT = None
-        DTflag = True
+        print("pts",pts)
         ptsAllCover()
         updateCover()
+        print("uodateCover")
+        print(cover)
+        # cycleNum = 2
+        DTflag = True
+        DT = None
+        # while cycleNum != 0 and pts !=[] and (DT == None or DTflag == False):
         while pts !=[] and (DT == None or DTflag == False):
-            nextDistinctTerm(maxTermSize)
-            enumeratePredicate(maxPredSize)
-            # if (1,X) not in terms:
-            #     terms.append((1,X))
-            #     cover[(1,X)]=[]
-            # terms.append((0,X1+2))
-            # cover[(0,X1+2)]=[]
-            # preds.append(X1>=X)
-            # preds.append(X1>1)
-            # preds.append(X<X1+1)  
-            # preds.append(X%2==0)
-            # preds.append(X1%2==0)
+            maxSizeTerm += 1
+            nextSizeTerm(maxSizeTerm,DTflag)
+            print("terms\n",terms)
+            enumeratePredicate(maxSizePred,DTflag)
             updateCover()
-            print("terms:",terms)
-            print("preds",preds)
-            print("pts:",pts)
-            print("ptsOutput:",ptsOutput)
-            print("cover:",cover)
-            DT = learn_DT(pts,preds)
+            print("preds\n",preds)
+            print("pts\n",pts)
+            print("ptsOutput\n",ptsOutput)
+            print("cover\n",cover)
+            DTflag = True
+            DT = learn_DT(pts,preds)  
             if DTflag == False:
-                print("cannot divide pts",RedundantPts)
-                maxsize +=1
-                print('cannot solve,need more predicates maxszie:', maxsize," and more term")
-        print("winning strategy",tree2Act(DT))
+                # print("cannot divide pts",RedundantPts)
+                maxSizePred += 1
+                # cycleNum -= 1
+                DT =None
+                # print("剩余的循环次数：",cycleNum)
+                print('cannot solve,need more predicates maxszie:',maxSizePred," and more term")
+        print("candidate tree",tree2Act(DT))
         # pathWinningStrategy = eval(tree2WinningStrategy(DT))
-        # print("必胜策略",pathWinningStrategy)
         """"  vertify  """
-        ActPaths = defaultAction() #默认动作
+        # ActPaths = defaultAction() #默认动作
         if DT != None:
             ActPaths = pathOfAct(DT)
-        print("all act path:",ActPaths)
-        isSAT = True
-        for path in ActPaths:
-            print("Test this path: ",path,"---------")
-            concreteAct = path[1]
-            action = actions[concreteAct[0]]
-            print(action['action_name'],concreteAct)
-            for i  in range(1,len(concreteAct)):
-                action = eval(str(action).replace(str(action["action_parameter"][i-1]),str(concreteAct[i])))
-            preAct = action["precondition"]
-            transitionFormula = action["transition_formula"]
-            if type(path[0]) !=type(""):
-                con = Not(Implies(And(Game["Constraint"],pathFormula,path[0],Not(Game["Terminal_Condition"])),
-                    And(preAct,ForAll(varListY,Implies(transitionFormula,losing_formula_Y)))))
-            else:
-                con = Not(Implies(And(Game["Constraint"],pathFormula,Not(Game["Terminal_Condition"])),
-                    And(preAct,ForAll(varListY,Implies(transitionFormula,losing_formula_Y)))))
-            s = Solver()
-            s.add(con)
-            if s.check() == sat:
-                ptK = ptk2 #最前面设置的枚举的反例个数
-                ptList = []
-                value = []
-                m = s.model()
-                for i in Game['varList']:
-                    value.append(m[i].as_long())
-                print("策略不满足,反例是:",value)
-                ptK = ptK - 1
-                ptList.append(value)
-                while ptK>0:
-                    pt = genPtSatFormula(pathFormula,ptList)
-                    ptList.append(pt)
+            print("All canditate streate:",ActPaths)
+            isSAT = True
+            winningStrategyTemp = []
+            for path in ActPaths:
+                concreteAct = path[1]
+                action = actions[concreteAct[0]]
+                ActName = action['action_name']+'('+ str(concreteAct[1:])[1:-2] +')'
+                print("Test this path:\n",path[0],"execute action:",ActName)
+                for i  in range(1,len(concreteAct)): #k值赋值要用括号包着
+                    action = eval(str(action).replace(str(action["action_parameter"][i-1]),"("+str(concreteAct[i])+")"))
+                preAct = action["precondition"]
+                transitionFormula = action["transition_formula"]
+                if type(path[0]) !=type(""):
+                    winningStrategyPath = And(pathFormula,path[0])
+                    con = Not(Implies(And(Game["Constraint"],pathFormula,path[0],Not(Game["Terminal_Condition"])),
+                        And(preAct,ForAll(varListY,Implies(transitionFormula,losing_formula_Y)))))
+                else:
+                    winningStrategyPath = pathFormula
+                    con = Not(Implies(And(Game["Constraint"],pathFormula,Not(Game["Terminal_Condition"])),
+                        And(preAct,ForAll(varListY,Implies(transitionFormula,losing_formula_Y)))))
+                s = Solver()
+                s.set('timeout', 60000)
+                s.add(con)
+                if s.check() == sat:
+                    print("==========generate example========")
+                    ptK = ptk2 
+                    ptList = []
+                    value = []
+                    m = s.model()
+                    for i in Game['varList']:
+                        value.append(m[i].as_long())
+                    print("策略不满足,反例是:",value)
                     ptK = ptK - 1
-                print(ptk2," example have generate:",ptList)
-                for pt in ptList:
-                    pts.append(pt)
-                    ptsOutput.append(genOutput(pt))
-                isSAT = False
-                break
-            else:
-                print(path,"sat...")
+                    ptList.append(value) 
+                    while ptK>0:
+                        if len(value) == 1:
+                            s.add(X!=value[0])
+                        elif len(value) == 2:
+                            s.add(Or(X!=value[0],X1!=value[1]))
+                        elif len(value) ==3:
+                            s.add(Or(X!=value[0],X1!=value[1],X2!=value[2]))
+                        if s.check() == sat:
+                            m = s.model()
+                            value =[]
+                            for i in Game['varList']:
+                                value.append(m[i].as_long())  
+                            print("策略不满足,反例是:",value)
+                            ptK = ptK - 1
+                            ptList.append(value)         
+
+                    # while ptK>0:#不严格的找出反例
+                    #     pt = genPtSatFormula(pathFormula,ptList)
+                    #     ptList.append(pt)
+                    #     ptK = ptK - 1
+
+
+                    print(ptk2," example have generate:",ptList)
+                    for pt in ptList:
+                        pts.append(pt)
+                        ptsOutput.append(genOutput(pt))
+                    isSAT = False
+                    print("====================================")
+                    break
+                else:
+                    winningStrategyTemp.append([winningStrategyPath,ActName])
+                    print(path,"sat...")
+        elif DT ==None:
+            print("==========generate example========")
+            ptK = ptk2 #最前面设置的枚举的反例个数
+            ptList = []
+            while ptK>0:
+                pt = genPtSatFormula(pathFormula,ptList)
+                ptList.append(pt)
+                ptK = ptK - 1
+            print(ptk2," example have generate:",ptList)
+            for pt in ptList:
+                pts.append(pt)
+                ptsOutput.append(genOutput(pt))
+            isSAT = False
+            print("====================================")
         if isSAT == True:
             print("这条路劲",pathFormula,"找到了可满足决策：")
             print(tree2Act(DT))
-            winningStrategy.append([pathFormula,tree2Act(DT)])
+            for i in winningStrategyTemp:
+               winningStrategy.append(i)
             break
-
+winningStrategyTime = time.time() - startWinningStrategyTime
+print("winningStrategy用时：",winningStrategyTime)
 for i in winningStrategy:
     print(i)
+
+sheet1.write(row, 3, str(winningStrategy))
+sheet1.write(row, 4, winningStrategyTime)
+newwb.save(resultFile)
 
         
         
