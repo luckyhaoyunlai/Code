@@ -34,7 +34,7 @@ ptk2 = 7
 # pddlFile =sys.argv[1] #由文件main.py输入路径
 # resultFile =sys.argv[2]
 # pddlFile = r"pddl\Chomp_game.pddl"
-pddlFile = r"pddl1\_Nim\_(2.1-2.3)\Monotonic-3-piled-Nim.pddl"  # 执行单个pddl
+pddlFile = r"pddl\Max_min_two_piled_nim.pddl"  # 执行单个pddl
 resultFile = r"C:\Users\admin\Desktop\result\8_7.xls"  # 生成的结果文件
 
 oldwb = xlrd.open_workbook(resultFile, encoding_override='utf-8')
