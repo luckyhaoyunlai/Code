@@ -143,6 +143,7 @@ def enumeratePredicate(MaxSize,flag):
                     Goal1.append(i['Expression'])
                 if Goal1 not in SigSet:  # Sigset标记
                     SigSet.append(Goal1)
+                    
                     i['outputData'] = Goal1
                     ExpSet.append(i)  # 表达式添加一个输出项，将表达式加到表达式集合中
             else:
