@@ -1,6 +1,0 @@
-Two-rowed-Chomp_game.pddl	Not(X == 1 + X1)	4.68
-T_shaped_chomp_game.pddl	Not(X == X1)	0.53
-Thomp-Game-3-rowed-(v3--1)).pddl	time-more-than-600s
-Thomp-Game-3-rowed-(v3--2)).pddl	time-more-than-600s
-Thomp-Game-3-rowed-(v3--3))-.pddl	time-more-than-600s
-Thomp-Game-3-rowed-(v3--4)).pddl	time-more-than-600s

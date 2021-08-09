@@ -1,6 +1,0 @@
-Two-piled-1-slow-nim.pddl	Not((X + X1)%2 == 0)	6.09
-Two-piled-2-slow-nim.pddl	Not(Or(Not(X == X1),
-       And(X == X1, Not(X1%3 == 0), X%3 == 0),
-       And(X == X1, X1%3 == 0, X%3 == 0, (X + X1)%3 == 0)))	207.6
-Two-piled-3-slow-nim.pddl	time-more-than-600s
-Two-piled-4-slow-nim.pddl	time-more-than-600s

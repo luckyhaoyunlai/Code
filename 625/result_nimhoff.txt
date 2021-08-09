@@ -1,5 +1,0 @@
-Two-piled-nim.pddl	Not(X == X1)	0.66
-Monotonic-2-piled-Nim.pddl	Not(X == X1)	0.66
-Monotonic-3-piled-Nim.pddl	time-more-than-600s
-Three-piled-nim.pddl	time-more-than-600s
-Empty-and-Divide.pddl	time-more-than-600s

@@ -1,4 +1,0 @@
-Monotonic_2_diet_wythoff_game.pddl	Not((X + X1)%3 == 0)	72.77
-Monotonic_2_piled_nim.pddl	Not(X == X1)	0.7
-Subtraction_game.pddl	time-out-600s
-Two_piled_nim.pddl	Not(X == X1)	1.11

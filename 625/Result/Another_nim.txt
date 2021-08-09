@@ -1,2 +1,0 @@
-Two-piled-nim.pddl	Not(X == X1)	0.63
-Monotonic-2-piled-Nim.pddl	Not(X == X1)	0.7

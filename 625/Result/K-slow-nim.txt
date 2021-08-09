@@ -1,6 +1,0 @@
-Two-piled-1-slow-nim.pddl	Not((X + X1)%2 == 0)	9.54
-Two-piled-2-slow-nim.pddl	time-more-than-600s
-//解得解过不是文件中给出的
-...
-Three-piled-1-slow-nim.pddl	time-more-than-600s
-...
