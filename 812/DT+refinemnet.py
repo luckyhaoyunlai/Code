@@ -28,11 +28,11 @@ l = Int('l')
 (k1, k2, k3) = Ints('k1 k2 k3')
 
 ptk = 30
-ptk2 = 30
+ptk2 = 15
 """=================game import========================="""
 # pddlFile =sys.argv[1] #由文件main.py输入路径
 # resultFile =sys.argv[2]
-pddlFile = r"pddl3\chomp\Thomp-Game-3-rowed-(v3--1)).pddl"  # 执行单个pddl
+pddlFile = r"pddl3\_Nim\CircularNim(3,3,v_3-1).pddl"  # 执行单个pddl
 resultFile = r"C:\Users\admin\Desktop\result\8_7.xls"  # 生成的结果文件
 
 oldwb = xlrd.open_workbook(resultFile, encoding_override='utf-8')
@@ -1846,6 +1846,8 @@ def ptsAllCover():
                     term=(output[0],enumerateTerm(pt,output[1]))
                 elif len(output) == 3:
                     term=(output[0],enumerateTerm(pt,output[1]),enumerateTerm(pt,output[2])) 
+                elif len(output) == 4:
+                    term=(output[0],enumerateTerm(pt,output[1]),enumerateTerm(pt,output[2]),enumerateTerm(pt,output[3]))
                 print("find term",term,"cover")
                 if term not in cover:
                     terms.append(term)
@@ -2015,6 +2017,7 @@ for pathFormula in formulaPaths:
     for f in refinementPath(pathFormula):
         s = Solver()
         s.add(eval(f))
+        s.add(Game['Constraint'])
         if s.check()==sat:
             refineFormulaPaths.append(f)
 print("refine formula path:\n",refineFormulaPaths)
