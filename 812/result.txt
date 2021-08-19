@@ -4,4 +4,4 @@ Subtraction_game.pddl	time-out-600s
 Two_piled_nim.pddl	Not(X == X1)	1.11
 Empty_and_divide.pddl	Chomp_game.pddl	Chomp_game.pddl	Chomp_game.pddl	Chomp_game.pddl	Empty_and_divide.pddl	Empty_and_divide.pddl	Empty_and_divide.pddl	Empty_and_divide.pddl	Empty_and_divide.pddl	Chomp_game.pddl	Not(X == 1 + X1)	1.14
 Empty_and_divide.pddl	Not(And(X%2 == 1, X1%2 == 1))	132.41
-Chomp_game.pddl	Chomp_game.pddl	Chomp_game.pddl	Chomp_game.pddl	Chomp_game.pddl	Chomp_game.pddl	Chomp_game.pddl	
+Chomp_game.pddl	Chomp_game.pddl	Chomp_game.pddl	Chomp_game.pddl	Chomp_game.pddl	Chomp_game.pddl	Chomp_game.pddl	Take-away-2.pddl	Not(X%3 == 1)	60.65

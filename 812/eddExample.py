@@ -1121,11 +1121,11 @@ while(True):
     if Game["var_num"] == 1:
         s.add(X < 100)
         for i in TerminatePosition:
-            s.add(X != i[0])
+            s.add(X != i)
         if(s.check() == sat):
             m = s.model()
             a = m[X].as_long()
-            TerminatePosition.append([a])
+            TerminatePosition.append(a)
             if Game["type"] == "normal":
                 position[a] = True  # normal
             else:
@@ -1427,33 +1427,34 @@ def satfindstate(ptk):
         ptList.append(value)
         if(ptK == 0):
             return ptList
-    # while ptK > 0:
-    #     if len(value) == 1:
-    #         s.add(X!=value[0])
-    #     elif len(value) == 2:
-    #         s.add(Or(X!=value[0],X1!=value[1]))
-    #     elif len(value) == 3:
-    #         s.add(Or(X!=value[0],X1!=value[1],X2!=value[2]))
-    #     if s.check() == sat:
-    #         m = s.model()
-    #         value =[]
-    #         for i in Game['varList']:
-    #             value.append(m[i].as_long())  
-    #         print("策略不满足,反例是:",value)
-    #         ptK = ptK - 1
-    #         ptList.append(value)
-    #     else:
-    #         print("没有更多的反例了")
-    #         break
-    while ptK>0:
-        pt = FindCountExample(ptList)
-        if pt =='illegal':#例子用完了，返回ptList
-            return ptList
-        if outRange(*pt) == 'illegal':
-            continue
+    while ptK > 0:
+        if len(value) == 1:
+            s.add(X!=value[0])
+        elif len(value) == 2:
+            s.add(Or(X!=value[0],X1!=value[1]))
+        elif len(value) == 3:
+            s.add(Or(X!=value[0],X1!=value[1],X2!=value[2]))
+        if s.check() == sat:
+            m = s.model()
+            value =[]
+            for i in Game['varList']:
+                value.append(m[i].as_long())  
+            print("策略不满足,反例是:",value)
+            ptK = ptK - 1
+            ptList.append(value)
         else:
-            ptK -= 1
-            ptList.append(pt)
+            ptList.append([2,2])
+            print("没有更多的反例了")
+            break
+    # while ptK>0:
+    #     pt = FindCountExample(ptList)
+    #     if pt =='illegal':#例子用完了，返回ptList
+    #         return ptList
+    #     if outRange(*pt) == 'illegal':
+    #         continue
+    #     else:
+    #         ptK -= 1
+    #         ptList.append(pt)
     print(ptk,"example generate:\t", ptList)
     return ptList           
 
@@ -1538,7 +1539,7 @@ while(True):
         DT = learn_DT(pts, preds)  # lenrnDT中可能会出现 找出不了最好的谓词划分
         # print("Information gain time ：",time.time()-calculateIGTime)
         if(DTflag == False):
-            Maxsize += 1  #设置
+            Maxsize += 1
             # CycleNum -= 1
             # print("剩余循环次数：",CycleNum)
             print('cannot solve,need more predicates,increase Maxsize', Maxsize)
@@ -2064,7 +2065,7 @@ for pathFormula in refineFormulaPaths:
     pathFormula = eval(pathFormula) #str --> z3 
     pts = []
     for pt in ptsOld:
-        if isPtSatForm(pt,pathFormula) and pt not in TerminatePosition:
+        if isPtSatForm(pt,pathFormula):
             pts.append(pt)
     ptsOutput = []
     for pt in pts: #例子 pt[state]-output【act k 】
@@ -2138,7 +2139,7 @@ for pathFormula in refineFormulaPaths:
                         And(preAct,ForAll(varListY,Implies(transitionFormula,losing_formula_Y)))))
                 else:
                     winningStrategyPath = pathFormula
-                    con = Not(Implies(And(Game["Constraint"],pathFormula,Not(Game["Terminal_Condition"])),
+                    con = Not(Implies(And(Game["Constraint"],pathFormula),
                         And(preAct,ForAll(varListY,Implies(transitionFormula,losing_formula_Y)))))
                 print("Test this path:\n",winningStrategyPath,"execute action:",ActExe)
 

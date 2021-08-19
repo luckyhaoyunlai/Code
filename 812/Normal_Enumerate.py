@@ -29,7 +29,7 @@ d = Int('d')
 
 
 # pddlFile =sys.argv[1]
-pddlFile="pddl\Chomp_game.pddl"
+pddlFile="pddl1\Subtraction_game\Take-away\Take-away-2.pddl"
 resultFile="result.txt"
 fp=open(resultFile,'a')
 fp.write(pddlFile.split('\\')[-1]+"\t")
@@ -61,7 +61,7 @@ Game = {"Terminal_Condition":Terminal_Condition,
         "actions": actions,
         "Constraint":Constarint,
         "var_num":game.objectsCount,
-        "type":"normal",           
+        "type":"misere",           
         "appeal_constants": game.constantList}  
 # -----------------------------------------------------------------
 
@@ -108,7 +108,6 @@ if(Game["var_num"] == 2):
 for i in Game["appeal_constants"]:
     FunExg['number'+i] = eval('number'+i)
 
-\
 ConcreteExs = []  # 反例集合
 
 start_winning_formula_time = time.time()
