@@ -15,6 +15,7 @@ from xlwt import *
 from xlrd import *
 from xlutils.copy import copy
 from copy import deepcopy as deepcopy
+from itertools import product
 
 
 
@@ -29,13 +30,13 @@ k = Int('k')
 l = Int('l')
 (k1, k2, k3) = Ints('k1 k2 k3')
 
-ptk = 3#设置
-ptk2 = 15#设置
+ptk = 10#设置
+ptk2 = 10#设置
 """=================game import========================="""
-# pddlFile =sys.argv[1] #由文件main.py输入路径
-# resultFile =sys.argv[2]
-pddlFile = r"pddl1\Subtraction_game\Take-away\Take-away-2.pddl"  # 执行单个pddl
-resultFile = r"C:\Users\admin\Desktop\result\8_7.xls"  # 生成的结果文件
+pddlFile =sys.argv[1] #由文件main.py输入路径
+resultFile =sys.argv[2]
+# pddlFile = r"pddl1\Subtraction_game\Subtraction-(1,2,3,4).pddl"  # 执行单个pddl
+# resultFile = r"C:\Users\admin\Desktop\result\.xls"  # 生成的结果文件
 
 oldwb = xlrd.open_workbook(resultFile, encoding_override='utf-8')
 sheet1 = oldwb.sheet_by_index(0)
@@ -74,7 +75,7 @@ Game = {"Terminal_Condition": Terminal_Condition,
         "actions": actions,
         "Constraint": Constarint,
         "var_num": game.objectsCount,
-        "type": "misere",
+        "type": "normal",
         "appeal_constants": game.constantList}
 
 print("Var List:",varList)
@@ -1529,6 +1530,7 @@ while(True):
     global DTflag
     DTflag = True
     while pts != [] and (DT == None or DTflag == False):
+        Maxsize += 1
         enumPredsTime = time.time()
         enumeratePredicate(Maxsize,DTflag) #DTflag 表示pred不足接着上次的地方继续枚举谓词
         print("preds:",preds)
@@ -1538,7 +1540,7 @@ while(True):
         DT = learn_DT(pts, preds)  # lenrnDT中可能会出现 找出不了最好的谓词划分
         # print("Information gain time ：",time.time()-calculateIGTime)
         if(DTflag == False):
-            Maxsize += 1  #设置
+            # Maxsize += 1  #设置
             # CycleNum -= 1
             # print("剩余循环次数：",CycleNum)
             print('cannot solve,need more predicates,increase Maxsize', Maxsize)
@@ -1698,7 +1700,7 @@ def genPtSatFormula(formula,ptList):
                 if [v1] not in ptList and [v1] not in pts:
                     s = Solver()
                     s.add(Game['Constraint']) #满足游戏约束
-                    # s.add(Not(Game["Terminal_Condition"])) #不属于终点
+                    s.add(Not(Game["Terminal_Condition"])) #不属于终点
                     # s.add(winning_formula)
                     s.add(formula) #满足路径公式
                     s.add(X == v1)
@@ -1714,7 +1716,7 @@ def genPtSatFormula(formula,ptList):
                 if [v1,v2] not in ptList and [v1,v2] not in pts:
                     s = Solver()
                     s.add(Game['Constraint']) #满足游戏约束
-                    # s.add(Not(Game["Terminal_Condition"])) #不属于终点
+                    s.add(Not(Game["Terminal_Condition"])) #不属于终点
                     # s.add(winning_formula)
                     s.add(formula) #满足路径公式
                     s.add(X == v1, X1 == v2)
@@ -1731,7 +1733,7 @@ def genPtSatFormula(formula,ptList):
                     if [v1,v2,v3] not in ptList and [v1,v2,v3] not in pts:
                         s = Solver()
                         s.add(Game['Constraint']) #满足游戏约束
-                        # s.add(Not(Game["Terminal_Condition"])) #不属于终点
+                        s.add(Not(Game["Terminal_Condition"])) #不属于终点
                         # s.add(winning_formula)
                         s.add(formula) #满足路径公式
                         s.add(X == v1, X1 == v2, X2 == v3)
@@ -1977,40 +1979,51 @@ def isPtSatForm(pt,form):
         else:
             return False
     
-def refinementPath(pathFormula):
-    ans = [] #一个或多个 
+def refinementPath(pathFormula): #And(Not(X + X1 == 1), Not(x%5=1) ,X < X1) Not(X + X1 == 1)
+    ans = [] #返回符合条件的笛卡尔积
     str1 = str(pathFormula)
     str1 = str1.replace(' ', '').replace("\n","")
-    arr1 = []
-    if "And" in str1:
-        str2 = str1[str1.rfind(",")+1:-1]
-    else:
-        str2 = str1
-    if "Not" in str2: 
-        str2 = str2[4:-1]
-        if "%" in str2: # a%b==c
-            b = str2[str2.find('%')+1:str2.find("==")]
-            c = str2[str2.find("==")+2:]
-            for i in range(0,eval(b)):
-                if  str(i) != c:
-                    arr1.append(str2[:str2.find("==")+2]+str(i))
-        elif "==" in str2: #==
-            arr1.append(str2.replace("==",">"))
-            arr1.append(str2.replace("==","<"))
-    else:
-        if ">=" in str2:
-            arr1.append(str2.replace(">=",">"))
-            arr1.append(str2.replace(">=","=="))
-        elif "<=" in str2:
-            arr1.append(str2.replace("<=","<"))
-            arr1.append(str2.replace("<=","==")) 
-    if arr1 == []:
-        arr1.append(str2)
-    for f in arr1:
-        if "And" in str1:
-            ans.append(str1.replace(str1[str1.rfind(",")+1:],f)+")")
+    #1.先把节点独立出来
+    if "And" in str1: #路径多个节点
+        arr2 = str1[4:-1].split(",")
+    else: #路径只有一个节点
+        arr2 = [str1]
+    #2.对节点的每个值进行处理
+    arr = [] 
+    for str2 in arr2:
+        arr1 = []
+        if "Not" in str2: 
+            str2 = str2[4:-1]
+            if "%" in str2: # a%b==c
+                b = str2[str2.find('%')+1:str2.find("==")]
+                c = str2[str2.find("==")+2:]
+                for i in range(0,eval(b)):
+                    if  str(i) != c:
+                        arr1.append(str2[:str2.find("==")+2]+str(i))
+            elif "==" in str2: #==
+                arr1.append(str2.replace("==",">"))
+                arr1.append(str2.replace("==","<"))
         else:
-            ans.append(f)
+            if ">=" in str2:
+                arr1.append(str2.replace(">=",">"))
+                arr1.append(str2.replace(">=","=="))
+            elif "<=" in str2:
+                arr1.append(str2.replace("<=","<"))
+                arr1.append(str2.replace("<=","==")) 
+        if arr1 == []: #四种操作没有变化
+            arr1.append(str2)
+        arr3 = []
+        for i in arr1: #设置  对每个节点的细化进行修枝，不符合的删除
+            s = Solver()
+            s.add(eval(i))
+            s.add(Game['Constraint'])
+            s.add(winning_formula)
+            if s.check()==sat:
+                arr3.append(i)
+        arr.append(arr3)
+    
+    for f in product(*arr):
+        ans.append(list(f))
     # print("refinement path :",ans)
     return ans
 
@@ -2035,7 +2048,6 @@ for i in extractNum(str(losing_formula)):
 ptsOld = cover[False]
 
 print("winning formula used pts:",ptsOld)
-print(eval(tree2Expr(DT)))
 print("Decision tree1:",tree2Expr(resultDT))
 formulaPaths = pathOfWF(deepcopy(resultDT))
 print("All paths: ",formulaPaths)
@@ -2050,12 +2062,21 @@ startWinningStrategyTime = time.time()
 winningStrategy = []
 refineFormulaPaths = []
 for pathFormula in formulaPaths:
-    for f in refinementPath(pathFormula):
-        s = Solver()
-        s.add(eval(f))
-        s.add(Game['Constraint'])
-        if s.check()==sat:
-            refineFormulaPaths.append(f)
+    for f in refinementPath(pathFormula): #返回refinement路径的笛卡尔积列表
+        if len(f) > 1: #f = ["",""]
+            str1 = "And("
+            for i in f:
+                str1 = str1 + i + ","
+            str1 = str1[:-1]+")"
+            s = Solver()
+            s.add(eval(str1))
+            s.add(Game['Constraint'])
+            s.add(winning_formula)
+            if s.check() == sat:
+                refineFormulaPaths.append(str1)
+        else:
+            refineFormulaPaths.append(f[0])
+
 print("refine formula path:\n",refineFormulaPaths)
 exitFlag = False
 for pathFormula in refineFormulaPaths:
@@ -2096,6 +2117,7 @@ for pathFormula in refineFormulaPaths:
         # while cycleNum != 0 and pts !=[] and (DT == None or DTflag == False):
         while pts !=[] and (DT == None or DTflag == False):
             maxSizeTerm += 1
+            maxSizePred += 1
             nextSizeTerm(maxSizeTerm,DTflag)
             print("terms\n",terms)
             enumeratePredicate(maxSizePred,DTflag)
@@ -2110,7 +2132,7 @@ for pathFormula in refineFormulaPaths:
             DT = learn_DT(pts,preds)  
             if DTflag == False:
                 # print("cannot divide pts",RedundantPts)
-                maxSizePred += 1
+                # maxSizePred += 1
                 # cycleNum -= 1
                 DT =None
                 # print("剩余的循环次数：",cycleNum)
@@ -2134,7 +2156,7 @@ for pathFormula in refineFormulaPaths:
                 transitionFormula = action["transition_formula"]
                 if type(path[0]) !=type(""):
                     winningStrategyPath = And(pathFormula,path[0])
-                    con = Not(Implies(And(Game["Constraint"],pathFormula,path[0]),
+                    con = Not(Implies(And(Game["Constraint"],pathFormula,path[0],Not(Game["Terminal_Condition"])),
                         And(preAct,ForAll(varListY,Implies(transitionFormula,losing_formula_Y)))))
                 else:
                     winningStrategyPath = pathFormula
