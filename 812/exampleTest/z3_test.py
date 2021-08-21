@@ -10,4 +10,6 @@ pts = [{'input': [1, 2], 'output':3}]
 print([1, 2] in pts['inout'])
 s.add(And(eval(sat)))
 
+a = And()
+
 print(s.check())

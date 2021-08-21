@@ -30,13 +30,13 @@ k = Int('k')
 l = Int('l')
 (k1, k2, k3) = Ints('k1 k2 k3')
 
-ptk = 10#设置
-ptk2 = 10#设置
+ptk = 30#设置
+ptk2 = 5#设置
 """=================game import========================="""
-pddlFile =sys.argv[1] #由文件main.py输入路径
-resultFile =sys.argv[2]
-# pddlFile = r"pddl1\Subtraction_game\Subtraction-(1,2,3,4).pddl"  # 执行单个pddl
-# resultFile = r"C:\Users\admin\Desktop\result\.xls"  # 生成的结果文件
+# pddlFile =sys.argv[1] #由文件main.py输入路径
+# resultFile =sys.argv[2]
+pddlFile = r"pddl1\Subtraction_game\Subtraction-(1,2,6,9).pddl"  # 执行单个pddl
+resultFile = r"C:\Users\admin\Desktop\result\8_19.xls"  # 生成的结果文件
 
 oldwb = xlrd.open_workbook(resultFile, encoding_override='utf-8')
 sheet1 = oldwb.sheet_by_index(0)
@@ -75,7 +75,7 @@ Game = {"Terminal_Condition": Terminal_Condition,
         "actions": actions,
         "Constraint": Constarint,
         "var_num": game.objectsCount,
-        "type": "normal",
+        "type": "misere",
         "appeal_constants": game.constantList}
 
 print("Var List:",varList)
@@ -166,7 +166,6 @@ def enumeratePredicate(MaxSize,DTFlag):
                         SigSet.append(Goal1)
                         i['outputData'] = Goal1
                         ExpSet.append(i)
-    
     li = 2
     if DTFlag == False: #表示在生成树失败，需要借助上一次枚举的结果继续往下枚举
         SigSet = interResultPred.SigSet
@@ -246,8 +245,8 @@ def enumeratePredicate(MaxSize,DTFlag):
         if i['arity'] == 2:
             for choose1 in ItemsVar:
                 for choose2 in ItemsVar:                        
-                    if choose2 != choose1 and choose2["size"] <= 4 - choose1["size"]:#设置
-                        if choose2["size"] <= MaxSize+1-choose1["size"]:#设置
+                    if choose2 != choose1 and choose2["size"] <= 4 - choose1["size"]:#设置 var+var2<=4
+                        if choose2["size"] <= MaxSize+1-choose1["size"]:#var1+var2 <= maxsize+1 
                             tempPredicate = FunExg[i['Function_name']](
                                 choose1['Expression'], choose2['Expression'])
                             if str(tempPredicate) != 'False' and str(tempPredicate) != 'True':
@@ -263,7 +262,7 @@ def enumeratePredicate(MaxSize,DTFlag):
                 for choose2 in ItemsNum:
                     tempPredicate = FunExg[i['Function_name']](
                         choose1['Expression'], choose2['Expression'])
-                    if choose2["size"] <= MaxSize+1-choose1["size"]:#设置
+                    if choose2["size"] <= MaxSize+1-choose1["size"]: #var1+num <= maxsize + 1
                         if str(tempPredicate) != 'False' and str(tempPredicate) != 'True':
                             goal = []
                             for pt in pts:
@@ -877,8 +876,8 @@ def learn_DT(pts, preds):
             ptsYes.append(pt)
         else:
             ptsNo.append(pt)
-    # print("Divide two part:\n\t")
-    # print(ptsYes, ":", ptsNo)
+    print("Divide two part:\n\t")
+    print(ptsYes, ":", ptsNo)
     temp_preds = preds  # 不用深度复制
     temp_preds.remove(Pick_pred)
     # print("剩余的谓词",temp_preds)
@@ -1495,7 +1494,7 @@ ptsGoal = []
 #     ptsGoal.append(True)
 
 
-Maxsize = 1
+Maxsize = 0
 preds = []
 while(True):
     if termination_sign or example_run_out_sign:
@@ -1530,7 +1529,10 @@ while(True):
     global DTflag
     DTflag = True
     while pts != [] and (DT == None or DTflag == False):
-        Maxsize += 1
+        flagAdd = False
+        if Maxsize<=3:
+            flagAdd = True
+            Maxsize += 1
         enumPredsTime = time.time()
         enumeratePredicate(Maxsize,DTflag) #DTflag 表示pred不足接着上次的地方继续枚举谓词
         print("preds:",preds)
@@ -1540,7 +1542,8 @@ while(True):
         DT = learn_DT(pts, preds)  # lenrnDT中可能会出现 找出不了最好的谓词划分
         # print("Information gain time ：",time.time()-calculateIGTime)
         if(DTflag == False):
-            # Maxsize += 1  #设置
+            if flagAdd == False:
+                Maxsize += 1  #设置
             # CycleNum -= 1
             # print("剩余循环次数：",CycleNum)
             print('cannot solve,need more predicates,increase Maxsize', Maxsize)
@@ -1552,22 +1555,32 @@ while(True):
     print("Add expression to verity:\n", e)
     if str(e) != str(last_e):
         if Game["type"] == "normal" :
-            con1 = And(Game["Terminal_Condition"], Not(e))
-            con2 = And(Game["Constraint"], Not(e), ForAll(
-                varListY, Or(Not(global_transition_formula), Not(e1))))
-            con3 = And(Game["Constraint"], e, Exists(
+            # e is losing formula
+            # con1 = And(Game["Terminal_Condition"], Not(e))
+            # con2 = And(Game["Constraint"], Not(e), ForAll(
+            #     varListY, Or(Not(global_transition_formula), Not(e1))))
+            # con3 = And(Game["Constraint"], e, Exists(
+            #     varListY, And(global_transition_formula, e1)))
+            con1 = Implies(Game['Terminal_Condition'],e)
+            con2 = Implies(And(Game["Constraint"],Not(e)),Exists(
                 varListY, And(global_transition_formula, e1)))
+            con3 = Implies(And(Game["Constraint"],e),ForAll(
+                varListY, Implies(global_transition_formula, Not(e1))))
         else:
-            con1 = And(Game["Terminal_Condition"], e)
-            con2 = And(Game["Constraint"], Not(e), Not(Game["Terminal_Condition"]), ForAll(
-                varListY, Or(Not(global_transition_formula), Not(e1))))
-            con3 = And(Game["Constraint"], e, Exists(
+            # con1 = And(Game["Terminal_Condition"], e)
+            # con2 = And(Game["Constraint"], Not(e), Not(Game["Terminal_Condition"]), ForAll(
+            #     varListY, Or(Not(global_transition_formula), Not(e1))))
+            # con3 = And(Game["Constraint"], e, Exists(
+            #     varListY, And(global_transition_formula, e1)))
+            con1 = Implies(Game['Terminal_Condition'],Not(e))
+            con2 = Implies(And(Game["Constraint"],Not(e), Not(Game["Terminal_Condition"])),Exists(
                 varListY, And(global_transition_formula, e1)))
+            con3 = Implies(And(Game["Constraint"],e),ForAll(
+                varListY, Implies(global_transition_formula, Not(e1))))
         s = Solver()
-        s.set('timeout', 30000)
-        s.add(con1)
+        s.set('timeout', 60000)
+        s.add(Not(con1))
         check1 = s.check()
-        print(check1)
         if check1 == sat:
             print("unsat con1")
             examples = satfindstate(ptk)
@@ -1575,7 +1588,7 @@ while(True):
             print("sat con1")
             s = Solver()
             s.set('timeout', 60000)
-            s.add(con2)
+            s.add(Not(con2))
             if s.check() == sat:
                 print("unsat con2")
                 examples = satfindstate(ptk)
@@ -1583,7 +1596,7 @@ while(True):
                 print("sat con2")
                 s = Solver()
                 s.set('timeout', 60000)
-                s.add(con3)
+                s.add(Not(con3))
                 if s.check() == sat:
                     print("unsat con3")
                     examples = satfindstate(ptk)
@@ -2116,8 +2129,10 @@ for pathFormula in refineFormulaPaths:
         DT = None
         # while cycleNum != 0 and pts !=[] and (DT == None or DTflag == False):
         while pts !=[] and (DT == None or DTflag == False):
+            flagAdd = False
             maxSizeTerm += 1
-            maxSizePred += 1
+            if maxSizePred <=3:
+                maxSizePred += 1
             nextSizeTerm(maxSizeTerm,DTflag)
             print("terms\n",terms)
             enumeratePredicate(maxSizePred,DTflag)
@@ -2132,7 +2147,8 @@ for pathFormula in refineFormulaPaths:
             DT = learn_DT(pts,preds)  
             if DTflag == False:
                 # print("cannot divide pts",RedundantPts)
-                # maxSizePred += 1
+                if flagAdd ==False:
+                    maxSizePred += 1
                 # cycleNum -= 1
                 DT =None
                 # print("剩余的循环次数：",cycleNum)
@@ -2165,7 +2181,7 @@ for pathFormula in refineFormulaPaths:
                 print("Test this path:\n",winningStrategyPath,"execute action:",ActExe)
 
                 s = Solver()
-                s.set('timeout', 60000)
+                s.set('timeout', 600000)
                 s.add(con)
                 if s.check() == sat:
                     print("==========generate example========")
