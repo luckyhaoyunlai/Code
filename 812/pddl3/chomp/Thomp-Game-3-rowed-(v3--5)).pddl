@@ -1,7 +1,7 @@
 (define (domain chomp-game)
     (:objects ?v1 ?v2 ?v3)
     (:tercondition (and (= ?v1 1) (= ?v2 0) (= ?v3 0) (<= ?v3 5)))
-    (:constraint (and (>= ?v1 1) (>= ?v2 0) (>= ?v3 0)))
+    (:constraint (and (>= ?v1 1)(>= ?v1 ?v2) (>= ?v2 ?v3) (>= ?v2 0) (>= ?v3 0)))
     (:action eat1
         :parameters (?k)
         :precondition (and (>= ?v1 ?k) (> ?k 1))

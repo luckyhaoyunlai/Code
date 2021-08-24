@@ -36,7 +36,7 @@ def generateSub3(a,b,c):
     a=str(a)
     b=str(b)
     c=str(c)
-    filename = 'pddl1/Subtraction_game/Subtraction-('+a+','+b+','+c+').pddl'
+    filename = 'pddl1/Subtraction_game/ThreeValue/Subtraction-('+a+','+b+','+c+').pddl'
     fp = open(filename,'w') 
     fp.write('(define (domain Subtraction_game)'+'\n')
     fp.write('\t'+'(:objects ?v1)'+'\n')
@@ -79,15 +79,15 @@ def generateSub4(a,b,c,d):
 #             generateSub2(i, j)
 
 
-# for i in range(1,16):
-#     for j in range (1,16):
-#         for k in range (1,16):
-#             if i < j < k:
-#                 generateSub3(i, j, k)
+for i in range(1,11):
+    for j in range (1,11):
+        for k in range (1,11):
+            if i < j < k:
+                generateSub3(i, j, k)
 
-for i in range(1,10):
-    for j in range (1,10):
-        for k in range (1,10):
-            for l in range (1,10):
-                if i < j < k < l:
-                    generateSub4(i, j, k, l)
+# for i in range(1,10):
+#     for j in range (1,10):
+#         for k in range (1,10):
+#             for l in range (1,10):
+#                 if i < j < k < l:
+#                     generateSub4(i, j, k, l)
