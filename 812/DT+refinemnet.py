@@ -16,6 +16,8 @@ from xlrd import *
 from xlutils.copy import copy
 from copy import deepcopy as deepcopy
 from itertools import product
+import sys
+import os
 
 
 
@@ -30,19 +32,20 @@ k = Int('k')
 l = Int('l')
 (k1, k2, k3) = Ints('k1 k2 k3')
 
-ptk = 30#设置
-ptk2 = 5#设置
+ptk = 15#设置
+ptk2 = 15#设置
+time_out1 = 2200
+time_out2 = 2200
+game_type = "misere"
 """=================game import========================="""
-# pddlFile =sys.argv[1] #由文件main.py输入路径
-# resultFile =sys.argv[2]
-pddlFile = r"pddl1\Subtraction_game\Subtraction-(1,2,6,9).pddl"  # 执行单个pddl
-resultFile = r"C:\Users\admin\Desktop\result\8_19.xls"  # 生成的结果文件
+pddlFile =sys.argv[1] #由文件main.py输入路径
+resultFile =sys.argv[2]
+# pddlFile = r"pddl1\_Nim\_(2.1-2.3)\Three-piled-nim(v3-le-1).pddl"  # 执行单个pddl
+# resultFile = r"C:\Users\admin\Desktop\test\result\test.xls"  # 生成的结果文件
 
 oldwb = xlrd.open_workbook(resultFile, encoding_override='utf-8')
 sheet1 = oldwb.sheet_by_index(0)
 row = sheet1.nrows
-
-
 
 input_stream = FileStream(pddlFile)
 lexer = PDDLGrammarLexer(input_stream)
@@ -75,7 +78,7 @@ Game = {"Terminal_Condition": Terminal_Condition,
         "actions": actions,
         "Constraint": Constarint,
         "var_num": game.objectsCount,
-        "type": "misere",
+        "type": game_type,
         "appeal_constants": game.constantList}
 
 print("Var List:",varList)
@@ -98,7 +101,6 @@ t_vocabulary = [{'Input': ['Int', 'Int'],  'Function_name':'Add', 'arity':2},
 FunExg = {'Add': Add, 'Sub': Sub, 'Inc': Inc, 'Dec': Dec, 'Ge': Ge, 'ITE': ITE,
           'Gt': Gt, 'OR': OR, 'AND': AND, 'NOT': NOT, 'Equal': Equal, 'Mod': Mod,
           'Unequal': Unequal, 'X': X, 'Y': Y, 'Zero': Zero, 'One': One, 'ModTest': ModTest}
-
 
 #interResult of enumerate
 class InterResult:
@@ -1024,17 +1026,27 @@ def tree2LossingFormula(DT) -> str:
             stack.append(p)
             p = p.left
         # 此时候p一定是叶子结点
-        if p != None and p.val == "True":
+        if p != None and p.val == "True":  #左节点
             if len(stack) == 1:
                 paths.append(stack[0].val)
             else:
-                expr = "And("
-                for i in stack:
-                    expr = expr+str(i.val)+","
-                expr = expr[0:len(expr)-1]+")"
+                arr = []
+                for i in stack[0:-1]:
+                    if type(i.left.val) == type("term") and i.left.val == "True":
+                        continue
+                    if type(i.right.val) == type("term") and i.right.val == "True":
+                        continue
+                    arr.append(i)
+                if arr == []:
+                    paths.append(stack[-1].val)
+                else:
+                    expr = "And("
+                    for i in arr:
+                        expr = expr+str(i.val)+","
+                    expr = expr + str(stack[-1].val)+")"
                 paths.append(expr)
         p = stack.pop()  # p.left是term
-        # 如果是叶子结点 且非访问过
+        # 去访问右节点
         if(type(p.right.val) == type("term") or p.right == pre):
             if(type(p.right.val) == type("term") and p.right.val == "True"):
                 p.val = Not(p.val)
@@ -1042,12 +1054,21 @@ def tree2LossingFormula(DT) -> str:
                 if len(stack) == 1:
                     paths.append(stack[0].val)
                 else:
-                    expr = "And("
-                    for i in stack:
-                        # print(i.val)
-                        expr = expr+str(i.val)+","
-                    expr = expr[0:len(expr)-1]+")"
-                    paths.append(expr)
+                    arr = []
+                    for i in stack[0:-1]:
+                        if type(i.left.val) == type("term") and i.left.val == "True":
+                            continue
+                        if type(i.right.val) == type("term") and i.right.val == "True":
+                            continue
+                        arr.append(i)
+                    if arr == []:
+                        paths.append(stack[-1].val)
+                    else:
+                        expr = "And("
+                        for i in arr:
+                            expr = expr+str(i.val)+","
+                        expr = expr + str(stack[-1].val)+")"
+                paths.append(expr)
                 stack = stack[:-1]
             pre = p
             p = None
@@ -1095,7 +1116,7 @@ global_transition_formula = simplify(eval(global_transition_formula))
 """
 position = []
 if Game['var_num'] == 1:
-    for i in range(0, 100):
+    for i in range(0, 200):
         position.append('illegal')
 elif Game['var_num'] == 2:
     for i in range(0, 100):
@@ -1119,7 +1140,7 @@ while(True):
     s.add(Game["Terminal_Condition"])
     s.add(Game["Constraint"])
     if Game["var_num"] == 1:
-        s.add(X < 100)
+        s.add(X < 200)
         for i in TerminatePosition:
             s.add(X != i[0])
         if(s.check() == sat):
@@ -1173,9 +1194,13 @@ print("All terminate position:\n\t", TerminatePosition)
 #     Exists([k1,k2,k3],And(And(X2 > 3, k1 > 0, k2 > 0, k3 > 0),And(Y == k1, Y1 == k2, Y2 == k3))))
 def isLossingState(*v):
     # print("Insert",v," into isLossingstate:")
-    for i in v:  # default position < 100
-        if i >= 100:
+    if len(v)==1:
+        if v[0]>=200:
             return 'illegal'
+    else:
+        for i in v:  # default position < 100
+            if i >= 100:
+                return 'illegal'
     if len(v) == 1:
         if position[v[0]] != 'illegal':
             return position[v[0]]
@@ -1483,8 +1508,9 @@ example_run_out_sign = False #范围内的例子用尽
 def programTimeOut():
     global termination_sign
     termination_sign = True
+    Thread1.cancel()
 
-Thread1 = threading.Timer(3600, programTimeOut)
+Thread1 = threading.Timer(time_out1, programTimeOut)
 Thread1.start()
 # 将终态添加到反例中
 pts = []
@@ -1494,8 +1520,11 @@ ptsGoal = []
 #     ptsGoal.append(True)
 
 
-Maxsize = 0
+Maxsize = 1
 preds = []
+unknownNum = 1 #设置
+
+""""合成必胜公式"""
 while(True):
     if termination_sign or example_run_out_sign:
         print("Time out,about to exit the program")
@@ -1513,7 +1542,7 @@ while(True):
         # fp = open(resultFile, 'a')
         # fp.write(pddlFile.split('\\')[-1]+"\t")
         # fp.write("time-more-than-600s\n")
-        break
+        sys.exit(0)
     terms = [True, False]
     cover = {}
     cover[True] = []
@@ -1528,11 +1557,10 @@ while(True):
     # CycleNum = 2
     global DTflag
     DTflag = True
+    flagAdd  = True
     while pts != [] and (DT == None or DTflag == False):
-        flagAdd = False
-        if Maxsize<=3:
-            flagAdd = True
-            Maxsize += 1
+        # if Maxsize<=3 and flagAdd == True: #设置
+        #     Maxsize += 1
         enumPredsTime = time.time()
         enumeratePredicate(Maxsize,DTflag) #DTflag 表示pred不足接着上次的地方继续枚举谓词
         print("preds:",preds)
@@ -1542,8 +1570,8 @@ while(True):
         DT = learn_DT(pts, preds)  # lenrnDT中可能会出现 找出不了最好的谓词划分
         # print("Information gain time ：",time.time()-calculateIGTime)
         if(DTflag == False):
-            if flagAdd == False:
-                Maxsize += 1  #设置
+            Maxsize += 1  #设置
+            flagAdd = False
             # CycleNum -= 1
             # print("剩余循环次数：",CycleNum)
             print('cannot solve,need more predicates,increase Maxsize', Maxsize)
@@ -1556,54 +1584,60 @@ while(True):
     if str(e) != str(last_e):
         if Game["type"] == "normal" :
             # e is losing formula
-            # con1 = And(Game["Terminal_Condition"], Not(e))
-            # con2 = And(Game["Constraint"], Not(e), ForAll(
-            #     varListY, Or(Not(global_transition_formula), Not(e1))))
-            # con3 = And(Game["Constraint"], e, Exists(
+            con1 = And(Game["Terminal_Condition"], Not(e))
+            con2 = And(Game["Constraint"], Not(e), ForAll(
+                varListY, Or(Not(global_transition_formula), Not(e1))))
+            con3 = And(Game["Constraint"], e, Exists(varListY, And(global_transition_formula, e1)))
+            # con1 = Implies(Game['Terminal_Condition'],e)
+            # con2 = Implies(And(Game["Constraint"],Not(e)),Exists(
             #     varListY, And(global_transition_formula, e1)))
-            con1 = Implies(Game['Terminal_Condition'],e)
-            con2 = Implies(And(Game["Constraint"],Not(e)),Exists(
-                varListY, And(global_transition_formula, e1)))
-            con3 = Implies(And(Game["Constraint"],e),ForAll(
-                varListY, Implies(global_transition_formula, Not(e1))))
+            # con3 = Implies(And(Game["Constraint"],e),ForAll(
+            #     varListY, Implies(global_transition_formula, Not(e1))))
         else:
-            # con1 = And(Game["Terminal_Condition"], e)
-            # con2 = And(Game["Constraint"], Not(e), Not(Game["Terminal_Condition"]), ForAll(
-            #     varListY, Or(Not(global_transition_formula), Not(e1))))
-            # con3 = And(Game["Constraint"], e, Exists(
+            con1 = And(Game["Terminal_Condition"], e)
+            con2 = And(Game["Constraint"], Not(e), Not(Game["Terminal_Condition"]), ForAll(varListY, Implies(global_transition_formula, Not(e1))))
+            con3 = And(Game["Constraint"], e, Exists(varListY, And(global_transition_formula, e1)))
+            # con1 = Implies(Game['Terminal_Condition'],Not(e))
+            # con2 = Implies(And(Game["Constraint"],Not(e), Not(Game["Terminal_Condition"])),Exists(
             #     varListY, And(global_transition_formula, e1)))
-            con1 = Implies(Game['Terminal_Condition'],Not(e))
-            con2 = Implies(And(Game["Constraint"],Not(e), Not(Game["Terminal_Condition"])),Exists(
-                varListY, And(global_transition_formula, e1)))
-            con3 = Implies(And(Game["Constraint"],e),ForAll(
-                varListY, Implies(global_transition_formula, Not(e1))))
+            # con3 = Implies(And(Game["Constraint"],e),ForAll(varListY, Implies(global_transition_formula, Not(e1))))
         s = Solver()
-        s.set('timeout', 60000)
-        s.add(Not(con1))
+        s.set('timeout', 120000)
+        s.add(con1)
         check1 = s.check()
+        print("con1 check:",check1)
         if check1 == sat:
             print("unsat con1")
             examples = satfindstate(ptk)
-        else:#如果超过100s判断不出是sat就算做是unsat
+        else:
             print("sat con1")
-            s = Solver()
-            s.set('timeout', 60000)
-            s.add(Not(con2))
-            if s.check() == sat:
+            s.reset()
+            s.set('timeout', 120000)
+            s.add(con2)
+            check2 = s.check()
+            print("con2 check:",check2)
+            if check2 == sat:
                 print("unsat con2")
                 examples = satfindstate(ptk)
             else:
                 print("sat con2")
-                s = Solver()
-                s.set('timeout', 60000)
-                s.add(Not(con3))
-                if s.check() == sat:
+                s.reset()
+                s.set('timeout', 240000)
+                s.add(con3)
+                check3 = s.check()
+                print("con3 check:",check3)
+                if check3 == sat:
                     print("unsat con3")
                     examples = satfindstate(ptk)
                 else:
                     print("sat con3")
+                    # if unknownNum > 0 and (check1 == unknown or check2 ==unknown or check3 == unknown):
+    
+                    #         unknownNum -= 1
+                    #         print("have a result unknown")
                     # losing_formula = e
                     # print("树的表达式：",tree2LossingFormula(DT))
+                    # else:
                     resultDT = deepcopy(DT)
                     losing_formula = eval(tree2LossingFormula(DT))
                     print("Loosing formula：", losing_formula)
@@ -1709,6 +1743,7 @@ def genPtSatFormula(formula,ptList):
     if Game['var_num'] == 1:
         i = 1
         while True:
+            if i >150:return False
             for v1 in range(0,i+1):
                 if [v1] not in ptList and [v1] not in pts:
                     s = Solver()
@@ -1724,6 +1759,7 @@ def genPtSatFormula(formula,ptList):
     elif Game['var_num'] == 2:
         i = 1
         while True:
+            if i>200:return False
             for v1 in range(0,i+1):
                 v2 = i-v1
                 if [v1,v2] not in ptList and [v1,v2] not in pts:
@@ -1740,6 +1776,7 @@ def genPtSatFormula(formula,ptList):
     elif Game['var_num'] == 3:
         i = 1
         while True:
+            if i>250:return False
             for v1 in range(0,i+1):
                 for v2 in range(0,i-v1+1):
                     v3 = i-v1-v2
@@ -1766,14 +1803,26 @@ def pathOfWF(DT):
             stack.append(p)
             p = p.left
         if p != None and p.val == "False":
+            print("1806",p.val)
             if len(stack) == 1:
                 paths.append(str(stack[0].val))
             else:
-                expr = "And("
-                for i in stack:
-                    expr = expr+str(i.val)+","
-                expr = expr[0:len(expr)-1]+")"
-                paths.append(expr)
+                arr = []
+                for i in stack[0:-1]:
+                    if type(i.left.val) == type("term") and i.left.val == "False":
+                        continue
+                    if type(i.right.val) == type("term") and i.right.val == "False":
+                        continue
+                    arr.append(i)
+                print("1819",arr)
+                if arr == []:
+                    paths.append(stack[-1].val)
+                else:
+                    expr = "And("
+                    for i in arr:
+                        expr = expr+str(i.val)+","
+                    expr = expr + str(stack[-1].val)+")"
+                    paths.append(expr)
         p = stack.pop()  # p.left是term
         # 如果是叶子结点 且非访问过
         if(type(p.right.val) == type("term") or p.right == pre):
@@ -1783,12 +1832,21 @@ def pathOfWF(DT):
                 if len(stack) == 1:
                     paths.append(str(stack[0].val))
                 else:
-                    expr = "And("
-                    for i in stack:
-                        # print(i.val)
-                        expr = expr+str(i.val)+","
-                    expr = expr[0:len(expr)-1]+")"
-                    paths.append(expr)
+                    arr = []
+                    for i in stack[0:-1]:
+                        if type(i.left.val) == type("term") and i.left.val == "False":
+                            continue
+                        if type(i.right.val) == type("term") and i.right.val == "False":
+                            continue
+                        arr.append(i)
+                    if arr == []:
+                        paths.append(stack[-1].val)
+                    else:
+                        expr = "And("
+                        for i in arr:
+                            expr = expr+str(i.val)+","
+                        expr = expr + str(stack[-1].val)+")"
+                        paths.append(expr)
                 stack = stack[:-1]
             pre = p
             p = None
@@ -2030,6 +2088,7 @@ def refinementPath(pathFormula): #And(Not(X + X1 == 1), Not(x%5=1) ,X < X1) Not(
             s = Solver()
             s.add(eval(i))
             s.add(Game['Constraint'])
+            s.add(Not(Game['Terminal_Condition']))
             s.add(winning_formula)
             if s.check()==sat:
                 arr3.append(i)
@@ -2065,10 +2124,15 @@ print("Decision tree1:",tree2Expr(resultDT))
 formulaPaths = pathOfWF(deepcopy(resultDT))
 print("All paths: ",formulaPaths)
 
+def programTimeOut2():
+    global termination_sign
+    termination_sign = True
+    Thread2.cancel()
+    sheet1.write(row,4,"time-out-"+str(time_out2))
+    newwb.save(resultFile)
 
 termination_sign = False #超时标志
-time_out2 = 3600
-Thread2 = threading.Timer(time_out2, programTimeOut)
+Thread2 = threading.Timer(time_out2, programTimeOut2)
 Thread2.start()
 
 startWinningStrategyTime = time.time()
@@ -2084,6 +2148,7 @@ for pathFormula in formulaPaths:
             s = Solver()
             s.add(eval(str1))
             s.add(Game['Constraint'])
+            s.add(Not(Game['Terminal_Condition']))
             s.add(winning_formula)
             if s.check() == sat:
                 refineFormulaPaths.append(str1)
@@ -2129,10 +2194,10 @@ for pathFormula in refineFormulaPaths:
         DT = None
         # while cycleNum != 0 and pts !=[] and (DT == None or DTflag == False):
         while pts !=[] and (DT == None or DTflag == False):
-            flagAdd = False
+            # flagAdd = False
             maxSizeTerm += 1
-            if maxSizePred <=3:
-                maxSizePred += 1
+            # if maxSizePred <=3:
+            #     maxSizePred += 1
             nextSizeTerm(maxSizeTerm,DTflag)
             print("terms\n",terms)
             enumeratePredicate(maxSizePred,DTflag)
@@ -2147,8 +2212,8 @@ for pathFormula in refineFormulaPaths:
             DT = learn_DT(pts,preds)  
             if DTflag == False:
                 # print("cannot divide pts",RedundantPts)
-                if flagAdd ==False:
-                    maxSizePred += 1
+                # if flagAdd ==False:
+                maxSizePred += 1
                 # cycleNum -= 1
                 DT =None
                 # print("剩余的循环次数：",cycleNum)
@@ -2214,6 +2279,8 @@ for pathFormula in refineFormulaPaths:
                     #         break  
                     while ptK>0:#不严格的找出反例
                         pt = genPtSatFormula(pathFormula,ptList)
+                        if pt == False: #没有例子可生成了
+                            break
                         ptList.append(pt)
                         ptK = ptK - 1
                     print(ptk2," example have generate:",ptList)
@@ -2232,6 +2299,8 @@ for pathFormula in refineFormulaPaths:
             ptList = []
             while ptK>0:
                 pt = genPtSatFormula(pathFormula,ptList)
+                if pt == False: #没有例子可生成了
+                    break
                 ptList.append(pt)
                 ptK = ptK - 1
             print(ptk2," example have generate:",ptList)

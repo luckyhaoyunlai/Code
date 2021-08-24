@@ -34,8 +34,8 @@ ptk2 = 15#设置
 """=================game import========================="""
 # pddlFile =sys.argv[1] #由文件main.py输入路径
 # resultFile =sys.argv[2]
-pddlFile = r"pddl1\Subtraction_game\Take-away\Take-away-2.pddl"  # 执行单个pddl
-resultFile = r"C:\Users\admin\Desktop\result\8_7.xls"  # 生成的结果文件
+pddlFile = r"pddl\Empty_and_divide.pddl"  # 执行单个pddl
+resultFile = r"C:\Users\admin\Desktop\test\result\test.xls"  # 生成的结果文件
 
 oldwb = xlrd.open_workbook(resultFile, encoding_override='utf-8')
 sheet1 = oldwb.sheet_by_index(0)
@@ -74,7 +74,7 @@ Game = {"Terminal_Condition": Terminal_Condition,
         "actions": actions,
         "Constraint": Constarint,
         "var_num": game.objectsCount,
-        "type": "misere",
+        "type": "normal",
         "appeal_constants": game.constantList}
 
 print("Var List:",varList)
@@ -1752,14 +1752,29 @@ def pathOfWF(DT):
             stack.append(p)
             p = p.left
         if p != None and p.val == "False":
+            print("1806",p.val)
             if len(stack) == 1:
                 paths.append(str(stack[0].val))
             else:
-                expr = "And("
-                for i in stack:
-                    expr = expr+str(i.val)+","
-                expr = expr[0:len(expr)-1]+")"
-                paths.append(expr)
+                arr = []
+                for i in stack[0:-1]:
+                    print(i.left.val,i.right.val)
+                    if type(i.left.val) == type("term") and i.left.val == "False":
+                        print("here")
+                        continue
+                    if type(i.right.val) == type("term") and i.right.val == "False":
+                        continue
+                    arr.append(i)
+                for i in arr:
+                    print(i.val)
+                if arr == []:
+                    paths.append(stack[-1].val)
+                else:
+                    expr = "And("
+                    for i in arr:
+                        expr = expr+str(i.val)+","
+                    expr = expr + str(stack[-1].val)+")"
+                    paths.append(expr)
         p = stack.pop()  # p.left是term
         # 如果是叶子结点 且非访问过
         if(type(p.right.val) == type("term") or p.right == pre):
@@ -1769,12 +1784,21 @@ def pathOfWF(DT):
                 if len(stack) == 1:
                     paths.append(str(stack[0].val))
                 else:
-                    expr = "And("
-                    for i in stack:
-                        # print(i.val)
-                        expr = expr+str(i.val)+","
-                    expr = expr[0:len(expr)-1]+")"
-                    paths.append(expr)
+                    arr = []
+                    for i in stack[0:-1]:
+                        if type(i.left.val) == type("term") and i.left.val == "False":
+                            continue
+                        if type(i.right.val) == type("term") and i.right.val == "False":
+                            continue
+                        arr.append(i)
+                    if arr == []:
+                        paths.append(stack[-1].val)
+                    else:
+                        expr = "And("
+                        for i in arr:
+                            expr = expr+str(i.val)+","
+                        expr = expr + str(stack[-1].val)+")"
+                        paths.append(expr)
                 stack = stack[:-1]
             pre = p
             p = None
