@@ -37,8 +37,8 @@ ptk2 = 15#设置
 time_out1 = 1800
 time_out2 = 1800
 game_type = "normal"
-nextTermAdd = 6 #枚举term add(var,-)的最大值 take(v1+v2-1) size是3
-nextTermSub = 6 #枚举term sub(var,-)的最大值 take(v1-(v2+1)) size 是3
+nextTermAdd = 3 #枚举term add(var,-)的最大值 take(v1+v2-1) size是3
+nextTermSub = 3 #枚举term sub(var,-)的最大值 take(v1-(v2+1)) size 是3
 predAdd = 4 #枚举的 组成谓词item的最大大小 v1+v2+1是3
 preSub = 4 #枚举 var-  v1-v2-1是3
 predSize = 7 #（var 符号 -）== >= >这些符号构成的pred的最大值
@@ -254,7 +254,7 @@ def enumeratePredicate(MaxSize,DTFlag):
             for choose1 in ItemsVar:
                 for choose2 in ItemsVar:                        
                     if choose2 != choose1 and choose2["size"] + choose1["size"] <= predSize :#设置 var+var2<=4
-                        if choose2["size"] <= MaxSize+1-choose1["size"]:#var1+var2 <= maxsize+1 
+                        # if choose2["size"] <= MaxSize+1-choose1["size"]:#var1+var2 <= maxsize+1 
                             tempPredicate = FunExg[i['Function_name']](
                                 choose1['Expression'], choose2['Expression'])
                             if str(tempPredicate) != 'False' and str(tempPredicate) != 'True':
@@ -270,22 +270,22 @@ def enumeratePredicate(MaxSize,DTFlag):
                 for choose2 in ItemsNum:
                     tempPredicate = FunExg[i['Function_name']](
                         choose1['Expression'], choose2['Expression'])
-                    if choose2["size"] <= MaxSize+1-choose1["size"]: #var1+num <= maxsize + 1
-                        if str(tempPredicate) != 'False' and str(tempPredicate) != 'True':
-                            goal = []
-                            for pt in pts:
-                                goal.append(ptSatPred(pt, tempPredicate))
-                            if goal not in predGoal:
-                                predGoal.append(goal)
-                                if tempPredicate not in preds:
-                                    preds.append(tempPredicate)
-                                    if len(preds) == pow(2, len(pts)):
-                                        return
+                    # if choose2["size"] <= MaxSize+1-choose1["size"]: #var1+num <= maxsize + 1
+                    if str(tempPredicate) != 'False' and str(tempPredicate) != 'True':
+                        goal = []
+                        for pt in pts:
+                            goal.append(ptSatPred(pt, tempPredicate))
+                        if goal not in predGoal:
+                            predGoal.append(goal)
+                            if tempPredicate not in preds:
+                                preds.append(tempPredicate)
+                                if len(preds) == pow(2, len(pts)):
+                                    return
         if i['arity'] == 3:
             for choose1 in ItemsVar:
                 for choose2 in ItemsNum:
                     for choose3 in ItemsNum:
-                        if choose1["size"]+choose2["size"]+choose3["size"]<=MaxSize+1:#设置
+                        # if choose1["size"]+choose2["size"]+choose3["size"]<=MaxSize+1:#设置
                             if choose3["Expression"]<choose2["Expression"]:
                                 try:
                                     tempPredicate = FunExg[i['Function_name']](
@@ -743,7 +743,7 @@ def tree2LossingFormula(DT) -> str:
                     for i in arr:
                         expr = expr+str(i.val)+","
                     expr = expr + str(stack[-1].val)+")"
-                paths.append(expr)
+                    paths.append(expr)
         p = stack.pop()  # p.left是term
         # 去访问右节点
         if(type(p.right.val) == type("term") or p.right == pre):
@@ -767,7 +767,7 @@ def tree2LossingFormula(DT) -> str:
                         for i in arr:
                             expr = expr+str(i.val)+","
                         expr = expr + str(stack[-1].val)+")"
-                paths.append(expr)
+                        paths.append(expr)
                 stack = stack[:-1]
             pre = p
             p = None
